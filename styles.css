@@ -631,3 +631,46 @@ body.light-mode .circle-btn {
     display: flex;
     align-items: center;
 }
+.theme-switch-wrapper {
+    position: fixed !important;
+    bottom: 30px !important; /* خليه تحت على اليمين عشان يبان */
+    right: 30px !important;
+    z-index: 10000 !important; /* أعلى طبقة ممكنة */
+    display: flex !important;
+}
+
+.theme-switch {
+    display: inline-block !important;
+    height: 34px !important;
+    position: relative !important;
+    width: 60px !important;
+}
+
+.slider {
+    background-color: #222 !important;
+    border: 2px solid #00ffd5 !important;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 34px !important;
+}
+
+.ball {
+    background-color: white !important;
+    border-radius: 50% !important;
+    height: 26px !important;
+    width: 26px !important;
+    left: 4px !important;
+    bottom: 2px !important;
+    position: absolute !important;
+    transition: .4s !important;
+    box-shadow: 0 0 10px #fff !important;
+}
+
+input:checked + .slider + .ball {
+    transform: translateX(26px) !important;
+}
