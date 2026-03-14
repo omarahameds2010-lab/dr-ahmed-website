@@ -236,3 +236,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+// كود تبديل الثيم فقط
+const checkbox = document.getElementById('checkbox');
+
+if (checkbox) {
+    checkbox.addEventListener('change', () => {
+        document.body.classList.toggle('light-mode');
+    });
+}
+
+// كود بديل للـ Scroll الناعم بدون مكتبات خارجية
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
