@@ -254,3 +254,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+const checkbox = document.getElementById('checkbox');
+
+checkbox.addEventListener('change', () => {
+  // لما تدوس على الزرار، ضيف أو شيل كلاس اسمه light-mode من الـ body
+  document.body.classList.toggle('light-mode');
+});
