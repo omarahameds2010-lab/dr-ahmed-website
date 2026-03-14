@@ -862,3 +862,26 @@ body.light-mode nav ul li a, body.light-mode .logo {
 body {
     overflow: visible !important;
 }
+/* لما يكون الـ body واخد كلاس light-mode، نفذ الألوان دي */
+body.light-mode {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* تغيير لون الـ Header */
+body.light-mode header {
+    background-color: #f8f9fa !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+/* تغيير لون اللوجو واللينكات */
+body.light-mode .logo, 
+body.light-mode nav ul li a {
+    color: #1a1a1a !important;
+}
+
+/* تغيير لون كروت الخدمات (لو عندك) */
+body.light-mode .service-card {
+    background-color: #f1f1f1 !important;
+    color: #333 !important;
+}
