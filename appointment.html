@@ -21,3 +21,71 @@
 <a href="contact.html">Contact</a>
 
 </nav>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Dr. Ahmed</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/dist/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <span class="logo-text">DR. AHMED</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="blog.html">Blog</a></li>
+            </ul>
+        </nav>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round">
+                    <div class="ball"></div>
+                </div>
+            </label>
+        </div>
+    </header>
+
+    <section class="appointment-page">
+        <h2 class="section-title">Book Your <span>Session</span></h2>
+        
+        <div class="contact-container">
+            <form class="advanced-form">
+                <div class="input-group">
+                    <input type="text" placeholder="Your Full Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <div class="input-group">
+                    <textarea placeholder="Tell us about your case..."></textarea>
+                </div>
+                <button type="submit" class="glow-button">
+                    Confirm Appointment <i class="fas fa-calendar-check"></i>
+                </button>
+            </form>
+
+            <div class="social-contact">
+                <h3>Or contact us directly:</h3>
+                <div class="social-contact-circles">
+                    <a href="#" class="circle-btn whatsapp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" class="circle-btn facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
