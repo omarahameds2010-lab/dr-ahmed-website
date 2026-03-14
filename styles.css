@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+  background-color: #0f2027; /* لون الخلفية عشان ميبقاش فيه فلاش أبيض وأنت بتنزل */
+}
 :root {
     --primary: #00ffd5;
     --dark: #0f2027;
