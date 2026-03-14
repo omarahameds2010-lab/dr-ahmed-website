@@ -674,3 +674,29 @@ body.light-mode .circle-btn {
 input:checked + .slider + .ball {
     transform: translateX(26px) !important;
 }
+.theme-switch-wrapper {
+    position: fixed !important; /* يفضل ثابت مكان ما تروح */
+    top: 25px !important; 
+    right: 25px !important;
+    z-index: 10001 !important; /* عشان مفيش حاجة تغطي عليه */
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* تصغير الحجم شوية عشان يليق مع الـ Header */
+.theme-switch {
+    width: 50px !important;
+    height: 26px !important;
+}
+
+.ball {
+    width: 20px !important;
+    height: 20px !important;
+    top: 3px !important;
+    left: 3px !important;
+}
+
+/* حركة التنقل لما تدوس عليه */
+input:checked + .slider .ball {
+    transform: translateX(24px) !important;
+}
