@@ -271,3 +271,34 @@ footer { text-align: center; padding: 30px; background: #0a151a; border-top: 1px
     font-weight: bold;
     cursor: pointer;
 }
+/* --- جرب النسخة دي المباشرة --- */
+
+.advanced-form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 15px !important;
+    margin-top: 25px !important;
+}
+
+.input-group input, 
+.input-group textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid #00ffd5 !important; /* لون مباشر للتأكد */
+    color: white !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    width: 100% !important;
+    outline: none !important;
+}
+
+.glow-button {
+    background: #00ffd5 !important;
+    color: #0f2027 !important;
+    box-shadow: 0 0 15px #00ffd5 !important;
+    border: none !important;
+    padding: 15px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    text-transform: uppercase !important;
+}
