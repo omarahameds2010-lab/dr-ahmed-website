@@ -65,3 +65,27 @@ backToTopBtn.addEventListener("click", () => {
     alert("Thank you, " + name + "! Your message has been sent securely.");
     this.reset();
 });
+// كود تأمين الفورم ومعالجة البيانات
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // استلام القيم من الخانات
+    let name = document.getElementById('name').value;
+    let message = document.getElementById('message').value;
+
+    // تنظيف البيانات (Sanitization) لمنع هجمات XSS
+    const cleanName = name.replace(/[<>]/g, "");
+    const cleanMessage = message.replace(/[<>]/g, "");
+
+    // فحص الروابط المشبوهة
+    if(cleanMessage.toLowerCase().includes("http") || cleanMessage.toLowerCase().includes("www")) {
+        alert("Security Alert: Sending links is not allowed for security reasons!");
+        return;
+    }
+
+    // إظهار رسالة النجاح بالبيانات الآمنة
+    alert("Thank you, " + cleanName + "! Your message has been sent securely.");
+    
+    // إعادة تعيين الفورم
+    this.reset();
+});
