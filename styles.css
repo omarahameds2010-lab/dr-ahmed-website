@@ -885,3 +885,42 @@ body.light-mode .service-card {
     background-color: #f1f1f1 !important;
     color: #333 !important;
 }
+/* --- قسم تنظيف وتوحيد الألوان (Light Mode) --- */
+body.light-mode {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* توحيد ألوان النصوص في الوضع الفاتح */
+body.light-mode h1, 
+body.light-mode h2, 
+body.light-mode h3, 
+body.light-mode p, 
+body.light-mode span:not(.ball) {
+    color: #1a1a1a !important;
+}
+
+/* تنظيف الـ Header */
+body.light-mode header {
+    background-color: rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1) !important;
+}
+
+body.light-mode nav ul li a, 
+body.light-mode .logo {
+    color: #1a1a1a !important;
+}
+
+/* تنظيف الكروت والخلفيات */
+body.light-mode section, 
+body.light-mode .service-card, 
+body.light-mode .contact-container {
+    background-color: #f9f9f9 !important;
+    border-color: #ddd !important;
+}
+
+/* إخفاء أي لوادر قديمة معلقة */
+.loader, .loader-wrapper, #preloader {
+    display: none !important;
+    visibility: hidden !important;
+}
