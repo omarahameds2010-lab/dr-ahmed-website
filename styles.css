@@ -318,3 +318,100 @@ body.light-mode .input-group textarea {
         padding-inline: 5%;
     }
 }
+/* --- Professional Advanced Navigation Bar --- */
+
+header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 12px 5% !important;
+    position: fixed !important;
+    width: 100% !important;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    /* تأثير الزجاج الشفاف */
+    background: rgba(15, 32, 39, 0.8) !important; 
+    backdrop-filter: blur(15px) !important;
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(0, 255, 213, 0.1) !important;
+    transition: all 0.4s ease;
+}
+
+/* تنسيق القائمة */
+nav ul {
+    display: flex !important;
+    list-style: none !important;
+    gap: 15px !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* تنسيق الروابط */
+nav ul li a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    padding: 8px 12px !important;
+    border-radius: 6px !important;
+    transition: all 0.3s ease !important;
+    opacity: 0.85;
+}
+
+/* تأثير عند الوقوف على الرابط */
+nav ul li a:hover {
+    color: #00ffd5 !important;
+    background: rgba(0, 255, 213, 0.05) !important;
+    opacity: 1;
+}
+
+/* زرار الحجز المميز (Appointment) */
+nav ul li a[href="appointment.html"] {
+    background: #00ffd5 !important;
+    color: #0f2027 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 15px rgba(0, 255, 213, 0.3) !important;
+    margin-left: 10px !important;
+}
+
+nav ul li a[href="appointment.html"]:hover {
+    box-shadow: 0 0 25px #00ffd5 !important;
+    transform: translateY(-2px);
+}
+
+/* تنسيق اللوجو في البار */
+.logo-container .logo-text {
+    font-size: 1.3rem !important;
+    background: linear-gradient(45deg, #ffffff, #00ffd5) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-weight: 800 !important;
+}
+
+/* زرار الثيم المطور */
+.theme-switch-wrapper {
+    margin-left: 20px !important;
+}
+
+/* إخفاء الروابط القديمة الزيادة اللي طالعة بره المنيو */
+body > a {
+    display: none;
+}
+
+/* تعديل للموبايل عشان ميبوظش الشكل */
+@media (max-width: 992px) {
+    nav ul {
+        gap: 5px !important;
+    }
+    nav ul li a {
+        font-size: 0.7rem !important;
+        padding: 5px 8px !important;
+    }
+    .logo-text {
+        font-size: 1rem !important;
+    }
+}
