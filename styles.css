@@ -623,3 +623,11 @@ body.light-mode .glow-button {
 body.light-mode .circle-btn {
     background: rgba(0, 0, 0, 0.05) !important;
 }
+.theme-switch-wrapper {
+    position: fixed; /* عشان يفضل ثابت وأنت بتعمل scroll */
+    top: 20px;
+    right: 80px; /* جرب تغير دي لـ left لو مضايق الـ Book Now */
+    z-index: 9999; /* عشان يظهر فوق كل حاجة */
+    display: flex;
+    align-items: center;
+}
