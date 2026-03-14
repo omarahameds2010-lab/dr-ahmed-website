@@ -50,4 +50,18 @@ backToTopBtn.addEventListener("click", () => {
         top: 0,
         behavior: "smooth"
     });
+});document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('name').value;
+    const message = document.getElementById('message').value;
+
+    // لمسة أمنية: منع إدخال أكواد سكريبت (XSS Protection بسيط)
+    if(message.includes("<script>") || message.includes("http")) {
+        alert("Security Alert: Links and scripts are not allowed!");
+        return;
+    }
+
+    alert("Thank you, " + name + "! Your message has been sent securely.");
+    this.reset();
 });
