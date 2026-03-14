@@ -78,7 +78,7 @@ nav ul li a:hover { color: var(--primary); }
     width: 100%;
     /* استبدل hero-bg.jpg باسم صورتك الحقيقي */
     background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
-                url('images/hero-bg.jpg') no-repeat center center/cover !important;
+   url('images/hero-bg.jpg  SSS blog - Calisthenics for beginners') no-repeat center center/cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
