@@ -153,3 +153,7 @@ function switchTheme(e) {
 if (toggleSwitch) {
     toggleSwitch.addEventListener('change', switchTheme, false);
 }
+const toggleSwitch = document.querySelector('#checkbox');
+toggleSwitch.addEventListener('change', () => {
+    document.body.classList.toggle('light-mode');
+});
