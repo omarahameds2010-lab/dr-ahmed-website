@@ -1166,3 +1166,21 @@ body.light-mode .service-card {
     background-color: #f4f4f4 !important;
     color: #1a1a1a !important;
 }
+/* تعديل قسم الـ Hero عشان الصورة تظهر */
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('assets/hero-bg.jpg') no-repeat center center/cover !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+/* تأكد أن الـ light-mode مش بيبوظ الـ Hero */
+body.light-mode .hero h1, 
+body.light-mode .hero p {
+    color: white !important; /* نصوص الهيرو تفضل بيضاء عشان الصورة غامقة */
+}
