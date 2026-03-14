@@ -732,3 +732,66 @@ input:checked + .slider .ball {
     border-radius: 8px;
     outline: none;
 }
+/* 1. تنسيق الأيقونات الدائرية (الواتساب والفيسبوك) */
+.circle-btn {
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 24px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 2px solid transparent !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    margin-right: 10px;
+}
+
+.circle-btn.whatsapp { border-color: #25D366 !important; color: #25D366 !important; }
+.circle-btn.whatsapp:hover { background: #25D366 !important; color: #fff !important; box-shadow: 0 0 20px #25D366 !important; }
+
+.circle-btn.facebook { border-color: #1877F2 !important; color: #1877F2 !important; }
+.circle-btn.facebook:hover { background: #1877F2 !important; color: #fff !important; box-shadow: 0 0 20px #1877F2 !important; }
+
+/* 2. تنسيق زرار الـ Theme (الـ Toggle) */
+.theme-switch-wrapper {
+    position: fixed !important;
+    top: 25px !important;
+    right: 25px !important;
+    z-index: 10001 !important;
+}
+
+.theme-switch {
+    display: inline-block !important;
+    width: 60px !important;
+    height: 30px !important;
+    position: relative !important;
+}
+
+.slider.round {
+    background-color: #222 !important;
+    border: 2px solid #00ffd5 !important;
+    border-radius: 34px !important;
+    position: absolute !important;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    transition: .4s;
+}
+
+.ball {
+    height: 22px !important;
+    width: 22px !important;
+    left: 4px !important;
+    bottom: 2px !important;
+    background-color: white !important;
+    position: absolute !important;
+    transition: .4s !important;
+    border-radius: 50% !important;
+    box-shadow: 0 0 10px #fff !important;
+}
+
+/* حركة الزرار لما يشتغل */
+input:checked + .slider .ball {
+    transform: translateX(28px) !important;
+}
