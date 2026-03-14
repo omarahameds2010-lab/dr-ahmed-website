@@ -209,3 +209,30 @@ function raf(time) {
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
+// 1. كود تبديل الثيم
+const checkbox = document.getElementById('checkbox');
+
+if (checkbox) {
+    checkbox.addEventListener('change', () => {
+        document.body.classList.toggle('light-mode');
+        // حفظ الاختيار
+        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+    });
+
+    // تشغيل الثيم المحفوظ
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        checkbox.checked = true;
+    }
+}
+
+// 2. كود الـ Smooth Scroll (النسخة البسيطة)
+// لو الـ Lenis عامل مشكلة، الكود ده بديل آمن جداً
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
