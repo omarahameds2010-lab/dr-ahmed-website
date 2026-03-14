@@ -108,3 +108,48 @@ function raf(time) {
 }
 
 requestAnimationFrame(raf);
+// كود الـ advanced لتبديل الثيم
+const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+const currentTheme = localStorage.getItem('theme'); // بنشوف الـ User كان مختار إيه
+
+// دالة لتطبيق الثيم
+function applyTheme(theme) {
+    if (theme === 'light') {
+        document.body.classList.add('light-mode');
+        if (toggleSwitch) toggleSwitch.checked = true;
+    } else {
+        document.body.classList.remove('light-mode');
+        if (toggleSwitch) toggleSwitch.checked = false;
+    }
+}
+
+// 1. فحص الـ user preference عند التحميل
+if (currentTheme) {
+    applyTheme(currentTheme);
+} else {
+    // لو لسه أول مرة، بنشوف هو عامل الـ Device بتاعه Dark ولا Light
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (prefersDark) {
+        applyTheme('dark');
+    } else {
+        applyTheme('light'); // default
+    }
+}
+
+// 2. دالة لتبديل الثيم عند الضغط على الزرار
+function switchTheme(e) {
+    if (e.target.checked) {
+        // Light Mode
+        localStorage.setItem('theme', 'light');
+        applyTheme('light');
+    } else {
+        // Dark Mode
+        localStorage.setItem('theme', 'dark');
+        applyTheme('dark');
+    }
+}
+
+// 3. ربط الزرار بالدالة
+if (toggleSwitch) {
+    toggleSwitch.addEventListener('change', switchTheme, false);
+}
