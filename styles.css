@@ -816,3 +816,10 @@ body.light-mode .logo {
 body.light-mode section {
     background-color: #ffffff !important;
 }
+/* حل مؤقت لإظهار الموقع لو الـ Loader علق */
+.loader, #preloader {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+    pointer-events: none !important;
+}
