@@ -356,3 +356,47 @@ footer { text-align: center; padding: 30px; background: #0a151a; border-top: 1px
 .whatsapp-btn-advanced i {
     font-size: 1.4rem;
 }
+/* تنسيق الأيقونات الدائرية */
+.social-contact-circles {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.circle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+}
+
+/* لون الواتساب */
+.circle-btn.whatsapp {
+    border-color: #25D366;
+    color: #25D366;
+}
+.circle-btn.whatsapp:hover {
+    background: #25D366;
+    color: #fff;
+    box-shadow: 0 0 20px #25D366;
+    transform: scale(1.1);
+}
+
+/* لون الفيسبوك */
+.circle-btn.facebook {
+    border-color: #1877F2;
+    color: #1877F2;
+}
+.circle-btn.facebook:hover {
+    background: #1877F2;
+    color: #fff;
+    box-shadow: 0 0 20px #1877F2;
+    transform: scale(1.1);
+}
