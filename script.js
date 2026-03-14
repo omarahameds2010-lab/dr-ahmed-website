@@ -89,3 +89,22 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     // إعادة تعيين الفورم
     this.reset();
 });
+// تهيئة مكتبة Lenis للـ Smooth Scroll الاحترافي
+const lenis = new Lenis({
+  duration: 1.2, // سرعة الحركة (كل ما زادت كل ما بقى أنعم)
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // معادلة أبل للحركة
+  direction: 'vertical',
+  gestureDirection: 'vertical',
+  smooth: true,
+  mouseMultiplier: 1,
+  smoothTouch: false,
+  touchMultiplier: 2,
+  infinite: false,
+});
+
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+
+requestAnimationFrame(raf);
