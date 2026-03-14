@@ -247,3 +247,27 @@ footer { text-align: center; padding: 30px; background: #0a151a; border-top: 1px
         align-items: start;
     }
 }
+/* تنسيق الصناديق */
+.input-group input, 
+.input-group textarea {
+    background: rgba(255, 255, 255, 0.05) !important; /* الشفافية */
+    border: 1px solid var(--primary) !important;    /* لون النيون */
+    color: white !important;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+    outline: none;
+}
+
+/* تنسيق الزرار */
+.glow-button {
+    background: var(--primary) !important;
+    color: var(--dark) !important;
+    box-shadow: 0 0 15px var(--primary);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
