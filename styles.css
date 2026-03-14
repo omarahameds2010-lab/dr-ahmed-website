@@ -1,3 +1,95 @@
+/* حاوية الزرار */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 40px; /* مقاس الزرار */
+    position: relative;
+    width: 80px;
+}
+
+/* الخانة المخفية (الـ Checkbox) */
+.theme-switch input {
+    display: none;
+}
+
+/* الخلفية البيضاوية */
+.slider {
+    background-color: rgba(255, 255, 255, 0.1); /* لون مطفي في الـ Dark */
+    border: 2px solid #00ffd5; /* حدود نيون */
+    box-shadow: 0 0 10px rgba(0, 255, 213, 0.2);
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s ease;
+    border-radius: 50px;
+    overflow: hidden; /* عشان الحاجات متطلعش بره الدايرة */
+}
+
+/* الدائرة البيضاء اللي بتتحرك (الـ Ball) */
+.ball {
+    background-color: #fff;
+    box-shadow: 0 0 15px #fff; /* توهج أبيض */
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    right: 3px; /* بتبدأ من اليمين (Dark mode) */
+    height: 30px;
+    width: 30px;
+    transition: .4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 2; /* فوق الأيقونات */
+}
+
+/* تنسيق الأيقونات (الشمس والقمر) */
+.slider i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    transition: 0.4s ease;
+}
+
+.sun-icon {
+    left: 12px;
+    color: #ff9f43; /* لون برتقالي للشمس */
+    opacity: 0.3; /* مطفية في الـ Dark */
+}
+
+.moon-icon {
+    right: 12px;
+    color: #f1c40f; /* لون أصفر للقمر */
+}
+
+/* --- الحركات (Animations) --- */
+
+/* لما تدوس عليه (Light Mode) */
+input:checked + .slider {
+    background-color: #fff; /* خلفية بيضاء */
+    border-color: #ff9f43;
+    box-shadow: 0 0 20px rgba(255, 159, 67, 0.4);
+}
+
+input:checked + .slider .ball {
+    transform: translateX(-40px); /* بتتحرك للشمال */
+    background-color: #ff9f43; /* بتنور برتقالي */
+    box-shadow: 0 0 20px #ff9f43;
+}
+
+input:checked + .slider .sun-icon {
+    opacity: 1; /* الشمس بتنور */
+}
+
+input:checked + .slider .moon-icon {
+    opacity: 0.3; /* القمر بيطفي */
+}
 html {
   scroll-behavior: smooth;
   background-color: #0f2027; /* لون الخلفية عشان ميبقاش فيه فلاش أبيض وأنت بتنزل */
