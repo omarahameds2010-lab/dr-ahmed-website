@@ -700,3 +700,35 @@ input:checked + .slider + .ball {
 input:checked + .slider .ball {
     transform: translateX(24px) !important;
 }
+/* تنسيق الزرار النيون */
+.glow-button {
+    background: #00ffd5 !important; /* اللون الفيروزي النيون */
+    color: #000 !important;
+    box-shadow: 0 0 20px #00ffd5; /* التوهج */
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%; /* عشان ياخد عرض الفورم */
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.glow-button:hover {
+    box-shadow: 0 0 30px #00ffd5;
+    transform: translateY(-2px);
+}
+
+/* تنسيق خانات الكتابة */
+.advanced-form .input-group input, 
+.advanced-form .input-group textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #00ffd5; /* حدود نيون */
+    color: #fff;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    outline: none;
+}
