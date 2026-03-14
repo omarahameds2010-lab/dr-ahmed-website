@@ -998,7 +998,14 @@ color:white;
 padding:20px;
 }
 
-.hero h1{
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('images/hero-bg.jpg') no-repeat center center/cover !important;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}.hero h1{
 font-size:48px;
 margin-bottom:20px;
 }
