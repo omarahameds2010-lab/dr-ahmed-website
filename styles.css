@@ -823,3 +823,30 @@ body.light-mode section {
     display: none !important;
     pointer-events: none !important;
 }
+/* إخفاء شاشة التحميل نهائياً لإظهار الموقع */
+.loader-wrapper, 
+#preloader, 
+.preloader,
+.loading-screen {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* تأكد أن الصفحة قابلة للتمرير */
+body {
+    overflow: auto !important;
+}
+
+/* ألوان الـ Light Mode الأساسية */
+body.light-mode {
+    background: #fdfdfd !important;
+    color: #1a1a1a !important;
+}
+body.light-mode header {
+    background: #fff !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+body.light-mode nav ul li a, body.light-mode .logo {
+    color: #1a1a1a !important;
+}
