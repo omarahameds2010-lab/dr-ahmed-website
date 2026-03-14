@@ -850,3 +850,15 @@ body.light-mode header {
 body.light-mode nav ul li a, body.light-mode .logo {
     color: #1a1a1a !important;
 }
+/* إخفاء شاشة التحميل بقوة الـ CSS */
+.loader, .loader-wrapper, #preloader, .preloader {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* التأكد إن الصفحة ينفع تعمل فيها Scroll */
+body {
+    overflow: visible !important;
+}
