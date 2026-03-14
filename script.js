@@ -157,3 +157,23 @@ const toggleSwitch = document.querySelector('#checkbox');
 toggleSwitch.addEventListener('change', () => {
     document.body.classList.toggle('light-mode');
 });
+const checkbox = document.getElementById('checkbox');
+
+checkbox.addEventListener('change', () => {
+  // تبديل كلاس light-mode في جسم الصفحة كله
+  document.body.classList.toggle('light-mode');
+  
+  // حفظ اختيار المستخدم عشان لما يعمل refresh يفضل زي ما هو
+  if (document.body.classList.contains('light-mode')) {
+    localStorage.setItem('theme', 'light');
+  } else {
+    localStorage.setItem('theme', 'dark');
+  }
+});
+
+// التأكد من الثيم المحفوظ عند فتح الصفحة
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+  document.body.classList.add('light-mode');
+  checkbox.checked = true;
+}
