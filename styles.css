@@ -285,3 +285,36 @@ body.light-mode .input-group textarea {
     align-items: center;
     transition: var(--transition);
 }
+/* --- Appointment Page Specific --- */
+.appointment-page {
+    min-height: 100vh;
+    padding-top: 150px; /* عشان الـ Header ميتغطيش */
+    background: var(--dark);
+}
+
+.appointment-page .contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.social-contact {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.social-contact h3 {
+    color: var(--white);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+/* تعديل للموبايل */
+@media (max-width: 768px) {
+    .appointment-page {
+        padding-top: 100px;
+        padding-inline: 5%;
+    }
+}
