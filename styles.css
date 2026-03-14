@@ -795,3 +795,24 @@ input:checked + .slider .ball {
 input:checked + .slider .ball {
     transform: translateX(28px) !important;
 }
+/* ألوان الوضع الفاتح */
+body.light-mode {
+    background-color: #ffffff !important;
+    color: #1a1a1a !important;
+}
+
+/* تعديل الـ Header في الوضع الفاتح */
+body.light-mode header {
+    background-color: #f8f9fa !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+body.light-mode nav ul li a, 
+body.light-mode .logo {
+    color: #1a1a1a !important;
+}
+
+/* تعديل خلفية الأقسام */
+body.light-mode section {
+    background-color: #ffffff !important;
+}
