@@ -164,3 +164,86 @@ footer { text-align: center; padding: 30px; background: #0a151a; border-top: 1px
     margin-top: 25px; /* مسافة كافية عشان الشكل يكون مريح */
     display: block;   /* عشان ياخد مساحته المستقلة */
 }
+/* --- Advanced Contact Form Style --- */
+
+.advanced-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 100%; /* عشان يملأ المساحة المتاحة */
+    margin-top: 20px;
+}
+
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
+.input-group input, 
+.input-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.03); /* خلفية شفافة جداً */
+    border: 1px solid rgba(0, 255, 213, 0.2); /* إطار نيون خفيف */
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* تأثير عند الوقوف على الخانة */
+.input-group input:focus, 
+.input-group textarea:focus {
+    background: rgba(0, 255, 213, 0.05);
+    border-color: #00ffd5; /* لون النيون الأساسي */
+    box-shadow: 0 0 15px rgba(0, 255, 213, 0.3);
+}
+
+.input-group textarea {
+    height: 120px;
+    resize: none; /* يمنع المستخدم من تغيير حجم الصندوق ويخرب الشكل */
+}
+
+/* زرار الإرسال المضيء */
+.glow-button {
+    padding: 12px 25px;
+    background: #00ffd5;
+    color: #0f2027;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.glow-button:hover {
+    box-shadow: 0 0 25px #00ffd5;
+    transform: translateY(-3px);
+}
+
+.glow-button i {
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.glow-button:hover i {
+    transform: translateX(5px) rotate(-20deg);
+}
+
+/* تعديل بسيط للكونتينر عشان يجمعهم جنب بعض في الشاشات الكبيرة */
+@media (min-width: 768px) {
+    .contact-container {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 40px;
+        align-items: start;
+    }
+}
