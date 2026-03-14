@@ -160,3 +160,7 @@ footer { text-align: center; padding: 30px; background: #0a151a; border-top: 1px
     z-index: 10001;
     box-shadow: 0 0 15px var(--primary);
 }
+.clinic-link {
+    margin-top: 25px; /* مسافة كافية عشان الشكل يكون مريح */
+    display: block;   /* عشان ياخد مساحته المستقلة */
+}
