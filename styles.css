@@ -415,3 +415,64 @@ body > a {
         font-size: 1rem !important;
     }
 }
+/* --- التنظيف النهائي للـ Header والـ Bar --- */
+
+/* 1. إخفاء أي روابط تائهة أو قديمة تظهر فوق */
+body > a, header + a, nav + a {
+    display: none !important;
+}
+
+/* 2. إعادة ضبط الـ Header ليكون قطعة واحدة احترافية */
+header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 5% !important;
+    height: 80px !important; /* ارتفاع ثابت عشان ميبقاش عريض أوي */
+    background: rgba(15, 32, 39, 0.95) !important;
+    border-bottom: 2px solid #00ffd5 !important;
+}
+
+/* 3. تجميع المنيو في خط واحد ومنظم */
+nav ul {
+    display: flex !important;
+    flex-direction: row !important; /* عشان ميبقوش تحت بعض */
+    list-style: none !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+nav ul li a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    transition: 0.3s !important;
+}
+
+nav ul li a:hover {
+    color: #00ffd5 !important;
+    text-shadow: 0 0 10px #00ffd5;
+}
+
+/* 4. تعديل اللوجو */
+.logo-text {
+    font-size: 1.5rem !important;
+    color: #00ffd5 !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+}
+
+/* 5. زرار Book Now اللي كان تائه تحت */
+header a[href*="appointment"], .book-now-btn {
+    background: #00ffd5 !important;
+    color: #0f2027 !important;
+    padding: 10px 20px !important;
+    border-radius: 5px !important;
+    font-weight: bold !important;
+    text-decoration: none !important;
+}
+
+/* 6. إخفاء النقط والدوائر اللي ظاهرة في الصورة */
+li { list-style: none !important; }
