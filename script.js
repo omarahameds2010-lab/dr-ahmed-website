@@ -177,3 +177,35 @@ if (savedTheme === 'light') {
   document.body.classList.add('light-mode');
   checkbox.checked = true;
 }
+// تأكد أن الكود يعمل بعد تحميل الصفحة بالكامل
+document.addEventListener('DOMContentLoaded', () => {
+
+    // 1. كود تبديل الثيم (Theme Switch)
+    const checkbox = document.getElementById('checkbox');
+    if (checkbox) {
+        checkbox.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // استرجاع الثيم المحفوظ
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            checkbox.checked = true;
+        }
+    }
+
+    // 2. إخفاء شاشة التحميل (الـ Loader) يدوياً للتأكد أنها ستختفي
+    const loader = document.querySelector('.loader') || document.querySelector('#preloader');
+    if (loader) {
+        loader.style.display = 'none';
+    }
+});
+
+// 3. كود الـ Smooth Scroll (Lenis) - ضعه خارج الـ DOMContentLoaded
+const lenis = new Lenis();
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
