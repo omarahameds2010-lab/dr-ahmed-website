@@ -286,3 +286,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const checkbox = document.getElementById('checkbox');
+
+    // 1. أمر تبديل الثيم بنظافة
+    if (checkbox) {
+        checkbox.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode');
+            // حفظ الحالة عشان لما يقلب في الصفحات يفتكر اختياره
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // التأكد من الثيم المحفوظ أول ما الصفحة تفتح
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            checkbox.checked = true;
+        }
+    }
+
+    // 2. سكرول ناعم (بدون مكتبات تقيلة)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+});
