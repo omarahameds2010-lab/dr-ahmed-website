@@ -260,3 +260,29 @@ checkbox.addEventListener('change', () => {
   // لما تدوس على الزرار، ضيف أو شيل كلاس اسمه light-mode من الـ body
   document.body.classList.toggle('light-mode');
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const checkbox = document.getElementById('checkbox');
+
+    // 1. تشغيل تبديل الألوان (Light/Dark)
+    if (checkbox) {
+        checkbox.addEventListener('change', () => {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+
+        // التأكد من الثيم المفضل عند التحميل
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            checkbox.checked = true;
+        }
+    }
+
+    // 2. سكرول ناعم بسيط لكل اللينكات
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+});
