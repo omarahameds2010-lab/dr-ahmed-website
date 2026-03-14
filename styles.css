@@ -14,12 +14,19 @@ body { background: var(--dark); color: var(--white); overflow-x: hidden; }
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 /* Nav */
-nav { position: fixed; width: 100%; padding: 20px 10%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: rgba(15,32,39,0.9); backdrop-filter: blur(10px); }
-.logo { font-size: 1.5rem; font-weight: bold; }
-.logo span { color: var(--primary); }
-.nav-links { display: flex; list-style: none; gap: 20px; }
-.nav-links a { color: white; text-decoration: none; transition: 0.3s; }
-.nav-links a:hover { color: var(--primary); }
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(10, 10, 10, 0.8); /* خلفية شفافة سوداء */
+    backdrop-filter: blur(10px); /* تأثير التغبيش */
+    border-bottom: 1px solid rgba(0, 255, 213, 0.1);
+    z-index: 1000;
+}
 
 /* Hero */
 .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1597452485669-2c7bb5fef90d?q=80&w=2069') center/cover; }
