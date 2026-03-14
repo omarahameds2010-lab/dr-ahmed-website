@@ -924,3 +924,20 @@ body.light-mode .contact-container {
     display: none !important;
     visibility: hidden !important;
 }
+nav{
+background:#0f172a;
+padding:15px;
+display:flex;
+gap:20px;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+font-size:18px;
+}
+
+nav a:hover{
+color:#38bdf8;
+}
