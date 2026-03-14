@@ -581,3 +581,45 @@ html {
 ::-webkit-scrollbar-thumb:hover {
     background: #008f7a; 
 }
+/* --- ألوان الـ Light Mode المتقدمة --- */
+body.light-mode {
+    background-color: #f7f9fc !important; /* خلفية فاتحة ونظيفة */
+    color: #1a1a1a !important; /* كلام غامق */
+}
+
+/* تعديل الـ header */
+body.light-mode header {
+    background-color: #fff !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05) !important;
+}
+
+body.light-mode .logo,
+body.light-mode nav ul li a {
+    color: #1a1a1a !important;
+}
+
+/* تعديل الفورم والمدخلات */
+body.light-mode .advanced-form .input-group input,
+body.light-mode .advanced-form .input-group textarea {
+    background: #fff !important;
+    color: #1a1a1a !important;
+    border: 2px solid #ddd !important;
+}
+
+body.light-mode .advanced-form .input-group input:focus,
+body.light-mode .advanced-form .input-group textarea:focus {
+    border-color: #ff9f43 !important; /* لون الشمس */
+    box-shadow: 0 0 10px rgba(255, 159, 67, 0.3) !important;
+}
+
+/* تعديل الزرار النيون */
+body.light-mode .glow-button {
+    background: #ff9f43 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px #ff9f43 !important;
+}
+
+/* تعديل الأيقونات الدائرية */
+body.light-mode .circle-btn {
+    background: rgba(0, 0, 0, 0.05) !important;
+}
