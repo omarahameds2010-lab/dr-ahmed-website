@@ -1,175 +1,620 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Ahmed | Premium Physical Therapy</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Ahmed | Physiotherapy Specialist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --teal: #00b4d8;
+    --teal-light: #90e0ef;
+    --gold: #c9a84c;
+    --white: #f8f9ff;
+    --gray: #8892a4;
+    --card-bg: #0d1f3c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,180,216,0.1);
+    transition: all 0.3s;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .logo span { color: var(--teal); }
+
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  .nav-cta {
+    background: var(--teal);
+    color: var(--navy) !important;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+
+  .nav-cta:hover { background: var(--teal-light); color: var(--navy) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 60px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(0,180,216,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-content { max-width: 620px; z-index: 1; }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,180,216,0.1);
+    border: 1px solid rgba(0,180,216,0.2);
+    padding: 8px 16px; border-radius: 100px;
+    font-size: 0.82rem; color: var(--teal);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--teal); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.5); }
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    line-height: 1.15;
+    font-weight: 700;
+    margin-bottom: 24px;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  h1 span { color: var(--teal); }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--gray);
+    line-height: 1.7;
+    margin-bottom: 44px;
+    max-width: 500px;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .btn-primary {
+    background: var(--teal);
+    color: var(--navy);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,180,216,0.25);
+  }
+
+  .btn-secondary {
+    border: 1px solid rgba(248,249,255,0.15);
+    color: var(--white);
+    padding: 14px 32px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+    transform: translateY(-2px);
+  }
+
+  /* STATS */
+  .stats {
+    display: flex; gap: 48px; margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid rgba(248,249,255,0.08);
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--teal);
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--gray);
+    margin-top: 4px;
+    letter-spacing: 0.04em;
+  }
+
+  /* SERVICES */
+  .section {
+    padding: 100px 60px;
+  }
+
+  .section-tag {
+    font-size: 0.8rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .section-sub {
+    color: var(--gray);
+    font-size: 1rem;
+    max-width: 500px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .service-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(248,249,255,0.06);
+    border-radius: 16px;
+    padding: 36px 32px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .service-card:hover {
+    border-color: rgba(0,180,216,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .service-card:hover::before { opacity: 1; }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    background: rgba(0,180,216,0.1);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  .service-desc {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.7;
+  }
+
+  /* WHY US */
+  .why-section {
+    padding: 100px 60px;
+    background: var(--navy-mid);
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .why-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+
+  .why-item {
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  .why-check {
+    width: 24px; height: 24px; min-width: 24px;
+    background: rgba(0,180,216,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--teal);
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
+  .why-text strong {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .why-text span { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
+
+  .why-visual {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 48px;
+    border: 1px solid rgba(248,249,255,0.06);
+    text-align: center;
+  }
+
+  .big-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .big-label {
+    color: var(--gray);
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  .divider { width: 40px; height: 1px; background: rgba(248,249,255,0.1); margin: 32px auto; }
+
+  /* CTA */
+  .cta-section {
+    padding: 100px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .cta-section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 20px;
+  }
+
+  .cta-section p {
+    color: var(--gray);
+    max-width: 480px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 60px;
+    border-top: 1px solid rgba(248,249,255,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+
+  .footer-links a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover { color: var(--teal); }
+
+  .footer-copy {
+    color: var(--gray);
+    font-size: 0.85rem;
+  }
+
+  .footer-copy span { color: var(--teal); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, .section, .why-section, .cta-section { padding: 80px 24px; }
+    .why-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats { gap: 32px; flex-wrap: wrap; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+  }
+</style>
 </head>
-<body<nav>
+<body>
 
-<a href="index.html">Home</a>
-
-<a href="about.html">About</a>
-
-<a href="services.html">Services</a>
-
-<a href="team.html">Team</a>
-
-<a href="cases.html">Cases</a>
-
-<a href="blog.html">Blog</a>
-
-<a href="faq.html">FAQ</a>
-
-<a href="reviews.html">Reviews</a>
-
-<a href="appointment.html">Appointment</a>
-
-<a href="contact.html">Contact</a>
-
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="cases.html">Cases</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="appointment.html" class="nav-cta">Book Now</a></li>
+  </ul>
 </nav>
-  <div class="theme-switch-wrapper">
-    <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" />
-        <div class="slider round">
-            <i class="fas fa-sun sun-icon"></i>
-            <i class="fas fa-moon moon-icon"></i>
-            <span class="ball"></span>
-        </div>
-    </label>
-</div>
 
-    <div id="preloader">
-        <div class="loader"></div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Physiotherapy Specialist</div>
+    <h1>Restore Movement.<br>Rebuild <span>Strength.</span></h1>
+    <p class="hero-sub">Expert physiotherapy care tailored to your recovery journey. Evidence-based treatment plans designed to get you back to your best.</p>
+    <div class="hero-actions">
+      <a href="appointment.html" class="btn-primary">
+        Book Appointment
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="services.html" class="btn-secondary">Our Services</a>
     </div>
-
-    <nav>
-    <div class="logo-container">
-        <div class="medical-logo">
-            <div class="circle"></div>
-            <div class="pulse"></div>
-        </div>
-        <div class="logo-text">DR. <span>AHMED GABER</span></div>
+    <div class="stats">
+      <div>
+        <div class="stat-num">12+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">2K+</div>
+        <div class="stat-label">Patients Treated</div>
+      </div>
+      <div>
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
     </div>
-    
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#results">Results</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-    
-    <a href="#contact" class="btn-main">Book Now</a>
-</nav>
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="reveal">Restore Your <span>Movement</span></h1>
-            <p class="reveal">Expert physical therapy tailored to your recovery journey. Professional care, exceptional results.</p>
-            <div class="hero-btns reveal">
-                <a href="#services" class="btn-main">Our Services</a>
-                <a href="#contact" class="btn-outline">Contact Us</a>
-            </div>
-        </div>
-    </section>
+  </div>
+</section>
 
-    <section id="services" class="services">
-        <h2 class="section-title">Specialized Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-running"></i>
-                <h3>Sports Rehab</h3>
-                <p>Advanced recovery programs for athletes to get back in the game faster.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-bone"></i>
-                <h3>Orthopedic Care</h3>
-                <p>Post-surgery recovery and joint pain management with modern techniques.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-user-md"></i>
-                <h3>Manual Therapy</h3>
-                <p>Hands-on treatment to improve mobility and reduce chronic pain.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="reviews" class="reviews">
-        <h2 class="section-title">Patient Success Stories</h2>
-        <div class="reviews-container">
-            <div class="review-box">
-                <p>"Excellent therapy, very professional! Helped me recover in weeks."</p>
-                <h4>- Sarah M.</h4>
-            </div>
-            <div class="review-box">
-                <p>"The best facility in town. Dr. Ahmed is highly skilled."</p>
-                <h4>- John D.</h4>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="contact-container">
-            <div class="contact-info">
-                <h2>Get In Touch</h2>
-                <p><i class="fas fa-envelope"></i> info@dr-ahmed-pt.com</p>
-                <p><i class="fas fa-phone"></i>+20 11 56120307</p>
-                <p><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</p>
-       <div class="social-contact-circles">
-    <div class="social-contact-circles">
-    <a href="https://wa.me/20123456789" class="circle-btn whatsapp" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-    <a href="https://www.facebook.com/GaberCenters/" class="circle-btn facebook" target="_blank">
-        <i class="fab fa-facebook-f"></i>
-    </a>
-</div>
-    </a>
-</div>
-</div>
-            </div>
-            
-         <form id="contact-form" class="advanced-form">
-    <div class="input-group">
-        <input type="text" id="name" placeholder="Full Name" required>
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-tag">What We Offer</div>
+  <h2 class="section-title">Our <span style="color:var(--teal)">Services</span></h2>
+  <p class="section-sub">Comprehensive physiotherapy solutions for every stage of your recovery.</p>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">🦴</div>
+      <div class="service-title">Orthopedic Therapy</div>
+      <p class="service-desc">Specialized treatment for musculoskeletal conditions, post-surgical rehabilitation, and sports injuries.</p>
     </div>
-    <div class="input-group">
-        <input type="email" id="email" placeholder="Email Address" required>
+    <div class="service-card reveal">
+      <div class="service-icon">🧠</div>
+      <div class="service-title">Neurological Rehab</div>
+      <p class="service-desc">Targeted programs for stroke recovery, Parkinson's, and other neurological conditions.</p>
     </div>
-    <div class="input-group">
-        <textarea id="message" placeholder="How can we help?" required></textarea>
+    <div class="service-card reveal">
+      <div class="service-icon">🏃</div>
+      <div class="service-title">Sports Physiotherapy</div>
+      <p class="service-desc">Performance optimization and injury prevention for athletes at every level.</p>
     </div>
-    <button type="submit" class="glow-button">Send Message <i class="fas fa-paper-plane"></i></button>
-</form>  <div class="map-box">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d354.134362696516!2d31.181444356464098!3d30.009087268885434!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145847233fd94c9b%3A0x2797b8779dc7fb0c!2z2YXYsdin2YPYsiDYrNin2KjYsSDZhNmE2LnZhNin2Kwg2KfZhNi32KjZiti52Ykg2YHYsdi5INmB2YrYtdmE!5e1!3m2!1sen!2seg!4v1773353068816!5m2!1sen!2seg" 
-                    width="100%" 
-                    height="450" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-            </div>
-        </div>
-    </section>
+    <div class="service-card reveal">
+      <div class="service-icon">💆</div>
+      <div class="service-title">Manual Therapy</div>
+      <p class="service-desc">Hands-on techniques to restore joint mobility and relieve chronic pain effectively.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">⚡</div>
+      <div class="service-title">Electrotherapy</div>
+      <p class="service-desc">Advanced electrical stimulation modalities for pain management and tissue healing.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🏠</div>
+      <div class="service-title">Home Visits</div>
+      <p class="service-desc">Professional physiotherapy delivered to your doorstep for maximum convenience.</p>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>© 2026 Dr. Ahmed Clinic. Designed with Passion.</p>
-    </footer>
+<!-- WHY US -->
+<section class="why-section">
+  <div class="why-grid">
+    <div>
+      <div class="section-tag">Why Choose Us</div>
+      <h2 class="section-title reveal">Evidence-Based.<br>Patient-Centered.</h2>
+      <p class="section-sub reveal">Every treatment plan is built around your unique condition and recovery goals.</p>
+      <ul class="why-list">
+        <li class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div class="why-text">
+            <strong>Personalized Treatment Plans</strong>
+            <span>No two patients are the same. Your plan is designed specifically for you.</span>
+          </div>
+        </li>
+        <li class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div class="why-text">
+            <strong>Advanced Equipment</strong>
+            <span>State-of-the-art technology for faster, more effective recovery.</span>
+          </div>
+        </li>
+        <li class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div class="why-text">
+            <strong>Certified Specialists</strong>
+            <span>Our team holds internationally recognized physiotherapy certifications.</span>
+          </div>
+        </li>
+        <li class="why-item reveal">
+          <div class="why-check">✓</div>
+          <div class="why-text">
+            <strong>Flexible Scheduling</strong>
+            <span>Morning, evening, and home visit options to fit your lifestyle.</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="why-visual reveal">
+      <div class="big-num">2K+</div>
+      <div class="big-label">Successful Recoveries</div>
+      <div class="divider"></div>
+      <div class="big-num" style="font-size:3rem">12+</div>
+      <div class="big-label">Years of Excellence</div>
+      <div class="divider"></div>
+      <div class="big-num" style="font-size:3rem">98%</div>
+      <div class="big-label">Patient Satisfaction</div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js"></script>
-<div class="theme-switch-wrapper">
-    <label class="theme-switch" for="checkbox">
-        <input type="checkbox" id="checkbox" />
-        <div class="slider round">
-            <i class="fas fa-sun sun-icon"></i>
-            <i class="fas fa-moon moon-icon"></i>
-            <span class="ball"></span>
-        </div>
-    </label>
-</div>
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="reveal">Ready to Start Your <span style="color:var(--teal)">Recovery?</span></h2>
+  <p class="reveal">Book your first consultation today and take the first step toward a pain-free life.</p>
+  <a href="appointment.html" class="btn-primary reveal">
+    Book Your Appointment
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="cases.html">Cases</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Dr. Ahmed Physiotherapy. Built by <span>Omar Ahmed</span></p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.background = window.scrollY > 50
+      ? 'rgba(10,22,40,0.98)'
+      : 'rgba(10,22,40,0.85)';
+  });
+</script>
 </body>
 </html>
