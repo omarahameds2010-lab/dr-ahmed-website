@@ -1,23 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Success Cases | Dr. Ahmed Physiotherapy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #112240;
+    --teal: #00b4d8;
+    --teal-light: #90e0ef;
+    --gold: #c9a84c;
+    --white: #f8f9ff;
+    --gray: #8892a4;
+    --card-bg: #0d1f3c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,180,216,0.1);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--white); text-decoration: none; }
+  .logo span { color: var(--teal); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+  .nav-cta { background: var(--teal); color: var(--navy) !important; padding: 10px 24px; border-radius: 6px; font-weight: 600 !important; }
+
+  /* ============ INTRO CINEMATIC ============ */
+  #intro-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #000;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    overflow: hidden;
+    animation: introFadeOut 0.8s ease 5.5s forwards;
+  }
+
+  #intro-overlay::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(0,180,216,0.08) 0%, transparent 70%);
+  }
+
+  .intro-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    width: 0;
+    animation: lineExpand 1s ease 0.3s forwards;
+    margin-bottom: 48px;
+  }
+
+  .intro-badge {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: var(--teal);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 0.8s forwards;
+    margin-bottom: 24px;
+  }
+
+  .intro-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    color: var(--white);
+    text-align: center;
+    line-height: 1.15;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .intro-title em {
+    font-style: italic;
+    color: var(--teal);
+  }
+
+  .intro-sub {
+    font-size: 1rem;
+    color: var(--gray);
+    text-align: center;
+    margin-top: 20px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 1.8s forwards;
+    letter-spacing: 0.04em;
+  }
+
+  .intro-stats {
+    display: flex; gap: 64px;
+    margin-top: 56px;
+    opacity: 0;
+    animation: fadeIn 0.8s ease 2.4s forwards;
+  }
+
+  .intro-stat { text-align: center; }
+
+  .intro-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  .intro-stat-label {
+    font-size: 0.78rem;
+    color: var(--gray);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  .intro-line-bottom {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    width: 0;
+    margin-top: 56px;
+    animation: lineExpand 1s ease 3s forwards;
+  }
+
+  .intro-skip {
+    position: absolute; bottom: 40px; right: 48px;
+    font-size: 0.8rem; color: var(--gray);
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    opacity: 0;
+    animation: fadeIn 0.5s ease 1.5s forwards;
+    transition: color 0.3s;
+    border: none; background: none;
+  }
+  .intro-skip:hover { color: var(--teal); }
+
+  @keyframes lineExpand { to { width: min(600px, 80vw); } }
+  @keyframes introFadeOut { to { opacity: 0; pointer-events: none; visibility: hidden; } }
+  @keyframes fadeIn { to { opacity: 1; } }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  /* ============ MAIN CONTENT ============ */
+  main { padding-top: 90px; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 80px 60px 60px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(248,249,255,0.06);
+  }
+
+  .page-hero::after {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,180,216,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .breadcrumb {
+    font-size: 0.82rem; color: var(--gray);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .breadcrumb a { color: var(--teal); text-decoration: none; }
+  .breadcrumb span { color: var(--gray); }
+
+  .page-tag {
+    font-size: 0.8rem; color: var(--teal);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .page-title span { color: var(--teal); }
+
+  .page-sub {
+    color: var(--gray); font-size: 1rem;
+    max-width: 560px; line-height: 1.7;
+  }
+
+  /* FILTER TABS */
+  .filter-section {
+    padding: 40px 60px 0;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 0.85rem; font-weight: 500;
+    cursor: pointer; transition: all 0.3s;
+    border: 1px solid rgba(248,249,255,0.1);
+    background: transparent; color: var(--gray);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--teal);
+    color: var(--navy);
+    border-color: var(--teal);
+  }
+
+  /* CASES GRID */
+  .cases-section { padding: 48px 60px 100px; }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 28px;
+  }
+
+  .case-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(248,249,255,0.06);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .case-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .case-card:hover {
+    border-color: rgba(0,180,216,0.25);
+    transform: translateY(-6px);
+    box-shadow: 0 24px 48px rgba(0,0,0,0.4);
+  }
+
+  .case-thumb {
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .case-thumb-bg {
+    position: absolute; inset: 0;
+    transition: transform 0.6s ease;
+  }
+
+  .case-card:hover .case-thumb-bg { transform: scale(1.05); }
+
+  .case-thumb-icon {
+    font-size: 3.5rem;
+    position: relative; z-index: 1;
+    filter: drop-shadow(0 4px 20px rgba(0,0,0,0.5));
+  }
+
+  .case-tag-pill {
+    position: absolute; top: 16px; left: 16px;
+    background: rgba(0,180,216,0.15);
+    border: 1px solid rgba(0,180,216,0.3);
+    color: var(--teal);
+    font-size: 0.72rem;
+    padding: 5px 12px; border-radius: 100px;
+    letter-spacing: 0.05em; font-weight: 500;
+    z-index: 2;
+  }
+
+  .case-outcome {
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(0,200,100,0.15);
+    border: 1px solid rgba(0,200,100,0.3);
+    color: #4ade80;
+    font-size: 0.72rem;
+    padding: 5px 12px; border-radius: 100px;
+    font-weight: 600;
+    z-index: 2;
+  }
+
+  .case-body { padding: 28px; }
+
+  .case-meta {
+    display: flex; gap: 16px; margin-bottom: 14px;
+  }
+
+  .case-meta-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.78rem; color: var(--gray);
+  }
+
+  .case-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; font-weight: 600;
+    margin-bottom: 10px; line-height: 1.4;
+  }
+
+  .case-excerpt {
+    color: var(--gray); font-size: 0.88rem;
+    line-height: 1.7; margin-bottom: 20px;
+  }
+
+  .case-progress {
+    margin-bottom: 20px;
+  }
+
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.78rem; color: var(--gray);
+    margin-bottom: 6px;
+  }
+
+  .progress-bar {
+    height: 4px; background: rgba(248,249,255,0.08);
+    border-radius: 100px; overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light));
+    width: 0;
+    transition: width 1.2s ease;
+  }
+
+  .case-card.visible .progress-fill { width: var(--progress); }
+
+  .case-footer {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid rgba(248,249,255,0.06);
+  }
+
+  .case-duration {
+    font-size: 0.8rem; color: var(--gray);
+  }
+
+  .case-link {
+    font-size: 0.82rem; color: var(--teal);
+    text-decoration: none; font-weight: 500;
+    display: flex; align-items: center; gap: 4px;
+    transition: gap 0.3s;
+  }
+
+  .case-link:hover { gap: 8px; }
+
+  /* FEATURED CASE */
+  .featured-case {
+    background: var(--card-bg);
+    border: 1px solid rgba(0,180,216,0.15);
+    border-radius: 24px;
+    padding: 48px;
+    margin-bottom: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    opacity: 0; transform: translateY(24px);
+    transition: all 0.7s ease;
+  }
+
+  .featured-case.visible { opacity: 1; transform: translateY(0); }
+
+  .featured-case::before {
+    content: 'FEATURED';
+    position: absolute; top: 20px; right: 20px;
+    font-size: 0.68rem; letter-spacing: 0.15em;
+    color: var(--gold); border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 12px; border-radius: 100px;
+  }
+
+  .featured-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,180,216,0.1);
+    border: 1px solid rgba(0,180,216,0.2);
+    color: var(--teal); font-size: 0.75rem;
+    padding: 5px 14px; border-radius: 100px;
+    letter-spacing: 0.05em; margin-bottom: 20px;
+  }
+
+  .featured-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem; font-weight: 700;
+    line-height: 1.3; margin-bottom: 16px;
+  }
+
+  .featured-title span { color: var(--teal); }
+
+  .featured-desc {
+    color: var(--gray); line-height: 1.75;
+    margin-bottom: 28px; font-size: 0.95rem;
+  }
+
+  .featured-metrics {
+    display: flex; gap: 32px;
+  }
+
+  .metric { text-align: center; }
+
+  .metric-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; font-weight: 700; color: var(--teal);
+  }
+
+  .metric-label {
+    font-size: 0.75rem; color: var(--gray);
+    margin-top: 4px; letter-spacing: 0.04em;
+  }
+
+  .featured-visual {
+    background: linear-gradient(135deg, rgba(0,180,216,0.08) 0%, rgba(0,180,216,0.02) 100%);
+    border: 1px solid rgba(0,180,216,0.1);
+    border-radius: 16px;
+    padding: 36px;
+    text-align: center;
+  }
+
+  .featured-icon { font-size: 5rem; margin-bottom: 24px; display: block; }
+
+  .timeline {
+    text-align: left;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+
+  .timeline-item {
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .timeline-dot {
+    width: 10px; height: 10px; min-width: 10px;
+    background: var(--teal); border-radius: 50%;
+    margin-top: 5px;
+    position: relative;
+  }
+
+  .timeline-dot::after {
+    content: '';
+    position: absolute; top: 10px; left: 4px;
+    width: 1px; height: 26px;
+    background: rgba(0,180,216,0.2);
+  }
+
+  .timeline-item:last-child .timeline-dot::after { display: none; }
+
+  .timeline-text strong { font-size: 0.85rem; display: block; margin-bottom: 2px; }
+  .timeline-text span { font-size: 0.78rem; color: var(--gray); }
+
+  /* TESTIMONIALS */
+  .testimonials-section {
+    padding: 80px 60px;
+    background: var(--navy-mid);
+  }
+
+  .section-tag { font-size: 0.8rem; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 3vw, 2.4rem); font-weight: 700; margin-bottom: 40px; }
+
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .testimonial-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(248,249,255,0.06);
+    border-radius: 16px; padding: 32px;
+    transition: all 0.3s;
+    opacity: 0; transform: translateY(20px);
+  }
+
+  .testimonial-card.visible { opacity: 1; transform: translateY(0); }
+  .testimonial-card:hover { border-color: rgba(0,180,216,0.15); transform: translateY(-4px); }
+
+  .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 16px; letter-spacing: 2px; }
+
+  .testimonial-text {
+    font-style: italic; color: var(--gray);
+    line-height: 1.7; margin-bottom: 20px;
+    font-size: 0.92rem;
+  }
+
+  .testimonial-author { display: flex; align-items: center; gap: 12px; }
+
+  .author-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal), var(--navy-mid));
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 600; font-size: 0.9rem;
+  }
+
+  .author-name { font-weight: 500; font-size: 0.9rem; }
+  .author-case { font-size: 0.78rem; color: var(--gray); }
+
+  /* CTA */
+  .cta-section {
+    padding: 100px 60px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 16px; }
+  .cta-section p { color: var(--gray); max-width: 460px; margin: 0 auto 36px; line-height: 1.7; }
+
+  .btn-primary {
+    background: var(--teal); color: var(--navy);
+    padding: 14px 32px; border-radius: 8px;
+    font-weight: 600; font-size: 0.95rem;
+    text-decoration: none; transition: all 0.3s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+
+  .btn-primary:hover {
+    background: var(--teal-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,180,216,0.25);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 48px 60px;
+    border-top: 1px solid rgba(248,249,255,0.06);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+  }
+
+  .footer-links { display: flex; gap: 32px; list-style: none; }
+  .footer-links a { color: var(--gray); text-decoration: none; font-size: 0.88rem; transition: color 0.3s; }
+  .footer-links a:hover { color: var(--teal); }
+  .footer-copy { color: var(--gray); font-size: 0.85rem; }
+  .footer-copy span { color: var(--teal); }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .page-hero, .filter-section, .cases-section, .testimonials-section, .cta-section { padding-left: 24px; padding-right: 24px; }
+    .featured-case { grid-template-columns: 1fr; gap: 28px; padding: 28px; }
+    .featured-metrics { gap: 20px; }
+    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CINEMATIC INTRO -->
+<div id="intro-overlay">
+  <div class="intro-line"></div>
+  <div class="intro-badge">Dr. Ahmed Physiotherapy</div>
+  <h1 class="intro-title">Real Patients.<br><em>Real Recovery.</em></h1>
+  <p class="intro-sub">Every case is a story of perseverance, trust, and transformation.</p>
+  <div class="intro-stats">
+    <div class="intro-stat">
+      <div class="intro-stat-num">2K+</div>
+      <div class="intro-stat-label">Patients Treated</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">98%</div>
+      <div class="intro-stat-label">Recovery Rate</div>
+    </div>
+    <div class="intro-stat">
+      <div class="intro-stat-num">12+</div>
+      <div class="intro-stat-label">Years Experience</div>
+    </div>
+  </div>
+  <div class="intro-line-bottom"></div>
+  <button class="intro-skip" onclick="skipIntro()">Skip ›</button>
+</div>
+
+<!-- NAV -->
 <nav>
-
-<a href="index.html">Home</a>
-
-<a href="about.html">About</a>
-
-<a href="services.html">Services</a>
-
-<a href="team.html">Team</a>
-
-<a href="cases.html">Cases</a>
-
-<a href="blog.html">Blog</a>
-
-<a href="faq.html">FAQ</a>
-
-<a href="reviews.html">Reviews</a>
-
-<a href="appointment.html">Appointment</a>
-
-<a href="contact.html">Contact</a>
-
+  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="cases.html" class="active">Cases</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="appointment.html" class="nav-cta">Book Now</a></li>
+  </ul>
 </nav>
+
+<main>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <span>›</span>
+      <span>Success Cases</span>
+    </div>
+    <div class="page-tag">Patient Stories</div>
+    <h1 class="page-title">Real Recoveries.<br>Remarkable <span>Outcomes.</span></h1>
+    <p class="page-sub">Documented case studies from our clinic — every journey from first session to full recovery.</p>
+  </section>
+
+  <!-- FILTER -->
+  <div class="filter-section">
+    <button class="filter-btn active" onclick="filterCases('all', this)">All Cases</button>
+    <button class="filter-btn" onclick="filterCases('orthopedic', this)">Orthopedic</button>
+    <button class="filter-btn" onclick="filterCases('sports', this)">Sports</button>
+    <button class="filter-btn" onclick="filterCases('neurological', this)">Neurological</button>
+    <button class="filter-btn" onclick="filterCases('chronic', this)">Chronic Pain</button>
+    <button class="filter-btn" onclick="filterCases('postsurgical', this)">Post-Surgical</button>
+  </div>
+
+  <!-- CASES -->
+  <section class="cases-section">
+
+    <!-- FEATURED -->
+    <div class="featured-case" data-cat="sports">
+      <div>
+        <div class="featured-badge">⭐ Most Remarkable Case</div>
+        <h2 class="featured-title">From <span>Torn ACL</span> to Marathon Finish</h2>
+        <p class="featured-desc">Ahmed, 28, a semi-professional footballer, suffered a complete ACL tear during a match. Through our intensive sports rehabilitation protocol — combining manual therapy, neuromuscular training, and progressive loading — he not only returned to play, but completed his first half-marathon 14 months post-injury.</p>
+        <div class="featured-metrics">
+          <div class="metric">
+            <div class="metric-num">14</div>
+            <div class="metric-label">Months Recovery</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">100%</div>
+            <div class="metric-label">Strength Restored</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">0</div>
+            <div class="metric-label">Re-injury Risk</div>
+          </div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <span class="featured-icon">🏃</span>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <strong>Week 1–4: Acute Phase</strong>
+              <span>Swelling control, gentle ROM, pain management</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <strong>Month 2–4: Strength Phase</strong>
+              <span>Progressive resistance, neuromuscular training</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <strong>Month 5–10: Sport-Specific</strong>
+              <span>Agility drills, running mechanics, confidence</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-text">
+              <strong>Month 14: Full Return</strong>
+              <span>Cleared for competition + marathon completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID CASES -->
+    <div class="cases-grid">
+
+      <div class="case-card" data-cat="orthopedic" style="transition-delay:0.05s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #0d2137 0%, #0a3d5c 100%);"></div>
+          <div class="case-thumb-icon">🦴</div>
+          <div class="case-tag-pill">Orthopedic</div>
+          <div class="case-outcome">✓ Full Recovery</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Male, 45</span>
+            <span class="case-meta-item">📅 6 months</span>
+          </div>
+          <h3 class="case-title">Chronic Lower Back Pain — Disc Herniation</h3>
+          <p class="case-excerpt">Office worker with 3-year history of L4-L5 disc herniation, radiating leg pain, and limited mobility. Conservative management achieved full pain elimination.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>Pain Reduction</span><span>94%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 94%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">18 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card" data-cat="neurological" style="transition-delay:0.1s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #0d1f3c 0%, #1a0a3d 100%);"></div>
+          <div class="case-thumb-icon">🧠</div>
+          <div class="case-tag-pill">Neurological</div>
+          <div class="case-outcome">✓ Independent Walk</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Female, 62</span>
+            <span class="case-meta-item">📅 8 months</span>
+          </div>
+          <h3 class="case-title">Post-Stroke Rehabilitation — Hemiplegia</h3>
+          <p class="case-excerpt">Following left-side ischemic stroke, patient presented with complete right-side weakness. Intensive neurological rehab restored independent ambulation and daily function.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>Mobility Restored</span><span>82%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 82%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">32 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card" data-cat="postsurgical" style="transition-delay:0.15s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #0d2a1f 0%, #0a3d2c 100%);"></div>
+          <div class="case-thumb-icon">🦷</div>
+          <div class="case-tag-pill">Post-Surgical</div>
+          <div class="case-outcome">✓ Back to Work</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Male, 38</span>
+            <span class="case-meta-item">📅 4 months</span>
+          </div>
+          <h3 class="case-title">Total Knee Replacement Recovery</h3>
+          <p class="case-excerpt">Post-TKR rehabilitation achieving full range of motion, strength parity, and stair climbing within 16 weeks. Returned to desk job and recreational cycling.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>ROM Achievement</span><span>97%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 97%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">24 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card" data-cat="chronic" style="transition-delay:0.2s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #2a1a0d 0%, #3d2a0a 100%);"></div>
+          <div class="case-thumb-icon">💆</div>
+          <div class="case-tag-pill">Chronic Pain</div>
+          <div class="case-outcome">✓ Pain-Free</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Female, 34</span>
+            <span class="case-meta-item">📅 3 months</span>
+          </div>
+          <h3 class="case-title">Chronic Neck Pain & Cervicogenic Headaches</h3>
+          <p class="case-excerpt">Teacher with 5-year history of daily headaches from cervical dysfunction. Manual therapy and posture retraining eliminated headaches entirely within 12 weeks.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>Headache Frequency</span><span>−96%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 96%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">14 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card" data-cat="sports" style="transition-delay:0.25s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #0d1a2a 0%, #0a2a3d 100%);"></div>
+          <div class="case-thumb-icon">🏊</div>
+          <div class="case-tag-pill">Sports</div>
+          <div class="case-outcome">✓ Competition Return</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Female, 22</span>
+            <span class="case-meta-item">📅 5 months</span>
+          </div>
+          <h3 class="case-title">Swimmer's Shoulder — Rotator Cuff Tear</h3>
+          <p class="case-excerpt">Competitive swimmer with partial rotator cuff tear avoided surgery through targeted strengthening, manual therapy, and biomechanical stroke correction.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>Strength Recovery</span><span>91%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 91%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">20 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card" data-cat="orthopedic" style="transition-delay:0.3s">
+        <div class="case-thumb">
+          <div class="case-thumb-bg" style="background: linear-gradient(135deg, #1a0d2a 0%, #2a0a3d 100%);"></div>
+          <div class="case-thumb-icon">🚶</div>
+          <div class="case-tag-pill">Orthopedic</div>
+          <div class="case-outcome">✓ Surgery Avoided</div>
+        </div>
+        <div class="case-body">
+          <div class="case-meta">
+            <span class="case-meta-item">👤 Male, 55</span>
+            <span class="case-meta-item">📅 7 months</span>
+          </div>
+          <h3 class="case-title">Severe Hip Osteoarthritis — Non-Surgical</h3>
+          <p class="case-excerpt">Patient referred for hip replacement consultation chose conservative physio first. Progressive exercise therapy and manual work restored function and eliminated surgery need.</p>
+          <div class="case-progress">
+            <div class="progress-label"><span>Function Restored</span><span>88%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="--progress: 88%"></div></div>
+          </div>
+          <div class="case-footer">
+            <span class="case-duration">28 sessions total</span>
+            <a href="#" class="case-link">Read more →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="section-tag">Patient Voices</div>
+    <h2 class="section-title">What Our Patients <span style="color:var(--teal)">Say</span></h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"After years of chronic back pain, Dr. Ahmed's team gave me my life back. The personalized approach made all the difference."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <div class="author-name">Mohamed K.</div>
+            <div class="author-case">Disc Herniation Case</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"I was told surgery was inevitable. Six months later, I'm hiking again without pain. Absolutely incredible results."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">S</div>
+          <div>
+            <div class="author-name">Sara A.</div>
+            <div class="author-case">Hip Osteoarthritis Case</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">"The stroke took everything from me. Dr. Ahmed's rehab program gave it all back. I can walk independently again."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">F</div>
+          <div>
+            <div class="author-name">Fatma H.</div>
+            <div class="author-case">Post-Stroke Rehabilitation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2>Your Recovery Story<br><span style="color:var(--teal)">Starts Here.</span></h2>
+    <p>Join thousands of patients who trusted us with their recovery journey.</p>
+    <a href="appointment.html" class="btn-primary">
+      Book Your First Session
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="cases.html">Cases</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Dr. Ahmed Physiotherapy. Built by <span>Omar Ahmed</span></p>
+</footer>
+
+<script>
+  // Skip intro
+  function skipIntro() {
+    const overlay = document.getElementById('intro-overlay');
+    overlay.style.animation = 'none';
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.visibility = 'hidden';
+  }
+
+  // Auto-skip after animation ends
+  setTimeout(() => {
+    const overlay = document.getElementById('intro-overlay');
+    if (overlay) overlay.style.visibility = 'hidden';
+  }, 6300);
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.case-card, .featured-case, .testimonial-card').forEach(el => observer.observe(el));
+
+  // Filter
+  function filterCases(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.case-card, .featured-case').forEach(card => {
+      const cardCat = card.getAttribute('data-cat');
+      if (cat === 'all' || cardCat === cat) {
+        card.style.display = '';
+        setTimeout(() => card.classList.add('visible'), 50);
+      } else {
+        card.classList.remove('visible');
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Nav scroll
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.background =
+      window.scrollY > 50 ? 'rgba(10,22,40,0.98)' : 'rgba(10,22,40,0.92)';
+  });
+</script>
+</body>
+</html>
