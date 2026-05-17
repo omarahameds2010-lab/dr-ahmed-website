@@ -1,318 +1,423 @@
-// 1. اخفاء شاشة التحميل
-window.addEventListener('load', () => {
-    const preloader = document.getElementById('preloader');
-    preloader.style.opacity = '0';
-    setTimeout(() => { preloader.style.display = 'none'; }, 500);
-});
+/**
+ * Gaber Centers — Refined Premium Script (Final)
+ * Calm · Trustworthy · Luxurious
+ * Stack: GSAP + Lenis
+ */
 
-// 2. تشغيل العدادات
-const counters = document.querySelectorAll('.counter');
-const speed = 200;
+// ═══════════════════════════════════════
+// 0. BASIC SETUP
+// ═══════════════════════════════════════
+const isMobile = window.innerWidth < 768 || 'ontouchstart' in window;
+const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-const startCounters = () => {
-    counters.forEach(counter => {
-        const updateCount = () => {
-            const target = +counter.getAttribute('data-target');
-            const count = +counter.innerText;
-            const inc = target / speed;
-            if (count < target) {
-                counter.innerText = Math.ceil(count + inc);
-                setTimeout(updateCount, 1);
-            } else {
-                counter.innerText = target + "+";
-            }
-        };
-        updateCount();
-    });
-};
-
-// تشغيل العدادات لما توصل عندها بالسكرول
-let started = false;
-window.onscroll = () => {
-    if (window.scrollY >= document.querySelector('.stats').offsetTop - 400) {
-        if (!started) startCounters();
-        started = true;
-    }
-};const backToTopBtn = document.getElementById("backToTop");
-
-window.onscroll = function() {
-    // إظهار الزرار لما المستخدم ينزل 300 بيكسل
-    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-        backToTopBtn.style.display = "flex";
-    } else {
-        backToTopBtn.style.display = "none";
-    }
-};
-
-// حركة الطلوع لفوق بنعومة
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-});document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const name = document.getElementById('name').value;
-    const message = document.getElementById('message').value;
-
-    // لمسة أمنية: منع إدخال أكواد سكريبت (XSS Protection بسيط)
-    if(message.includes("<script>") || message.includes("http")) {
-        alert("Security Alert: Links and scripts are not allowed!");
-        return;
-    }
-
-    alert("Thank you, " + name + "! Your message has been sent securely.");
-    this.reset();
-});
-// كود تأمين الفورم ومعالجة البيانات
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // استلام القيم من الخانات
-    let name = document.getElementById('name').value;
-    let message = document.getElementById('message').value;
-
-    // تنظيف البيانات (Sanitization) لمنع هجمات XSS
-    const cleanName = name.replace(/[<>]/g, "");
-    const cleanMessage = message.replace(/[<>]/g, "");
-
-    // فحص الروابط المشبوهة
-    if(cleanMessage.toLowerCase().includes("http") || cleanMessage.toLowerCase().includes("www")) {
-        alert("Security Alert: Sending links is not allowed for security reasons!");
-        return;
-    }
-
-    // إظهار رسالة النجاح بالبيانات الآمنة
-    alert("Thank you, " + cleanName + "! Your message has been sent securely.");
-    
-    // إعادة تعيين الفورم
-    this.reset();
-});
-// تهيئة مكتبة Lenis للـ Smooth Scroll الاحترافي
+// ═══════════════════════════════════════
+// 1. LENIS SMOOTH SCROLL
+// ═══════════════════════════════════════
 const lenis = new Lenis({
-  duration: 1.2, // سرعة الحركة (كل ما زادت كل ما بقى أنعم)
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // معادلة أبل للحركة
-  direction: 'vertical',
-  gestureDirection: 'vertical',
+  duration: 1.4,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   smooth: true,
-  mouseMultiplier: 1,
   smoothTouch: false,
-  touchMultiplier: 2,
-  infinite: false,
+  touchMultiplier: 1.5,
 });
 
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
 }
-
 requestAnimationFrame(raf);
-// كود الـ advanced لتبديل الثيم
-const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
-const currentTheme = localStorage.getItem('theme'); // بنشوف الـ User كان مختار إيه
 
-// دالة لتطبيق الثيم
-function applyTheme(theme) {
-    if (theme === 'light') {
-        document.body.classList.add('light-mode');
-        if (toggleSwitch) toggleSwitch.checked = true;
-    } else {
-        document.body.classList.remove('light-mode');
-        if (toggleSwitch) toggleSwitch.checked = false;
-    }
+lenis.on("scroll", ScrollTrigger.update);
+gsap.ticker.add((time) => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+// ═══════════════════════════════════════
+// 2. LOADER
+// ═══════════════════════════════════════
+const loaderTL = gsap.timeline();
+loaderTL
+  .from(".loader-logo", { opacity: 0, y: 30, duration: 0.9, ease: "power3.out" })
+  .from(".loader-sub",  { opacity: 0, y: 20, duration: 0.7, ease: "power3.out" }, "-=0.4")
+  .from(".loader-bar",  { opacity: 0, duration: 0.4 }, "-=0.2")
+  .to(".loader-fill",   { width: "100%", duration: 1.8, ease: "power2.inOut" }, "-=0.1")
+  .to("#loader", {
+    opacity: 0,
+    duration: 0.8,
+    ease: "power2.inOut",
+    delay: 0.3,
+    onComplete: () => {
+      document.getElementById("loader").style.display = "none";
+      initHero();
+    },
+  });
+
+// ═══════════════════════════════════════
+// 3. HERO ENTRANCE (elegant, slow)
+// ═══════════════════════════════════════
+function initHero() {
+  const heroTL = gsap.timeline({ defaults: { ease: "power3.out", duration: 1 } });
+
+  heroTL
+    .from(".hero-badge",   { opacity: 0, y: 24, duration: 0.8 })
+    .from(".hero-title .ht1", { opacity: 0, y: 40, duration: 0.9 }, "-=0.4")
+    .from(".hero-title .ht2", { opacity: 0, y: 40, duration: 0.9 }, "-=0.6")
+    .from(".hero-title .ht3", { opacity: 0, y: 40, duration: 0.9 }, "-=0.6")
+    .from(".hero-sub",    { opacity: 0, y: 24, duration: 0.8 }, "-=0.5")
+    .from(".hero-actions", { opacity: 0, y: 20, duration: 0.7 }, "-=0.4")
+    .from(".hero-stats > div", {
+      opacity: 0, y: 20, duration: 0.6, stagger: 0.12
+    }, "-=0.3")
+    .from(".gc", {
+      opacity: 0, y: 30, scale: 0.95,
+      duration: 0.9, stagger: 0.15, ease: "back.out(1.4)"
+    }, "-=0.8")
+    .from(".scroll-ind", { opacity: 0, y: 10, duration: 0.6 }, "-=0.3");
+
+  animateCounters(".hero-stats .sn");
 }
 
-// 1. فحص الـ user preference عند التحميل
-if (currentTheme) {
-    applyTheme(currentTheme);
-} else {
-    // لو لسه أول مرة، بنشوف هو عامل الـ Device بتاعه Dark ولا Light
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (prefersDark) {
-        applyTheme('dark');
-    } else {
-        applyTheme('light'); // default
-    }
+// ═══════════════════════════════════════
+// 4. CUSTOM CURSOR (subtle & disabled on mobile)
+// ═══════════════════════════════════════
+const cursor = document.getElementById("cursor");
+const trail  = document.getElementById("cursor-trail");
+
+if (cursor && trail && !isMobile) {
+  let mouseX = 0, mouseY = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    gsap.to(cursor, { x: mouseX, y: mouseY, duration: 0.1, ease: "none" });
+    gsap.to(trail,  { x: mouseX, y: mouseY, duration: 0.6, ease: "power3.out" });
+  });
+
+  const hoverEls = document.querySelectorAll("a, button, .srv-card, .ba-card, .test-card, .why-item");
+  hoverEls.forEach((el) => {
+    el.addEventListener("mouseenter", () => {
+      gsap.to(cursor, { scale: 1.8, opacity: 0.4, duration: 0.3 });
+      gsap.to(trail,  { scale: 2, opacity: 0.3, borderColor: "var(--cyan)", duration: 0.3 });
+    });
+    el.addEventListener("mouseleave", () => {
+      gsap.to(cursor, { scale: 1, opacity: 1, duration: 0.3 });
+      gsap.to(trail,  { scale: 1, opacity: 1, borderColor: "rgba(125,211,252,.3)", duration: 0.3 });
+    });
+  });
+} else if (cursor && trail) {
+  cursor.style.display = "none";
+  trail.style.display  = "none";
 }
 
-// 2. دالة لتبديل الثيم عند الضغط على الزرار
-function switchTheme(e) {
-    if (e.target.checked) {
-        // Light Mode
-        localStorage.setItem('theme', 'light');
-        applyTheme('light');
-    } else {
-        // Dark Mode
-        localStorage.setItem('theme', 'dark');
-        applyTheme('dark');
-    }
-}
+// ═══════════════════════════════════════
+// 5. NAVBAR — hide/show on scroll
+// ═══════════════════════════════════════
+const nav = document.getElementById("nav");
+let lastScroll = 0;
+let navVisible = true;
 
-// 3. ربط الزرار بالدالة
-if (toggleSwitch) {
-    toggleSwitch.addEventListener('change', switchTheme, false);
-}
-const toggleSwitch = document.querySelector('#checkbox');
-toggleSwitch.addEventListener('change', () => {
-    document.body.classList.toggle('light-mode');
+const navObs = new IntersectionObserver(
+  ([entry]) => {
+    nav.classList.toggle("scrolled", !entry.isIntersecting);
+  },
+  { threshold: 0.1 }
+);
+const heroEl = document.querySelector(".hero");
+if (heroEl) navObs.observe(heroEl);
+
+lenis.on("scroll", ({ scroll }) => {
+  const diff = scroll - lastScroll;
+  if (diff > 6 && scroll > 200 && navVisible) {
+    gsap.to(nav, { y: "-100%", duration: 0.4, ease: "power2.inOut" });
+    navVisible = false;
+  } else if (diff < -4 && !navVisible) {
+    gsap.to(nav, { y: "0%", duration: 0.5, ease: "power2.out" });
+    navVisible = true;
+  }
+  lastScroll = scroll;
 });
-const checkbox = document.getElementById('checkbox');
 
-checkbox.addEventListener('change', () => {
-  // تبديل كلاس light-mode في جسم الصفحة كله
-  document.body.classList.toggle('light-mode');
-  
-  // حفظ اختيار المستخدم عشان لما يعمل refresh يفضل زي ما هو
-  if (document.body.classList.contains('light-mode')) {
-    localStorage.setItem('theme', 'light');
-  } else {
-    localStorage.setItem('theme', 'dark');
+// ═══════════════════════════════════════
+// 6. SCROLL REVEAL (no blur, clean fade + y)
+// ═══════════════════════════════════════
+gsap.utils.toArray(".reveal").forEach((el) => {
+  const delay = parseFloat(el.dataset.delay) || 0;
+  gsap.fromTo(el,
+    { opacity: 0, y: 36 },
+    {
+      opacity: 1, y: 0,
+      duration: 0.8, delay,
+      ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 88%", toggleActions: "play none none none" }
+    }
+  );
+});
+
+// Grid children stagger
+gsap.utils.toArray(".srv-grid, .test-grid, .ba-grid, .stats-strip").forEach((grid) => {
+  gsap.fromTo(grid.children,
+    { opacity: 0, y: 40, scale: 0.97 },
+    {
+      opacity: 1, y: 0, scale: 1,
+      duration: 0.8, stagger: 0.1, ease: "power3.out",
+      scrollTrigger: { trigger: grid, start: "top 85%", toggleActions: "play none none none" }
+    }
+  );
+});
+
+// ═══════════════════════════════════════
+// 7. PARALLAX (mobile off)
+// ═══════════════════════════════════════
+if (!isMobile) {
+  gsap.to(".hero-grid", {
+    yPercent: 30, ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+  });
+  gsap.to(".holo", {
+    yPercent: 20, ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1.5 }
+  });
+  gsap.to(".ecg-wrap", {
+    yPercent: -15, ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
+  });
+
+  document.querySelectorAll(".gc").forEach((card, i) => {
+    gsap.to(card, {
+      y: i % 2 === 0 ? -30 : 30, ease: "none",
+      scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: 1 + i * 0.3 }
+    });
+  });
+}
+
+// ═══════════════════════════════════════
+// 8. MOUSE PARALLAX (throttled, mobile off)
+// ═══════════════════════════════════════
+if (!isMobile) {
+  let ticking = false, lastX = 0, lastY = 0;
+  window.addEventListener("mousemove", (e) => {
+    lastX = e.clientX;
+    lastY = e.clientY;
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const W = window.innerWidth, H = window.innerHeight;
+        const xR = (lastX / W - 0.5) * 2;
+        const yR = (lastY / H - 0.5) * 2;
+        gsap.to(".hero-bg", { backgroundPositionX: `${50 + xR * 3}%`, duration: 2, ease: "power1.out" });
+        gsap.to(".hero-content", { x: xR * 6, y: yR * 4, duration: 1.8, ease: "power1.out" });
+        gsap.to(".holo", { x: xR * -20, y: yR * -14, duration: 2, ease: "power1.out" });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
+// ═══════════════════════════════════════
+// 9. MAGNETIC BUTTONS (mobile off)
+// ═══════════════════════════════════════
+if (!isMobile) {
+  document.querySelectorAll(".btn-p, .btn-s, .nav-cta").forEach((btn) => {
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      gsap.to(btn, { x: x * 0.25, y: y * 0.2, duration: 0.4, ease: "power2.out" });
+    });
+    btn.addEventListener("mouseleave", () => {
+      gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: "power2.out" });
+    });
+  });
+}
+
+// ═══════════════════════════════════════
+// 10. CARD TILT (light, mobile off)
+// ═══════════════════════════════════════
+if (!isMobile) {
+  document.querySelectorAll(".srv-card, .test-card, .ba-card").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const xPct = (e.clientX - rect.left) / rect.width - 0.5;
+      const yPct = (e.clientY - rect.top) / rect.height - 0.5;
+      gsap.to(card, {
+        rotateY: xPct * 6,
+        rotateX: -yPct * 4,
+        transformPerspective: 800,
+        duration: 0.4,
+        ease: "power2.out"
+      });
+    });
+    card.addEventListener("mouseleave", () => {
+      gsap.to(card, { rotateY: 0, rotateX: 0, duration: 0.7, ease: "power2.out" });
+    });
+  });
+}
+
+// ═══════════════════════════════════════
+// 11. ANIMATED COUNTERS
+// ═══════════════════════════════════════
+function animateCounters(selector) {
+  gsap.utils.toArray(selector).forEach((el) => {
+    if (el.dataset.counted) return;
+    el.dataset.counted = "1";
+    const target = parseFloat(el.getAttribute("data-counter")) || 0;
+    const isK = target >= 1000;
+    const obj = { val: 0 };
+    gsap.to(obj, {
+      val: target, duration: 2.2, ease: "power2.out",
+      onUpdate() {
+        if (isK) el.textContent = (obj.val / 1000).toFixed(obj.val < target ? 1 : 0) + "K+";
+        else if (target === 98) el.textContent = Math.round(obj.val) + "%";
+        else el.textContent = Math.round(obj.val) + "+";
+      }
+    });
+  });
+}
+
+ScrollTrigger.create({
+  trigger: ".stats-strip", start: "top 80%", once: true,
+  onEnter: () => animateCounters(".stat-num[data-counter]"),
+});
+
+// ═══════════════════════════════════════
+// 12. BEFORE/AFTER BARS
+// ═══════════════════════════════════════
+ScrollTrigger.create({
+  trigger: ".ba-section", start: "top 70%", once: true,
+  onEnter: () => {
+    document.querySelectorAll("[data-target]").forEach((bar) => {
+      gsap.to(bar, {
+        width: bar.getAttribute("data-target"),
+        duration: 1.6, ease: "power3.out",
+        delay: Math.random() * 0.3
+      });
+    });
+  },
+});
+
+// ═══════════════════════════════════════
+// 13. SECTION TITLES — word by word
+// ═══════════════════════════════════════
+gsap.utils.toArray(".sec-title").forEach((title) => {
+  const words = title.innerHTML.split(" ");
+  title.innerHTML = words
+    .map((w) => `<span class="word-wrap" style="display:inline-block;overflow:hidden;vertical-align:bottom"><span class="word" style="display:inline-block">${w}&nbsp;</span></span>`)
+    .join("");
+  gsap.from(title.querySelectorAll(".word"), {
+    y: "100%", opacity: 0, duration: 0.7, stagger: 0.08, ease: "power3.out",
+    scrollTrigger: { trigger: title, start: "top 88%", toggleActions: "play none none none" }
+  });
+});
+
+// ═══════════════════════════════════════
+// 14. ECG PULSE — subtle velocity glow
+// ═══════════════════════════════════════
+lenis.on("scroll", ({ velocity }) => {
+  const opacity = Math.min(0.35, 0.08 + Math.abs(velocity) * 0.03);
+  gsap.to(".ecg-wrap", { opacity, duration: 0.3 });
+});
+
+// ═══════════════════════════════════════
+// 15. PARTICLES (reduced, mobile‑aware)
+// ═══════════════════════════════════════
+(function createParticles() {
+  const container = document.getElementById("particles");
+  if (!container) return;
+  if (isMobile && isReducedMotion) return;
+  const count = isMobile ? 8 : 30;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("div");
+    p.className = "p";
+    const size = 1 + Math.random() * 2.5;
+    p.style.cssText = `
+      left:${Math.random() * 100}%;
+      top:${100 + Math.random() * 20}%;
+      width:${size}px; height:${size}px;
+      background:${Math.random() > 0.5 ? "#7DD3FC" : "#1E90FF"};
+      border-radius:50%; position:absolute;
+    `;
+    container.appendChild(p);
+    gsap.to(p, {
+      y: -(140 + Math.random() * 200),
+      opacity: Math.random() * 0.7,
+      duration: 5 + Math.random() * 10,
+      delay: Math.random() * 8,
+      ease: "none", repeat: -1,
+      onRepeat() {
+        gsap.set(p, { left: `${Math.random() * 100}%`, top: `${90 + Math.random() * 20}%`, y: 0, opacity: 0 });
+      }
+    });
+  }
+})();
+
+// ═══════════════════════════════════════
+// 16. WHY ITEMS
+// ═══════════════════════════════════════
+gsap.fromTo(".why-item", { opacity: 0, x: -30 }, {
+  opacity: 1, x: 0, duration: 0.7, stagger: 0.15, ease: "power3.out",
+  scrollTrigger: { trigger: ".why-list", start: "top 80%", toggleActions: "play none none none" }
+});
+
+// ═══════════════════════════════════════
+// 17. CTA SECTION
+// ═══════════════════════════════════════
+ScrollTrigger.create({
+  trigger: ".cta-section", start: "top 70%", once: true,
+  onEnter: () => {
+    gsap.fromTo(".cta-section h2", { opacity: 0, y: 40, scale: 0.96 }, { opacity:1, y:0, scale:1, duration:1, ease:"power3.out" });
+    gsap.fromTo(".cta-section p",  { opacity: 0, y: 24 }, { opacity:1, y:0, duration:0.8, delay:0.2, ease:"power3.out" });
+    gsap.fromTo(".cta-section .btn-p, .phone-btn", { opacity:0, y:20, scale:0.95 }, {
+      opacity:1, y:0, scale:1, duration:0.7, delay:0.4, stagger:0.12, ease:"back.out(1.2)"
+    });
   }
 });
 
-// التأكد من الثيم المحفوظ عند فتح الصفحة
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-  document.body.classList.add('light-mode');
-  checkbox.checked = true;
-}
-// تأكد أن الكود يعمل بعد تحميل الصفحة بالكامل
-document.addEventListener('DOMContentLoaded', () => {
-
-    // 1. كود تبديل الثيم (Theme Switch)
-    const checkbox = document.getElementById('checkbox');
-    if (checkbox) {
-        checkbox.addEventListener('change', () => {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-        });
-
-        // استرجاع الثيم المحفوظ
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-mode');
-            checkbox.checked = true;
-        }
-    }
-
-    // 2. إخفاء شاشة التحميل (الـ Loader) يدوياً للتأكد أنها ستختفي
-    const loader = document.querySelector('.loader') || document.querySelector('#preloader');
-    if (loader) {
-        loader.style.display = 'none';
-    }
+// ═══════════════════════════════════════
+// 18. FOOTER
+// ═══════════════════════════════════════
+gsap.from("footer > *", {
+  opacity: 0, y: 20, duration: 0.7, stagger: 0.1, ease: "power2.out",
+  scrollTrigger: { trigger: "footer", start: "top 90%" }
 });
 
-// 3. كود الـ Smooth Scroll (Lenis) - ضعه خارج الـ DOMContentLoaded
-const lenis = new Lenis();
-function raf(time) {
-  lenis.raf(time);
-  requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-// 1. كود تبديل الثيم
-const checkbox = document.getElementById('checkbox');
+// ═══════════════════════════════════════
+// 19. KEYBOARD & ACCESSIBILITY
+// ═══════════════════════════════════════
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Tab") document.body.classList.add("keyboard-nav");
+});
+document.addEventListener("mousedown", () => {
+  document.body.classList.remove("keyboard-nav");
+});
 
-if (checkbox) {
-    checkbox.addEventListener('change', () => {
-        document.body.classList.toggle('light-mode');
-        // حفظ الاختيار
-        localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-    });
+// ═══════════════════════════════════════
+// 20. RESIZE
+// ═══════════════════════════════════════
+let resizeTimer;
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => ScrollTrigger.refresh(), 250);
+});
 
-    // تشغيل الثيم المحفوظ
-    if (localStorage.getItem('theme') === 'light') {
-        document.body.classList.add('light-mode');
-        checkbox.checked = true;
-    }
+// ═══════════════════════════════════════
+// 21. REDUCED MOTION
+// ═══════════════════════════════════════
+if (isReducedMotion) {
+  gsap.globalTimeline.timeScale(10);
+  lenis.destroy();
 }
 
-// 2. كود الـ Smooth Scroll (النسخة البسيطة)
-// لو الـ Lenis عامل مشكلة، الكود ده بديل آمن جداً
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
+// ═══════════════════════════════════════
+// 22. LAZY IMAGES FADE‑IN
+// ═══════════════════════════════════════
+document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+  img.style.opacity = 0;
+  img.style.transition = 'opacity 0.6s ease';
+  img.onload = () => img.style.opacity = 1;
+  if (img.complete) img.style.opacity = 1;
 });
-// كود تبديل الثيم فقط
-const checkbox = document.getElementById('checkbox');
 
-if (checkbox) {
-    checkbox.addEventListener('change', () => {
-        document.body.classList.toggle('light-mode');
-    });
-}
-
-// كود بديل للـ Scroll الناعم بدون مكتبات خارجية
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-const checkbox = document.getElementById('checkbox');
-
-checkbox.addEventListener('change', () => {
-  // لما تدوس على الزرار، ضيف أو شيل كلاس اسمه light-mode من الـ body
-  document.body.classList.toggle('light-mode');
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const checkbox = document.getElementById('checkbox');
-
-    // 1. تشغيل تبديل الألوان (Light/Dark)
-    if (checkbox) {
-        checkbox.addEventListener('change', () => {
-            document.body.classList.toggle('light-mode');
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-        });
-
-        // التأكد من الثيم المفضل عند التحميل
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-mode');
-            checkbox.checked = true;
-        }
-    }
-
-    // 2. سكرول ناعم بسيط لكل اللينكات
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-});
-document.addEventListener('DOMContentLoaded', () => {
-    const checkbox = document.getElementById('checkbox');
-
-    // 1. أمر تبديل الثيم بنظافة
-    if (checkbox) {
-        checkbox.addEventListener('change', () => {
-            document.body.classList.toggle('light-mode');
-            // حفظ الحالة عشان لما يقلب في الصفحات يفتكر اختياره
-            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
-        });
-
-        // التأكد من الثيم المحفوظ أول ما الصفحة تفتح
-        if (localStorage.getItem('theme') === 'light') {
-            document.body.classList.add('light-mode');
-            checkbox.checked = true;
-        }
-    }
-
-    // 2. سكرول ناعم (بدون مكتبات تقيلة)
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-});
-<script src="script.js"></script>
+console.log(
+  "%cGaber Centers%c — Refined Experience",
+  "color:#7DD3FC;font-size:1.2rem;font-weight:700;font-family:serif",
+  "color:#8892a4;font-size:.85rem"
+);
