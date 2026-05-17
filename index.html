@@ -1,523 +1,426 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dr. Ahmed | Physiotherapy Specialist</title>
+<title>Gaber Centers | Physical Therapy & Rehabilitation</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Noto+Sans+Arabic:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0a1628;
-    --navy-mid: #112240;
-    --teal: #00b4d8;
-    --teal-light: #90e0ef;
-    --gold: #c9a84c;
-    --white: #f8f9ff;
-    --gray: #8892a4;
-    --card-bg: #0d1f3c;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    padding: 20px 60px;
-    display: flex; justify-content: space-between; align-items: center;
-    background: rgba(10,22,40,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0,180,216,0.1);
-    transition: all 0.3s;
-  }
-
-  .logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    color: var(--white);
-    text-decoration: none;
-  }
-
-  .logo span { color: var(--teal); }
-
-  .nav-links {
-    display: flex; gap: 36px; list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--gray);
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    transition: color 0.3s;
-  }
-
-  .nav-links a:hover { color: var(--teal); }
-
-  .nav-cta {
-    background: var(--teal);
-    color: var(--navy) !important;
-    padding: 10px 24px;
-    border-radius: 6px;
-    font-weight: 600 !important;
-  }
-
-  .nav-cta:hover { background: var(--teal-light); color: var(--navy) !important; }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex; align-items: center;
-    padding: 120px 60px 80px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute; top: -200px; right: -200px;
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(0,180,216,0.08) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .hero::after {
-    content: '';
-    position: absolute; bottom: -100px; left: -100px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .hero-content { max-width: 620px; z-index: 1; }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(0,180,216,0.1);
-    border: 1px solid rgba(0,180,216,0.2);
-    padding: 8px 16px; border-radius: 100px;
-    font-size: 0.82rem; color: var(--teal);
-    letter-spacing: 0.06em; text-transform: uppercase;
-    margin-bottom: 28px;
-    animation: fadeUp 0.8s ease forwards;
-  }
-
-  .hero-badge::before {
-    content: ''; width: 6px; height: 6px;
-    background: var(--teal); border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.5); }
-  }
-
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 5vw, 4.2rem);
-    line-height: 1.15;
-    font-weight: 700;
-    margin-bottom: 24px;
-    animation: fadeUp 0.8s ease 0.1s both;
-  }
-
-  h1 span { color: var(--teal); }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    color: var(--gray);
-    line-height: 1.7;
-    margin-bottom: 44px;
-    max-width: 500px;
-    animation: fadeUp 0.8s ease 0.2s both;
-  }
-
-  .hero-actions {
-    display: flex; gap: 16px; flex-wrap: wrap;
-    animation: fadeUp 0.8s ease 0.3s both;
-  }
-
-  .btn-primary {
-    background: var(--teal);
-    color: var(--navy);
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-
-  .btn-primary:hover {
-    background: var(--teal-light);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 32px rgba(0,180,216,0.25);
-  }
-
-  .btn-secondary {
-    border: 1px solid rgba(248,249,255,0.15);
-    color: var(--white);
-    padding: 14px 32px;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-
-  .btn-secondary:hover {
-    border-color: var(--teal);
-    color: var(--teal);
-    transform: translateY(-2px);
-  }
-
-  /* STATS */
-  .stats {
-    display: flex; gap: 48px; margin-top: 64px;
-    padding-top: 48px;
-    border-top: 1px solid rgba(248,249,255,0.08);
-    animation: fadeUp 0.8s ease 0.4s both;
-  }
-
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--teal);
-  }
-
-  .stat-label {
-    font-size: 0.82rem;
-    color: var(--gray);
-    margin-top: 4px;
-    letter-spacing: 0.04em;
-  }
-
-  /* SERVICES */
-  .section {
-    padding: 100px 60px;
-  }
-
-  .section-tag {
-    font-size: 0.8rem;
-    color: var(--teal);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-
-  .section-sub {
-    color: var(--gray);
-    font-size: 1rem;
-    max-width: 500px;
-    line-height: 1.7;
-    margin-bottom: 56px;
-  }
-
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
-  }
-
-  .service-card {
-    background: var(--card-bg);
-    border: 1px solid rgba(248,249,255,0.06);
-    border-radius: 16px;
-    padding: 36px 32px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .service-card::before {
-    content: '';
-    position: absolute; top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--teal), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .service-card:hover {
-    border-color: rgba(0,180,216,0.2);
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-  }
-
-  .service-card:hover::before { opacity: 1; }
-
-  .service-icon {
-    width: 52px; height: 52px;
-    background: rgba(0,180,216,0.1);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem;
-    margin-bottom: 24px;
-  }
-
-  .service-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-
-  .service-desc {
-    color: var(--gray);
-    font-size: 0.9rem;
-    line-height: 1.7;
-  }
-
-  /* WHY US */
-  .why-section {
-    padding: 100px 60px;
-    background: var(--navy-mid);
-  }
-
-  .why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-  }
-
-  .why-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
-
-  .why-item {
-    display: flex; gap: 16px; align-items: flex-start;
-  }
-
-  .why-check {
-    width: 24px; height: 24px; min-width: 24px;
-    background: rgba(0,180,216,0.15);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--teal);
-    font-size: 0.75rem;
-    margin-top: 2px;
-  }
-
-  .why-text strong {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .why-text span { color: var(--gray); font-size: 0.9rem; line-height: 1.6; }
-
-  .why-visual {
-    background: var(--card-bg);
-    border-radius: 20px;
-    padding: 48px;
-    border: 1px solid rgba(248,249,255,0.06);
-    text-align: center;
-  }
-
-  .big-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 5rem;
-    font-weight: 700;
-    color: var(--teal);
-    line-height: 1;
-  }
-
-  .big-label {
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-top: 8px;
-  }
-
-  .divider { width: 40px; height: 1px; background: rgba(248,249,255,0.1); margin: 32px auto; }
-
-  /* CTA */
-  .cta-section {
-    padding: 100px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(0,180,216,0.06) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-
-  .cta-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin-bottom: 20px;
-  }
-
-  .cta-section p {
-    color: var(--gray);
-    max-width: 480px;
-    margin: 0 auto 40px;
-    line-height: 1.7;
-  }
-
-  /* FOOTER */
-  footer {
-    padding: 48px 60px;
-    border-top: 1px solid rgba(248,249,255,0.06);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-
-  .footer-links { display: flex; gap: 32px; list-style: none; }
-
-  .footer-links a {
-    color: var(--gray);
-    text-decoration: none;
-    font-size: 0.88rem;
-    transition: color 0.3s;
-  }
-
-  .footer-links a:hover { color: var(--teal); }
-
-  .footer-copy {
-    color: var(--gray);
-    font-size: 0.85rem;
-  }
-
-  .footer-copy span { color: var(--teal); }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (max-width: 768px) {
-    nav { padding: 16px 24px; }
-    .nav-links { display: none; }
-    .hero, .section, .why-section, .cta-section { padding: 80px 24px; }
-    .why-grid { grid-template-columns: 1fr; gap: 40px; }
-    .stats { gap: 32px; flex-wrap: wrap; }
-    footer { padding: 32px 24px; flex-direction: column; text-align: center; }
-  }
+:root {
+  --navy:#0B1220; --navy2:#0d1a30; --navy3:#0f2040;
+  --blue:#1E90FF; --cyan:#7DD3FC; --cyan2:#38bdf8;
+  --white:#F8FAFC; --gray:#8892a4; --gray2:#64748b;
+  --gold:#c9a84c; --card:#0d1f3c;
+  --glass:rgba(30,144,255,0.05);
+  --border:rgba(30,144,255,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;cursor:none}
+body[lang="ar"]{font-family:'Noto Sans Arabic','Sora',sans-serif}
+body[lang="ja"]{font-family:'Noto Sans JP','Sora',sans-serif}
+body[lang="zh"]{font-family:'Noto Sans SC','Sora',sans-serif}
+
+/* ── CURSOR ── */
+#cursor{position:fixed;width:12px;height:12px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s,width .3s,height .3s,opacity .3s;mix-blend-mode:screen}
+#cursor-trail{position:fixed;width:36px;height:36px;border:1px solid rgba(125,211,252,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .12s,top .12s,width .3s,height .3s}
+body:hover #cursor{opacity:1}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:10000;background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s ease}
+#loader.done{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--white);margin-bottom:8px;opacity:0;animation:fadeUp .8s .3s both}
+.loader-logo span{color:var(--cyan)}
+.loader-sub{font-size:.75rem;color:var(--gray);letter-spacing:.2em;text-transform:uppercase;opacity:0;animation:fadeUp .8s .5s both}
+.loader-bar{width:200px;height:2px;background:rgba(125,211,252,.1);border-radius:100px;margin-top:32px;overflow:hidden;opacity:0;animation:fadeUp .5s .7s both}
+.loader-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:100px;animation:load 2s ease forwards .8s}
+@keyframes load{from{width:0}to{width:100%}}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;width:100%;z-index:500;padding:18px 64px;display:flex;justify-content:space-between;align-items:center;background:rgba(11,18,32,0);backdrop-filter:blur(0);border-bottom:1px solid transparent;transition:all .5s ease}
+nav.scrolled{background:rgba(11,18,32,.95);backdrop-filter:blur(20px);border-color:var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);text-decoration:none;letter-spacing:-.01em}
+.logo span{color:var(--cyan)}
+.nav-right{display:flex;align-items:center;gap:28px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.82rem;font-weight:400;transition:color .3s;letter-spacing:.03em}
+.nav-links a:hover{color:var(--cyan)}
+
+/* LANG */
+.lang-wrap{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--border);color:var(--cyan);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Sora',sans-serif;transition:all .3s}
+.lang-btn:hover{background:rgba(30,144,255,.1)}
+.lang-dd{position:absolute;top:calc(100% + 8px);right:0;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:8px;min-width:170px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .25s;box-shadow:0 24px 48px rgba(0,0,0,.5)}
+.lang-dd.open{opacity:1;pointer-events:all;transform:translateY(0)}
+.lang-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer;font-size:.83rem;color:var(--white);transition:background .2s}
+.lang-opt:hover{background:rgba(30,144,255,.08)}
+.lang-opt.active{color:var(--cyan)}
+.nav-cta{background:var(--blue);color:var(--navy);padding:10px 22px;border-radius:8px;font-weight:600;font-size:.82rem;text-decoration:none;transition:all .3s;white-space:nowrap;letter-spacing:.02em}
+.nav-cta:hover{background:var(--cyan);transform:translateY(-1px);box-shadow:0 8px 24px rgba(30,144,255,.3)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;display:flex;align-items:center;overflow:hidden}
+
+/* BG LAYERS */
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 90% 70% at 65% 50%,rgba(30,144,255,.07) 0%,transparent 60%),radial-gradient(ellipse 50% 90% at 15% 20%,rgba(125,211,252,.04) 0%,transparent 50%),linear-gradient(150deg,#0B1220 0%,#0d1b32 60%,#0B1220 100%)}
+
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,144,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(30,144,255,.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 30%,transparent 80%)}
+
+/* PARTICLES */
+.particles{position:absolute;inset:0;pointer-events:none}
+.p{position:absolute;border-radius:50%;animation:pfloat linear infinite;opacity:0}
+@keyframes pfloat{0%{opacity:0;transform:translateY(0) scale(0)}20%{opacity:.7}80%{opacity:.3}100%{opacity:0;transform:translateY(-140px) scale(.4)}}
+
+/* ECG */
+.ecg-wrap{position:absolute;bottom:64px;left:0;right:0;height:48px;overflow:hidden;opacity:.1;pointer-events:none}
+.ecg-svg{position:absolute;top:0;left:0;width:200%;height:100%;animation:ecgScroll 5s linear infinite}
+@keyframes ecgScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* HOLO */
+.holo{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:480px;height:480px;opacity:.06;animation:holopulse 8s ease-in-out infinite;pointer-events:none}
+@keyframes holopulse{0%,100%{opacity:.06;transform:translateY(-50%) rotate(0deg)}50%{opacity:.1;transform:translateY(-52%) rotate(1deg)}}
+
+/* GLASS CARDS */
+.gc{position:absolute;background:rgba(13,26,48,.7);border:1px solid var(--border);backdrop-filter:blur(12px);border-radius:16px;padding:20px 24px}
+.gc1{right:6%;top:18%;animation:gcfloat1 9s ease-in-out infinite}
+.gc2{right:20%;bottom:20%;animation:gcfloat2 11s ease-in-out infinite}
+.gc3{right:3%;bottom:32%;animation:gcfloat1 13s ease-in-out infinite reverse}
+@keyframes gcfloat1{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes gcfloat2{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.gc-label{font-size:.6rem;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;font-weight:600}
+.gc-val{font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;color:var(--white);line-height:1}
+.gc-sub{font-size:.65rem;color:var(--gray);margin-top:3px}
+.gc-bar{height:3px;background:rgba(125,211,252,.1);border-radius:100px;margin-top:12px;overflow:hidden;width:120px}
+.gc-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--blue),var(--cyan));animation:gcfill 3s ease-in-out infinite alternate}
+@keyframes gcfill{from{width:55%}to{width:92%}}
+.gc-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:6px;animation:dotpulse 2s ease-in-out infinite}
+@keyframes dotpulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(74,222,128,.4)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.gc-row{display:flex;align-items:center;font-size:.72rem;color:var(--gray);margin-top:4px}
+
+/* CONTENT */
+.hero-content{position:relative;z-index:10;padding:0 64px;max-width:660px}
+
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(30,144,255,.07);border:1px solid rgba(30,144,255,.18);padding:8px 18px;border-radius:100px;font-size:.72rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:32px;font-weight:600;animation:fadeUp 1s .3s both}
+.bdot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:dotpulse2 2s ease-in-out infinite}
+@keyframes dotpulse2{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.8)}}
+
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,5.2rem);line-height:1.08;font-weight:700;margin-bottom:28px;animation:fadeUp 1s .4s both}
+.ht1{color:var(--cyan);display:block}
+.ht2{display:block}
+.ht3{font-style:italic;opacity:.8;display:block;font-size:90%}
+
+.hero-sub{font-size:1rem;color:var(--gray);line-height:1.8;margin-bottom:44px;max-width:480px;font-weight:300;animation:fadeUp 1s .5s both}
+
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp 1s .6s both}
+.btn-p{background:var(--blue);color:var(--navy);padding:15px 34px;border-radius:10px;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .35s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 40px rgba(30,144,255,.2);letter-spacing:.02em}
+.btn-p:hover{background:var(--cyan);transform:translateY(-4px);box-shadow:0 20px 48px rgba(30,144,255,.4)}
+.btn-s{border:1px solid rgba(248,250,252,.12);color:var(--white);padding:15px 34px;border-radius:10px;font-weight:400;font-size:.9rem;text-decoration:none;transition:all .35s;background:rgba(248,250,252,.02);backdrop-filter:blur(4px)}
+.btn-s:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-4px)}
+
+/* STATS */
+.hero-stats{display:flex;gap:40px;margin-top:56px;padding-top:44px;border-top:1px solid rgba(248,250,252,.06);animation:fadeUp 1s .7s both;flex-wrap:wrap}
+.sn{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:700;color:var(--cyan);line-height:1}
+.sl{font-size:.75rem;color:var(--gray);margin-top:6px;font-weight:300;letter-spacing:.03em}
+
+/* SCROLL */
+.scroll-ind{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;z-index:10;animation:fadeUp 1s 1.2s both}
+.scroll-txt{font-size:.65rem;color:var(--gray);letter-spacing:.15em;text-transform:uppercase}
+.scroll-ln{width:1px;height:44px;background:linear-gradient(to bottom,var(--cyan),transparent);animation:scrollb 2s ease-in-out infinite}
+@keyframes scrollb{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.5);opacity:.4}}
+
+/* ── STATS COUNTER ── */
+.stats-strip{padding:64px;background:var(--navy2);display:grid;grid-template-columns:repeat(4,1fr);gap:1px;position:relative}
+.stats-strip::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(30,144,255,.04),transparent)}
+.stat-box{padding:40px 32px;text-align:center;background:var(--navy2);position:relative}
+.stat-box::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:rgba(248,250,252,.06)}
+.stat-box:last-child::after{display:none}
+.stat-num{font-family:'Playfair Display',serif;font-size:3rem;font-weight:700;color:var(--cyan);line-height:1;display:block}
+.stat-lbl{font-size:.78rem;color:var(--gray);margin-top:8px;font-weight:300;letter-spacing:.04em}
+
+/* ── SERVICES ── */
+.section{padding:100px 64px}
+.sec-tag{font-size:.72rem;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.8rem);font-weight:700;margin-bottom:16px;line-height:1.2}
+.sec-sub{color:var(--gray);font-size:.95rem;max-width:480px;line-height:1.8;margin-bottom:56px;font-weight:300}
+
+.srv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px}
+.srv-card{background:var(--card);border:1px solid rgba(248,250,252,.05);border-radius:20px;padding:36px 32px;transition:all .4s cubic-bezier(.25,.46,.45,.94);position:relative;overflow:hidden;cursor:none}
+.srv-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan),transparent);opacity:0;transition:opacity .35s}
+.srv-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(30,144,255,.05),transparent 60%);opacity:0;transition:opacity .35s}
+.srv-card:hover{border-color:rgba(30,144,255,.22);transform:translateY(-8px);box-shadow:0 32px 64px rgba(0,0,0,.5)}
+.srv-card:hover::before{opacity:1}
+.srv-card:hover::after{opacity:1}
+.srv-icon{width:54px;height:54px;background:rgba(30,144,255,.08);border:1px solid rgba(30,144,255,.12);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:24px;transition:all .3s}
+.srv-card:hover .srv-icon{background:rgba(30,144,255,.15);transform:scale(1.05)}
+.srv-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:12px}
+.srv-desc{color:var(--gray);font-size:.85rem;line-height:1.75;font-weight:300}
+
+/* ── BEFORE/AFTER ── */
+.ba-section{padding:100px 64px;background:var(--navy2);position:relative;overflow:hidden}
+.ba-section::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(30,144,255,.06) 0%,transparent 70%);border-radius:50%}
+.ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:56px}
+.ba-card{background:var(--card);border-radius:20px;overflow:hidden;border:1px solid rgba(248,250,252,.05);transition:all .4s}
+.ba-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.4);border-color:rgba(30,144,255,.15)}
+.ba-header{padding:24px 28px;border-bottom:1px solid rgba(248,250,252,.05);display:flex;justify-content:space-between;align-items:center}
+.ba-type{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.ba-type.before{color:#ef4444}
+.ba-type.after{color:#4ade80}
+.ba-weeks{font-size:.72rem;color:var(--gray);background:rgba(248,250,252,.04);padding:4px 10px;border-radius:100px}
+.ba-body{padding:28px}
+.ba-condition{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:20px}
+.ba-metrics{display:flex;flex-direction:column;gap:14px}
+.ba-metric{display:flex;flex-direction:column;gap:6px}
+.ba-m-top{display:flex;justify-content:space-between;font-size:.75rem;color:var(--gray)}
+.ba-bar{height:5px;background:rgba(248,250,252,.06);border-radius:100px;overflow:hidden}
+.ba-fill{height:100%;border-radius:100px;transition:width 1.5s ease}
+.ba-fill.r{background:linear-gradient(90deg,var(--blue),var(--cyan))}
+.ba-fill.y{background:linear-gradient(90deg,#f59e0b,#fbbf24)}
+
+/* ── TESTIMONIALS ── */
+.test-section{padding:100px 64px}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:56px}
+.test-card{background:var(--card);border:1px solid rgba(248,250,252,.05);border-radius:20px;padding:36px;transition:all .4s;position:relative;overflow:hidden}
+.test-card::before{content:'"';position:absolute;top:-10px;right:24px;font-family:'Playfair Display',serif;font-size:8rem;color:rgba(30,144,255,.06);line-height:1;pointer-events:none}
+.test-card:hover{border-color:rgba(30,144,255,.15);transform:translateY(-4px);box-shadow:0 20px 48px rgba(0,0,0,.4)}
+.stars{color:var(--gold);font-size:.9rem;letter-spacing:2px;margin-bottom:18px}
+.test-txt{font-style:italic;color:var(--gray);line-height:1.8;margin-bottom:24px;font-size:.9rem;font-weight:300}
+.test-author{display:flex;align-items:center;gap:14px}
+.test-av{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--navy2));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.9rem;border:1px solid var(--border)}
+.test-name{font-weight:600;font-size:.88rem}
+.test-case{font-size:.75rem;color:var(--gray);margin-top:2px}
+
+/* ── WHY ── */
+.why-section{padding:100px 64px;background:var(--navy2)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.why-list{list-style:none;display:flex;flex-direction:column;gap:20px;margin-top:40px}
+.why-item{display:flex;gap:16px;align-items:flex-start;padding:20px;border-radius:12px;border:1px solid transparent;transition:all .3s}
+.why-item:hover{background:rgba(30,144,255,.03);border-color:var(--border)}
+.why-chk{width:28px;height:28px;min-width:28px;background:rgba(30,144,255,.1);border:1px solid rgba(30,144,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:.75rem;margin-top:2px}
+.why-txt strong{display:block;font-weight:600;margin-bottom:4px;font-size:.95rem}
+.why-txt span{color:var(--gray);font-size:.85rem;line-height:1.7;font-weight:300}
+.why-visual{background:var(--card);border-radius:24px;padding:48px;border:1px solid rgba(248,250,252,.05);text-align:center;position:relative;overflow:hidden}
+.why-visual::before{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(30,144,255,.08) 0%,transparent 70%)}
+.big-n{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;color:var(--cyan);line-height:1}
+.big-l{color:var(--gray);font-size:.82rem;margin-top:6px;font-weight:300}
+.divider{width:40px;height:1px;background:rgba(248,250,252,.08);margin:28px auto}
+
+/* ── CTA ── */
+.cta-section{padding:120px 64px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(30,144,255,.07) 0%,transparent 70%);border-radius:50%}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);margin-bottom:20px;line-height:1.2}
+.cta-section p{color:var(--gray);max-width:440px;margin:0 auto 44px;line-height:1.8;font-weight:300}
+.cta-phones{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.phone-btn{display:flex;align-items:center;gap:8px;border:1px solid var(--border);color:var(--white);padding:12px 24px;border-radius:10px;text-decoration:none;font-size:.88rem;transition:all .3s;background:var(--glass)}
+.phone-btn:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-2px)}
+
+/* ── FOOTER ── */
+footer{padding:56px 64px;border-top:1px solid rgba(248,250,252,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+.footer-links{display:flex;gap:32px;list-style:none}
+.footer-links a{color:var(--gray);text-decoration:none;font-size:.82rem;transition:color .3s;font-weight:300}
+.footer-links a:hover{color:var(--cyan)}
+.footer-copy{color:var(--gray);font-size:.8rem;font-weight:300}
+.footer-copy span{color:var(--cyan)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+
+/* RTL */
+[dir="rtl"] .hero-content{margin-left:auto;margin-right:0}
+[dir="rtl"] .nav-right{flex-direction:row-reverse}
+[dir="rtl"] .lang-dd{right:auto;left:0}
+
+@media(max-width:900px){
+  .why-grid,.ba-grid{grid-template-columns:1fr}
+  .stats-strip{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .hero-content{padding:0 24px}
+  .section,.ba-section,.test-section,.why-section,.cta-section{padding:80px 24px}
+  .stats-strip{padding:48px 24px}
+  footer{padding:40px 24px;flex-direction:column;text-align:center}
+}
 </style>
 </head>
-<body>
+<body lang="en">
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">Gaber <span>Centers</span></div>
+  <div class="loader-sub">Physical Therapy & Rehabilitation</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="cases.html">Cases</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="team.html">Team</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="appointment.html" class="nav-cta">Book Now</a></li>
-  </ul>
+<nav id="nav">
+  <a href="index.html" class="logo">Gaber <span>Centers</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+      <li><a href="about.html" data-i18n="nav_about">About</a></li>
+      <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+      <li><a href="cases.html" data-i18n="nav_cases">Cases</a></li>
+      <li><a href="blog.html" data-i18n="nav_blog">Blog</a></li>
+      <li><a href="team.html" data-i18n="nav_team">Team</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="lang-wrap">
+      <button class="lang-btn" onclick="toggleDD()" id="langBtn">🌐 <span id="curLang">EN</span> ▾</button>
+      <div class="lang-dd" id="langDD">
+        <div class="lang-opt active" onclick="setLang('en',this)">🇬🇧 English</div>
+        <div class="lang-opt" onclick="setLang('ar',this)">🇪🇬 العربية</div>
+        <div class="lang-opt" onclick="setLang('fr',this)">🇫🇷 Français</div>
+        <div class="lang-opt" onclick="setLang('de',this)">🇩🇪 Deutsch</div>
+        <div class="lang-opt" onclick="setLang('zh',this)">🇨🇳 中文</div>
+        <div class="lang-opt" onclick="setLang('ja',this)">🇯🇵 日本語</div>
+      </div>
+    </div>
+    <a href="appointment.html" class="nav-cta" data-i18n="nav_book">Book Now</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
+
+  <!-- GLASS CARDS -->
+  <div class="gc gc1">
+    <div class="gc-label">Recovery Rate</div>
+    <div class="gc-val">98%</div>
+    <div class="gc-sub">Across all cases</div>
+    <div class="gc-bar"><div class="gc-fill"></div></div>
+  </div>
+  <div class="gc gc2">
+    <div class="gc-label">Active Sessions</div>
+    <div class="gc-row"><span class="gc-dot"></span><span style="color:#4ade80;font-size:.72rem">Live Now</span></div>
+    <div class="gc-val" style="font-size:1.6rem;margin-top:6px">24/7</div>
+    <div class="gc-sub">Support available</div>
+  </div>
+  <div class="gc gc3">
+    <div class="gc-label">Patients Treated</div>
+    <div class="gc-val">11K+</div>
+    <div class="gc-sub">Since 2015</div>
+  </div>
+
+  <!-- ECG -->
+  <div class="ecg-wrap">
+    <svg class="ecg-svg" viewBox="0 0 800 48" preserveAspectRatio="none">
+      <polyline points="0,24 80,24 110,24 128,4 145,44 162,4 179,44 196,24 220,24 320,24 350,24 368,4 385,44 402,4 419,44 436,24 460,24 560,24 590,24 608,4 625,44 642,4 659,44 676,24 700,24 800,24" fill="none" stroke="#1E90FF" stroke-width="1.5" opacity=".7"/>
+    </svg>
+  </div>
+
+  <!-- HOLO -->
+  <svg class="holo" viewBox="0 0 400 400">
+    <circle cx="200" cy="200" r="185" fill="none" stroke="#1E90FF" stroke-width=".5" stroke-dasharray="3 9"/>
+    <circle cx="200" cy="200" r="145" fill="none" stroke="#7DD3FC" stroke-width=".3" stroke-dasharray="2 7"/>
+    <circle cx="200" cy="200" r="105" fill="none" stroke="#1E90FF" stroke-width=".5"/>
+    <circle cx="200" cy="200" r="60" fill="none" stroke="#7DD3FC" stroke-width=".3" opacity=".6"/>
+    <line x1="15" y1="200" x2="385" y2="200" stroke="#1E90FF" stroke-width=".3" opacity=".4"/>
+    <line x1="200" y1="15" x2="200" y2="385" stroke="#1E90FF" stroke-width=".3" opacity=".4"/>
+    <circle cx="200" cy="200" r="9" fill="#1E90FF" opacity=".3"/>
+    <circle cx="200" cy="55" r="4" fill="#7DD3FC" opacity=".7"/>
+    <circle cx="200" cy="345" r="4" fill="#7DD3FC" opacity=".7"/>
+    <circle cx="55" cy="200" r="4" fill="#7DD3FC" opacity=".7"/>
+    <circle cx="345" cy="200" r="4" fill="#7DD3FC" opacity=".7"/>
+    <circle cx="327" cy="127" r="3" fill="#1E90FF" opacity=".5"/>
+    <circle cx="73" cy="273" r="3" fill="#1E90FF" opacity=".5"/>
+  </svg>
+
   <div class="hero-content">
-    <div class="hero-badge">Physiotherapy Specialist</div>
-    <h1>Restore Movement.<br>Rebuild <span>Strength.</span></h1>
-    <p class="hero-sub">Expert physiotherapy care tailored to your recovery journey. Evidence-based treatment plans designed to get you back to your best.</p>
+    <div class="hero-badge"><span class="bdot"></span><span data-i18n="hero_badge">Premium Physiotherapy & Rehabilitation</span></div>
+    <h1 class="hero-title">
+      <span class="ht1" data-i18n="ht1">Move Better.</span>
+      <span class="ht2" data-i18n="ht2">Recover Faster.</span>
+      <span class="ht3" data-i18n="ht3">Live Stronger.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">Egypt's most trusted physiotherapy centers — 11,000+ patients treated since 2015. Evidence-based care with world-class specialists.</p>
     <div class="hero-actions">
-      <a href="appointment.html" class="btn-primary">
-        Book Appointment
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="services.html" class="btn-secondary">Our Services</a>
+      <a href="appointment.html" class="btn-p"><span data-i18n="cta1">Book Appointment</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="cases.html" class="btn-s" data-i18n="cta2">View Cases</a>
     </div>
-    <div class="stats">
-      <div>
-        <div class="stat-num">12+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">2K+</div>
-        <div class="stat-label">Patients Treated</div>
-      </div>
-      <div>
-        <div class="stat-num">98%</div>
-        <div class="stat-label">Satisfaction Rate</div>
-      </div>
+    <div class="hero-stats">
+      <div><div class="sn" data-counter="11000">0</div><div class="sl" data-i18n="st1">Patients Treated</div></div>
+      <div><div class="sn" data-counter="116000">0</div><div class="sl" data-i18n="st2">Followers</div></div>
+      <div><div class="sn" data-counter="10">0</div><div class="sl" data-i18n="st3">Years Experience</div></div>
     </div>
+  </div>
+  <div class="scroll-ind"><span class="scroll-txt">Scroll</span><div class="scroll-ln"></div></div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-box reveal"><span class="stat-num" data-counter="11000">0</span><div class="stat-lbl" data-i18n="st1">Patients Treated</div></div>
+  <div class="stat-box reveal"><span class="stat-num" data-counter="98">0</span><div class="stat-lbl" data-i18n="satisfaction">Satisfaction Rate %</div></div>
+  <div class="stat-box reveal"><span class="stat-num" data-counter="116">0</span><div class="stat-lbl" data-i18n="st2b">K Social Followers</div></div>
+  <div class="stat-box reveal"><span class="stat-num" data-counter="10">0</span><div class="stat-lbl" data-i18n="st3">Years Experience</div></div>
+</div>
+
+<!-- SERVICES -->
+<section class="section">
+  <div class="sec-tag" data-i18n="srv_tag">What We Offer</div>
+  <h2 class="sec-title reveal"><span style="color:var(--cyan)" data-i18n="srv_title">Our Services</span></h2>
+  <p class="sec-sub reveal" data-i18n="srv_sub">Comprehensive physiotherapy for every stage of your recovery.</p>
+  <div class="srv-grid">
+    <div class="srv-card reveal"><div class="srv-icon">🦴</div><div class="srv-title" data-i18n="s1t">Orthopedic Therapy</div><p class="srv-desc" data-i18n="s1d">Specialized treatment for musculoskeletal conditions, post-surgical rehabilitation, and sports injuries.</p></div>
+    <div class="srv-card reveal"><div class="srv-icon">🧠</div><div class="srv-title" data-i18n="s2t">Neurological Rehab</div><p class="srv-desc" data-i18n="s2d">Targeted programs for stroke recovery, Parkinson's disease, and other neurological conditions.</p></div>
+    <div class="srv-card reveal"><div class="srv-icon">🏃</div><div class="srv-title" data-i18n="s3t">Sports Physiotherapy</div><p class="srv-desc" data-i18n="s3d">Performance optimization and injury prevention for athletes at every level.</p></div>
+    <div class="srv-card reveal"><div class="srv-icon">💆</div><div class="srv-title" data-i18n="s4t">Manual Therapy</div><p class="srv-desc" data-i18n="s4d">Hands-on techniques to restore joint mobility and relieve chronic pain effectively.</p></div>
+    <div class="srv-card reveal"><div class="srv-icon">⚡</div><div class="srv-title" data-i18n="s5t">Electrotherapy</div><p class="srv-desc" data-i18n="s5d">Advanced electrical stimulation for pain management and accelerated tissue healing.</p></div>
+    <div class="srv-card reveal"><div class="srv-icon">🏠</div><div class="srv-title" data-i18n="s6t">Home Visits</div><p class="srv-desc" data-i18n="s6d">Professional physiotherapy delivered to your doorstep for maximum convenience.</p></div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="section" id="services">
-  <div class="section-tag">What We Offer</div>
-  <h2 class="section-title">Our <span style="color:var(--teal)">Services</span></h2>
-  <p class="section-sub">Comprehensive physiotherapy solutions for every stage of your recovery.</p>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="service-icon">🦴</div>
-      <div class="service-title">Orthopedic Therapy</div>
-      <p class="service-desc">Specialized treatment for musculoskeletal conditions, post-surgical rehabilitation, and sports injuries.</p>
+<!-- BEFORE/AFTER -->
+<section class="ba-section">
+  <div class="sec-tag" data-i18n="ba_tag">Real Results</div>
+  <h2 class="sec-title reveal" data-i18n="ba_title">Before & After <span style="color:var(--cyan)">Recovery</span></h2>
+  <p class="sec-sub reveal" data-i18n="ba_sub">Documented outcomes from our clinic — real patients, real results.</p>
+  <div class="ba-grid">
+    <div class="ba-card reveal">
+      <div class="ba-header"><span class="ba-type before">Before Treatment</span><span class="ba-weeks">Week 0</span></div>
+      <div class="ba-body">
+        <div class="ba-condition" data-i18n="ba1_cond">Lower Back — L4-L5 Disc Herniation</div>
+        <div class="ba-metrics">
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="pain_level">Pain Level</span><span>8/10</span></div><div class="ba-bar"><div class="ba-fill y" style="--w:80%;width:80%"></div></div></div>
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="mobility">Mobility</span><span>20%</span></div><div class="ba-bar"><div class="ba-fill y" style="--w:20%;width:20%"></div></div></div>
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="quality">Quality of Life</span><span>15%</span></div><div class="ba-bar"><div class="ba-fill y" style="--w:15%;width:15%"></div></div></div>
+        </div>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon">🧠</div>
-      <div class="service-title">Neurological Rehab</div>
-      <p class="service-desc">Targeted programs for stroke recovery, Parkinson's, and other neurological conditions.</p>
+    <div class="ba-card reveal">
+      <div class="ba-header"><span class="ba-type after">After 18 Sessions</span><span class="ba-weeks">Week 12</span></div>
+      <div class="ba-body">
+        <div class="ba-condition" data-i18n="ba1_cond">Lower Back — L4-L5 Disc Herniation</div>
+        <div class="ba-metrics">
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="pain_level">Pain Level</span><span>1/10</span></div><div class="ba-bar"><div class="ba-fill r" style="width:0" data-target="10%"></div></div></div>
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="mobility">Mobility</span><span>95%</span></div><div class="ba-bar"><div class="ba-fill r" style="width:0" data-target="95%"></div></div></div>
+          <div class="ba-metric"><div class="ba-m-top"><span data-i18n="quality">Quality of Life</span><span>92%</span></div><div class="ba-bar"><div class="ba-fill r" style="width:0" data-target="92%"></div></div></div>
+        </div>
+      </div>
     </div>
-    <div class="service-card reveal">
-      <div class="service-icon">🏃</div>
-      <div class="service-title">Sports Physiotherapy</div>
-      <p class="service-desc">Performance optimization and injury prevention for athletes at every level.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">💆</div>
-      <div class="service-title">Manual Therapy</div>
-      <p class="service-desc">Hands-on techniques to restore joint mobility and relieve chronic pain effectively.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">⚡</div>
-      <div class="service-title">Electrotherapy</div>
-      <p class="service-desc">Advanced electrical stimulation modalities for pain management and tissue healing.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="service-icon">🏠</div>
-      <div class="service-title">Home Visits</div>
-      <p class="service-desc">Professional physiotherapy delivered to your doorstep for maximum convenience.</p>
-    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px"><a href="cases.html" class="btn-p" style="display:inline-flex" data-i18n="view_all_cases">View All Cases →</a></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="test-section">
+  <div class="sec-tag" data-i18n="test_tag">Patient Voices</div>
+  <h2 class="sec-title reveal" data-i18n="test_title">What Our Patients <span style="color:var(--cyan)">Say</span></h2>
+  <div class="test-grid">
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-txt" data-i18n="t1">"After years of chronic back pain, Dr. Gaber's team gave me my life back. The personalized approach made all the difference."</p><div class="test-author"><div class="test-av">M</div><div><div class="test-name">Mohamed K.</div><div class="test-case" data-i18n="disc_case">Disc Herniation Recovery</div></div></div></div>
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-txt" data-i18n="t2">"I was told surgery was my only option. Six months later, I'm hiking again without any pain. Absolutely incredible."</p><div class="test-author"><div class="test-av">S</div><div><div class="test-name">Sara A.</div><div class="test-case" data-i18n="hip_case">Hip Osteoarthritis Case</div></div></div></div>
+    <div class="test-card reveal"><div class="stars">★★★★★</div><p class="test-txt" data-i18n="t3">"The stroke took everything from me. Gaber Centers' rehab program gave it all back. I walk independently again."</p><div class="test-author"><div class="test-av">F</div><div><div class="test-name">Fatma H.</div><div class="test-case" data-i18n="stroke_case">Post-Stroke Rehabilitation</div></div></div></div>
   </div>
 </section>
 
@@ -525,96 +428,151 @@
 <section class="why-section">
   <div class="why-grid">
     <div>
-      <div class="section-tag">Why Choose Us</div>
-      <h2 class="section-title reveal">Evidence-Based.<br>Patient-Centered.</h2>
-      <p class="section-sub reveal">Every treatment plan is built around your unique condition and recovery goals.</p>
+      <div class="sec-tag" data-i18n="why_tag">Why Choose Us</div>
+      <h2 class="sec-title reveal" data-i18n="why_title">Evidence-Based.<br>Patient-Centered.</h2>
       <ul class="why-list">
-        <li class="why-item reveal">
-          <div class="why-check">✓</div>
-          <div class="why-text">
-            <strong>Personalized Treatment Plans</strong>
-            <span>No two patients are the same. Your plan is designed specifically for you.</span>
-          </div>
-        </li>
-        <li class="why-item reveal">
-          <div class="why-check">✓</div>
-          <div class="why-text">
-            <strong>Advanced Equipment</strong>
-            <span>State-of-the-art technology for faster, more effective recovery.</span>
-          </div>
-        </li>
-        <li class="why-item reveal">
-          <div class="why-check">✓</div>
-          <div class="why-text">
-            <strong>Certified Specialists</strong>
-            <span>Our team holds internationally recognized physiotherapy certifications.</span>
-          </div>
-        </li>
-        <li class="why-item reveal">
-          <div class="why-check">✓</div>
-          <div class="why-text">
-            <strong>Flexible Scheduling</strong>
-            <span>Morning, evening, and home visit options to fit your lifestyle.</span>
-          </div>
-        </li>
+        <li class="why-item reveal"><div class="why-chk">✓</div><div class="why-txt"><strong data-i18n="w1t">Personalized Plans</strong><span data-i18n="w1d">No two patients are the same. Your plan is designed specifically for you.</span></div></li>
+        <li class="why-item reveal"><div class="why-chk">✓</div><div class="why-txt"><strong data-i18n="w2t">Advanced Equipment</strong><span data-i18n="w2d">State-of-the-art technology for faster, more effective recovery.</span></div></li>
+        <li class="why-item reveal"><div class="why-chk">✓</div><div class="why-txt"><strong data-i18n="w3t">Certified Specialists</strong><span data-i18n="w3d">Internationally recognized physiotherapy certifications.</span></div></li>
+        <li class="why-item reveal"><div class="why-chk">✓</div><div class="why-txt"><strong data-i18n="w4t">Flexible Scheduling</strong><span data-i18n="w4d">Morning, evening, and home visit options for your lifestyle.</span></div></li>
       </ul>
     </div>
     <div class="why-visual reveal">
-      <div class="big-num">2K+</div>
-      <div class="big-label">Successful Recoveries</div>
+      <div class="big-n">11K+</div><div class="big-l" data-i18n="st1">Patients Treated</div>
       <div class="divider"></div>
-      <div class="big-num" style="font-size:3rem">12+</div>
-      <div class="big-label">Years of Excellence</div>
+      <div class="big-n" style="font-size:3rem">98%</div><div class="big-l" data-i18n="satisfaction">Patient Satisfaction</div>
       <div class="divider"></div>
-      <div class="big-num" style="font-size:3rem">98%</div>
-      <div class="big-label">Patient Satisfaction</div>
+      <div class="big-n" style="font-size:3rem">2015</div><div class="big-l" data-i18n="founded">Founded</div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section">
-  <h2 class="reveal">Ready to Start Your <span style="color:var(--teal)">Recovery?</span></h2>
-  <p class="reveal">Book your first consultation today and take the first step toward a pain-free life.</p>
-  <a href="appointment.html" class="btn-primary reveal">
-    Book Your Appointment
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-  </a>
+  <h2 class="reveal" data-i18n="cta_title">Ready to Start Your <span style="color:var(--cyan)">Recovery?</span></h2>
+  <p class="reveal" data-i18n="cta_sub">Book your first consultation today and take the first step toward a pain-free life.</p>
+  <a href="appointment.html" class="btn-p reveal" style="display:inline-flex"><span data-i18n="cta1">Book Appointment</span> <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  <div class="cta-phones">
+    <a href="tel:01025101874" class="phone-btn">📞 010 2510 1874</a>
+    <a href="tel:01120187048" class="phone-btn">📞 011 2018 7048</a>
+    <a href="https://wa.me/201025101874" class="phone-btn">💬 WhatsApp</a>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <a href="index.html" class="logo">Dr. <span>Ahmed</span></a>
+  <a href="index.html" class="logo">Gaber <span>Centers</span></a>
   <ul class="footer-links">
-    <li><a href="about.html">About</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="cases.html">Cases</a></li>
-    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html" data-i18n="nav_about">About</a></li>
+    <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+    <li><a href="cases.html" data-i18n="nav_cases">Cases</a></li>
+    <li><a href="blog.html" data-i18n="nav_blog">Blog</a></li>
     <li><a href="faq.html">FAQ</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
   </ul>
-  <p class="footer-copy">© 2025 Dr. Ahmed Physiotherapy. Built by <span>Omar Ahmed</span></p>
+  <p class="footer-copy">© 2025 Gaber Centers. Built by <span>Omar Ahmed</span></p>
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
+// ─── TRANSLATIONS ───
+const T = {
+  en:{dir:'ltr',lang:'en',label:'EN',nav_home:'Home',nav_about:'About',nav_services:'Services',nav_cases:'Cases',nav_blog:'Blog',nav_team:'Team',nav_contact:'Contact',nav_book:'Book Now',hero_badge:'Premium Physiotherapy & Rehabilitation',ht1:'Move Better.',ht2:'Recover Faster.',ht3:'Live Stronger.',hero_sub:"Egypt's most trusted physiotherapy centers — 11,000+ patients treated since 2015.",cta1:'Book Appointment',cta2:'View Cases',st1:'Patients Treated',st2:'Followers',st2b:'K Social Followers',st3:'Years Experience',satisfaction:'Satisfaction Rate %',srv_tag:'What We Offer',srv_title:'Our Services',srv_sub:'Comprehensive physiotherapy for every stage of your recovery.',s1t:'Orthopedic Therapy',s1d:'Specialized treatment for musculoskeletal conditions and sports injuries.',s2t:'Neurological Rehab',s2d:"Programs for stroke recovery, Parkinson's disease and other conditions.",s3t:'Sports Physiotherapy',s3d:'Performance optimization and injury prevention for athletes.',s4t:'Manual Therapy',s4d:'Hands-on techniques to restore joint mobility and relieve chronic pain.',s5t:'Electrotherapy',s5d:'Advanced electrical stimulation for pain management and healing.',s6t:'Home Visits',s6d:'Professional physiotherapy delivered to your doorstep.',ba_tag:'Real Results',ba_title:'Before & After Recovery',ba_sub:'Documented outcomes — real patients, real results.',ba1_cond:'Lower Back — L4-L5 Disc Herniation',pain_level:'Pain Level',mobility:'Mobility',quality:'Quality of Life',view_all_cases:'View All Cases →',test_tag:'Patient Voices',test_title:'What Our Patients Say',t1:'"After years of chronic back pain, Gaber Centers gave me my life back."',t2:'"I was told surgery was my only option. Six months later, I\'m hiking again."',t3:'"The stroke took everything. Their rehab program gave it all back."',disc_case:'Disc Herniation Recovery',hip_case:'Hip Osteoarthritis Case',stroke_case:'Post-Stroke Rehabilitation',why_tag:'Why Choose Us',why_title:'Evidence-Based.<br>Patient-Centered.',w1t:'Personalized Plans',w1d:'No two patients are the same. Your plan is designed specifically for you.',w2t:'Advanced Equipment',w2d:'State-of-the-art technology for faster, more effective recovery.',w3t:'Certified Specialists',w3d:'Internationally recognized physiotherapy certifications.',w4t:'Flexible Scheduling',w4d:'Morning, evening, and home visit options for your lifestyle.',founded:'Founded',cta_title:'Ready to Start Your Recovery?',cta_sub:'Book your first consultation today and take the first step toward a pain-free life.'},
+  ar:{dir:'rtl',lang:'ar',label:'AR',nav_home:'الرئيسية',nav_about:'عنّا',nav_services:'الخدمات',nav_cases:'الحالات',nav_blog:'المدونة',nav_team:'الفريق',nav_contact:'تواصل معنا',nav_book:'احجز الآن',hero_badge:'علاج طبيعي وتأهيل طبي متميز',ht1:'تحرّك أفضل.',ht2:'تعافَ أسرع.',ht3:'عِش بقوة.',hero_sub:'مراكز جابر — أكثر من 11,000 مريض منذ 2015. رعاية متخصصة في بولاق الدكرور، الجيزة.',cta1:'احجز موعداً',cta2:'شاهد الحالات',st1:'مريض تم علاجه',st2:'متابع',st2b:'ألف متابع',st3:'سنوات خبرة',satisfaction:'نسبة رضا المرضى %',srv_tag:'ما نقدمه',srv_title:'خدماتنا',srv_sub:'حلول علاج طبيعي شاملة في كل مرحلة من مراحل تعافيك.',s1t:'العلاج العظمي',s1d:'علاج متخصص للحالات العضلية الهيكلية وإصابات الرياضة.',s2t:'تأهيل عصبي',s2d:'برامج للتعافي من السكتة الدماغية ومرض باركنسون وغيرها.',s3t:'علاج طبيعي رياضي',s3d:'تحسين الأداء والوقاية من الإصابات للرياضيين.',s4t:'العلاج اليدوي',s4d:'تقنيات يدوية لاستعادة حركة المفاصل وتخفيف الآلام.',s5t:'العلاج بالكهرباء',s5d:'أحدث تقنيات التحفيز الكهربائي لإدارة الألم والشفاء.',s6t:'زيارات منزلية',s6d:'علاج طبيعي احترافي يصل إلى باب منزلك.',ba_tag:'نتائج حقيقية',ba_title:'قبل وبعد العلاج',ba_sub:'نتائج موثقة من عيادتنا — مرضى حقيقيون، نتائج حقيقية.',ba1_cond:'أسفل الظهر — انزلاق غضروفي L4-L5',pain_level:'مستوى الألم',mobility:'القدرة على الحركة',quality:'جودة الحياة',view_all_cases:'عرض كل الحالات ←',test_tag:'آراء المرضى',test_title:'ماذا يقول مرضانا',t1:'"بعد سنوات من آلام الظهر المزمنة، أعادت لي مراكز جابر حياتي."',t2:'"قيل لي إن الجراحة هي خياري الوحيد. بعد ستة أشهر، أتسلق الجبال دون ألم."',t3:'"السكتة الدماغية أخذت كل شيء. برنامج التأهيل أعاده لي."',disc_case:'التعافي من الانزلاق الغضروفي',hip_case:'حالة خشونة الورك',stroke_case:'تأهيل ما بعد السكتة الدماغية',why_tag:'لماذا تختارنا',why_title:'مبني على الدليل.<br>متمحور حول المريض.',w1t:'خطط علاج شخصية',w1d:'كل مريض مختلف. خطتك مصممة خصيصاً لك.',w2t:'أجهزة متطورة',w2d:'أحدث التقنيات لتعافٍ أسرع وأكثر فعالية.',w3t:'متخصصون معتمدون',w3d:'فريقنا يحمل شهادات معترف بها دولياً.',w4t:'جداول مرنة',w4d:'مواعيد صباحية ومسائية وزيارات منزلية.',founded:'تأسست عام',cta_title:'مستعد لبدء رحلة تعافيك؟',cta_sub:'احجز استشارتك الأولى اليوم وابدأ الخطوة الأولى نحو حياة بلا ألم.'},
+  fr:{dir:'ltr',lang:'fr',label:'FR',nav_home:'Accueil',nav_about:'À propos',nav_services:'Services',nav_cases:'Cas',nav_blog:'Blog',nav_team:'Équipe',nav_contact:'Contact',nav_book:'Réserver',hero_badge:'Kinésithérapie & Réhabilitation Premium',ht1:'Bougez mieux.',ht2:'Récupérez plus vite.',ht3:'Vivez plus fort.',hero_sub:"Les centres de kinésithérapie les plus fiables d'Égypte — plus de 11 000 patients traités depuis 2015.",cta1:'Prendre RDV',cta2:'Voir les cas',st1:'Patients traités',st2:'Abonnés',st2b:'K Abonnés',st3:"Ans d'expérience",satisfaction:'Taux de satisfaction %',srv_tag:'Nos services',srv_title:'Services',srv_sub:'Solutions complètes de kinésithérapie à chaque étape.',s1t:'Thérapie orthopédique',s1d:'Traitement spécialisé des affections musculo-squelettiques.',s2t:'Réhab neurologique',s2d:'Programmes pour la récupération après AVC et Parkinson.',s3t:'Kiné sportive',s3d:'Optimisation des performances et prévention des blessures.',s4t:'Thérapie manuelle',s4d:'Techniques pour restaurer la mobilité articulaire.',s5t:'Électrothérapie',s5d:'Stimulation électrique avancée pour la gestion de la douleur.',s6t:'Visites à domicile',s6d:'Kinésithérapie professionnelle livrée chez vous.',ba_tag:'Résultats réels',ba_title:'Avant & Après la récupération',ba_sub:'Résultats documentés — vrais patients, vrais résultats.',ba1_cond:'Lombaires — Hernie discale L4-L5',pain_level:'Niveau de douleur',mobility:'Mobilité',quality:'Qualité de vie',view_all_cases:'Voir tous les cas →',test_tag:'Témoignages',test_title:'Ce que disent nos patients',t1:'"Après des années de douleurs chroniques, Gaber Centers m\'a redonné ma vie."',t2:'"On m\'a dit que la chirurgie était ma seule option. Six mois après, je fais de la randonnée."',t3:'"L\'AVC a tout pris. Le programme de rééducation a tout rendu."',disc_case:'Récupération hernie discale',hip_case:'Cas arthrose de la hanche',stroke_case:'Réhabilitation post-AVC',why_tag:'Pourquoi nous choisir',why_title:'Basé sur les preuves.<br>Centré sur le patient.',w1t:'Plans personnalisés',w1d:"Aucun patient n'est identique. Votre plan est conçu pour vous.",w2t:'Équipement avancé',w2d:'Technologie de pointe pour une récupération plus rapide.',w3t:'Spécialistes certifiés',w3d:'Certifications reconnues internationalement.',w4t:'Horaires flexibles',w4d:'Options matin, soir et visites à domicile.',founded:'Fondé',cta_title:'Prêt à commencer votre récupération?',cta_sub:'Réservez votre première consultation et faites le premier pas vers une vie sans douleur.'},
+  de:{dir:'ltr',lang:'de',label:'DE',nav_home:'Startseite',nav_about:'Über uns',nav_services:'Leistungen',nav_cases:'Fälle',nav_blog:'Blog',nav_team:'Team',nav_contact:'Kontakt',nav_book:'Jetzt buchen',hero_badge:'Premium Physiotherapie & Rehabilitation',ht1:'Besser bewegen.',ht2:'Schneller erholen.',ht3:'Stärker leben.',hero_sub:'Ägyptens vertrauenswürdigste Physiotherapiezentren — über 11.000 Patienten seit 2015.',cta1:'Termin buchen',cta2:'Fälle ansehen',st1:'Behandelte Patienten',st2:'Follower',st2b:'K Follower',st3:'Jahre Erfahrung',satisfaction:'Zufriedenheitsrate %',srv_tag:'Unser Angebot',srv_title:'Leistungen',srv_sub:'Umfassende Physiotherapie für jede Phase Ihrer Genesung.',s1t:'Orthopädische Therapie',s1d:'Spezialisierte Behandlung muskuloskelettaler Erkrankungen.',s2t:'Neurologische Reha',s2d:'Programme für Schlaganfall-Erholung und Parkinson.',s3t:'Sportphysiotherapie',s3d:'Leistungsoptimierung und Verletzungsprävention.',s4t:'Manuelle Therapie',s4d:'Techniken zur Wiederherstellung der Gelenkbeweglichkeit.',s5t:'Elektrotherapie',s5d:'Elektrische Stimulation für Schmerzmanagement.',s6t:'Hausbesuche',s6d:'Professionelle Physiotherapie direkt zu Ihnen.',ba_tag:'Echte Ergebnisse',ba_title:'Vor & Nach der Erholung',ba_sub:'Dokumentierte Ergebnisse — echte Patienten, echte Resultate.',ba1_cond:'Lendenwirbel — Bandscheibenvorfall L4-L5',pain_level:'Schmerzgrad',mobility:'Mobilität',quality:'Lebensqualität',view_all_cases:'Alle Fälle ansehen →',test_tag:'Patientenstimmen',test_title:'Was unsere Patienten sagen',t1:'"Nach Jahren chronischer Rückenschmerzen hat Gaber Centers mir mein Leben zurückgegeben."',t2:'"Man sagte mir, eine Operation sei meine einzige Option. Sechs Monate später wandere ich wieder."',t3:'"Der Schlaganfall hat alles genommen. Das Rehaprogramm hat alles zurückgegeben."',disc_case:'Bandscheibenvorfall-Genesung',hip_case:'Hüftarthrose-Fall',stroke_case:'Post-Schlaganfall-Rehabilitation',why_tag:'Warum wir?',why_title:'Evidenzbasiert.<br>Patientenzentriert.',w1t:'Individuelle Pläne',w1d:'Kein Patient ist gleich. Ihr Plan wird speziell für Sie erstellt.',w2t:'Fortschrittliche Geräte',w2d:'Modernste Technologie für schnellere Genesung.',w3t:'Zertifizierte Spezialisten',w3d:'International anerkannte Zertifizierungen.',w4t:'Flexible Termine',w4d:'Morgen-, Abend- und Hausbesuchsoptionen.',founded:'Gegründet',cta_title:'Bereit für Ihre Genesung?',cta_sub:'Buchen Sie Ihre erste Beratung und beginnen Sie ein schmerzfreies Leben.'},
+  zh:{dir:'ltr',lang:'zh',label:'中文',nav_home:'首页',nav_about:'关于我们',nav_services:'服务',nav_cases:'案例',nav_blog:'博客',nav_team:'团队',nav_contact:'联系我们',nav_book:'立即预约',hero_badge:'优质物理治疗与康复',ht1:'动作更好。',ht2:'恢复更快。',ht3:'生活更强。',hero_sub:'埃及最受信赖的物理治疗中心——自2015年以来已治疗超过11,000名患者。',cta1:'预约挂号',cta2:'查看案例',st1:'已治疗患者',st2:'粉丝',st2b:'K 社交粉丝',st3:'年经验',satisfaction:'满意度 %',srv_tag:'我们的服务',srv_title:'服务项目',srv_sub:'为您康复的每个阶段提供全面的物理治疗方案。',s1t:'骨科治疗',s1d:'专业治疗肌肉骨骼疾病和运动损伤。',s2t:'神经康复',s2d:'针对中风恢复和帕金森病的专项计划。',s3t:'运动物理治疗',s3d:'各级运动员的运动表现优化和损伤预防。',s4t:'手法治疗',s4d:'恢复关节活动度和缓解慢性疼痛的手法技术。',s5t:'电疗',s5d:'用于疼痛管理和组织愈合的高级电刺激疗法。',s6t:'上门服务',s6d:'专业物理治疗师上门服务。',ba_tag:'真实成果',ba_title:'治疗前后对比',ba_sub:'诊所记录的结果——真实患者，真实效果。',ba1_cond:'腰椎 — L4-L5椎间盘突出',pain_level:'疼痛程度',mobility:'活动能力',quality:'生活质量',view_all_cases:'查看所有案例 →',test_tag:'患者心声',test_title:'患者评价',t1:'"经过多年慢性背痛折磨，贾伯中心让我重获生活。"',t2:'"医生说手术是我唯一的选择。六个月后，我又开始爬山了。"',t3:'"中风夺走了一切。康复项目把一切都还给了我。"',disc_case:'椎间盘突出康复',hip_case:'髋关节骨关节炎案例',stroke_case:'中风后康复',why_tag:'为何选择我们',why_title:'循证医学。<br>以患者为中心。',w1t:'个性化方案',w1d:'每位患者都不同。您的方案专为您量身定制。',w2t:'先进设备',w2d:'最先进的技术，实现更快更有效的康复。',w3t:'认证专家',w3d:'团队持有国际认可的物理治疗认证。',w4t:'灵活预约',w4d:'早晨、晚间和上门服务选项。',founded:'成立年份',cta_title:'准备开始您的康复之旅？',cta_sub:'今天预约您的第一次咨询，迈出走向无痛生活的第一步。'},
+  ja:{dir:'ltr',lang:'ja',label:'日本語',nav_home:'ホーム',nav_about:'について',nav_services:'サービス',nav_cases:'症例',nav_blog:'ブログ',nav_team:'チーム',nav_contact:'お問い合わせ',nav_book:'今すぐ予約',hero_badge:'プレミアム理学療法・リハビリテーション',ht1:'より良く動く。',ht2:'より速く回復。',ht3:'より強く生きる。',hero_sub:'エジプトで最も信頼される理学療法センター — 2015年以来11,000人以上を治療。',cta1:'予約する',cta2:'症例を見る',st1:'治療患者数',st2:'フォロワー',st2b:'Kフォロワー',st3:'年の経験',satisfaction:'満足度 %',srv_tag:'サービス内容',srv_title:'サービス',srv_sub:'回復のあらゆる段階に対応した理学療法。',s1t:'整形外科療法',s1d:'筋骨格系疾患とスポーツ傷害の専門治療。',s2t:'神経リハビリ',s2d:'脳卒中回復とパーキンソン病のプログラム。',s3t:'スポーツ理学療法',s3d:'アスリートのパフォーマンス最適化と傷害予防。',s4t:'徒手療法',s4d:'関節可動域の回復と慢性疼痛緩和の手技。',s5t:'電気療法',s5d:'疼痛管理と組織治癒のための電気刺激。',s6t:'訪問リハビリ',s6d:'自宅への訪問で提供するプロの理学療法。',ba_tag:'実際の結果',ba_title:'治療前後の比較',ba_sub:'記録された結果 — 実際の患者、実際の成果。',ba1_cond:'腰椎 — L4-L5椎間板ヘルニア',pain_level:'痛みレベル',mobility:'可動性',quality:'生活の質',view_all_cases:'全症例を見る →',test_tag:'患者の声',test_title:'患者様の声',t1:'"長年の慢性腰痛の後、ガーバーセンターが私の生活を取り戻してくれました。"',t2:'"手術しかないと言われました。6ヶ月後、また登山しています。"',t3:'"脳卒中がすべてを奪いました。リハビリプログラムがすべてを取り戻してくれました。"',disc_case:'椎間板ヘルニア回復',hip_case:'股関節変形性関節症',stroke_case:'脳卒中後リハビリ',why_tag:'選ばれる理由',why_title:'エビデンスに基づく。<br>患者中心の医療。',w1t:'個別化された計画',w1d:'患者は一人一人違います。プランはあなたのために設計されます。',w2t:'先進設備',w2d:'最先端技術でより速く効果的な回復を実現。',w3t:'認定スペシャリスト',w3d:'国際的に認定された理学療法資格を保有。',w4t:'柔軟なスケジュール',w4d:'朝・夕・訪問オプションで対応。',founded:'設立年',cta_title:'回復の旅を始める準備は？',cta_sub:'今日最初のカウンセリングを予約して、痛みのない生活への第一歩を踏み出しましょう。'}
+};
+
+// ─── LANG ───
+function toggleDD(){document.getElementById('langDD').classList.toggle('open')}
+function setLang(l,el){
+  const t=T[l];
+  document.documentElement.dir=t.dir;
+  document.body.setAttribute('lang',t.lang);
+  document.documentElement.lang=t.lang;
+  document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(t[k]!==undefined)e.innerHTML=t[k]});
+  document.getElementById('curLang').textContent=t.label;
+  document.querySelectorAll('.lang-opt').forEach(o=>o.classList.remove('active'));
+  if(el)el.classList.add('active');
+  document.getElementById('langDD').classList.remove('open');
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.lang-wrap'))document.getElementById('langDD').classList.remove('open')});
+
+// ─── CURSOR ───
+const cur=document.getElementById('cursor'),trail=document.getElementById('cursor-trail');
+let mx=0,my=0,tx=0,ty=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+setInterval(()=>{tx+=(mx-tx)*.15;ty+=(my-ty)*.15;trail.style.left=tx+'px';trail.style.top=ty+'px'},16);
+document.querySelectorAll('a,button,.srv-card,.ba-card,.test-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.style.width='24px';cur.style.height='24px';cur.style.opacity='.6'});
+  el.addEventListener('mouseleave',()=>{cur.style.width='12px';cur.style.height='12px';cur.style.opacity='1'});
+});
+
+// ─── LOADER ───
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('done'),2400)});
+
+// ─── PARTICLES ───
+(()=>{const c=document.getElementById('particles');for(let i=0;i<40;i++){const p=document.createElement('div');p.className='p';p.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;width:${1+Math.random()*2.5}px;height:${1+Math.random()*2.5}px;background:${Math.random()>.5?'#7DD3FC':'#1E90FF'};animation-duration:${5+Math.random()*10}s;animation-delay:${Math.random()*8}s`;c.appendChild(p)}})();
+
+// ─── NAV SCROLL ───
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60)});
+
+// ─── COUNTER ───
+function animateCount(el,target,suffix=''){
+  const dur=2000,step=16,inc=target/(dur/step);
+  let cur=0;
+  const t=setInterval(()=>{cur+=inc;if(cur>=target){cur=target;clearInterval(t)}
+  let val=Math.floor(cur);
+  if(target>=1000)val=val>=1000?Math.floor(val/1000)+'K+':val+'';
+  else if(target===98)val=val+'%';
+  else val=val+'+';
+  el.textContent=val;
+  },step);
+}
+
+// ─── SCROLL REVEAL + COUNTER TRIGGER ───
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'),i*90);
+      if(e.target.classList.contains('stat-box')){
+        const n=e.target.querySelector('.stat-num');
+        if(n&&!n.dataset.counted){n.dataset.counted=1;animateCount(n,+n.getAttribute('data-counter'))}
       }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Nav scroll effect
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    nav.style.background = window.scrollY > 50
-      ? 'rgba(10,22,40,0.98)'
-      : 'rgba(10,22,40,0.85)';
+    }
   });
+},{threshold:.12});
+document.querySelectorAll('.reveal,.stat-box').forEach(el=>obs.observe(el));
+
+// Hero counters
+const heroObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('[data-counter]').forEach(el=>{
+        if(!el.dataset.counted&&el.closest('.hero-stats')){
+          el.dataset.counted=1;
+          const t=+el.getAttribute('data-counter');
+          animateCount(el,t);
+        }
+      });
+    }
+  });
+},{threshold:.5});
+const hs=document.querySelector('.hero-stats');
+if(hs)heroObs.observe(hs);
+
+// ─── BEFORE/AFTER BARS ───
+const baObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('[data-target]').forEach(bar=>{
+        bar.style.width=bar.getAttribute('data-target');
+      });
+    }
+  });
+},{threshold:.3});
+document.querySelectorAll('.ba-card').forEach(el=>baObs.observe(el));
 </script>
 </body>
 </html>
