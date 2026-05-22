@@ -1,23 +1,916 @@
-<nav>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | Gaber Centers for Physical Therapy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Noto+Sans+Arabic:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;600&family=Noto+Sans+SC:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0B1220;--navy2:#0d1a30;--navy3:#0f2040;
+  --blue:#1E90FF;--cyan:#7DD3FC;--cyan2:#38bdf8;
+  --white:#F8FAFC;--gray:#8892a4;--card:#0d1f3c;
+  --gold:#c9a84c;--glass:rgba(30,144,255,0.05);
+  --border:rgba(30,144,255,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Sora',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;cursor:none}
+body[lang="ar"]{font-family:'Noto Sans Arabic','Sora',sans-serif}
+body[lang="ja"]{font-family:'Noto Sans JP','Sora',sans-serif}
+body[lang="zh"]{font-family:'Noto Sans SC','Sora',sans-serif}
 
-<a href="index.html">Home</a>
+/* CURSOR */
+#cursor{position:fixed;width:10px;height:10px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .3s,height .3s,opacity .3s}
+#cursor-trail{position:fixed;width:32px;height:32px;border:1px solid rgba(125,211,252,.25);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:left .14s ease,top .14s ease}
 
-<a href="about.html">About</a>
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:500;padding:18px 64px;display:flex;justify-content:space-between;align-items:center;background:rgba(11,18,32,.0);backdrop-filter:blur(0);border-bottom:1px solid transparent;transition:all .5s}
+nav.scrolled{background:rgba(11,18,32,.96);backdrop-filter:blur(20px);border-color:var(--border)}
+.logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);text-decoration:none}
+.logo span{color:var(--cyan)}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:var(--gray);text-decoration:none;font-size:.82rem;font-weight:400;transition:color .3s}
+.nav-links a:hover,.nav-links a.active{color:var(--cyan)}
+.lang-wrap{position:relative}
+.lang-btn{display:flex;align-items:center;gap:6px;background:var(--glass);border:1px solid var(--border);color:var(--cyan);padding:8px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;font-family:'Sora',sans-serif;transition:all .3s}
+.lang-btn:hover{background:rgba(30,144,255,.1)}
+.lang-dd{position:absolute;top:calc(100% + 8px);right:0;background:var(--navy2);border:1px solid var(--border);border-radius:14px;padding:8px;min-width:170px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:all .25s;box-shadow:0 24px 48px rgba(0,0,0,.5)}
+.lang-dd.open{opacity:1;pointer-events:all;transform:translateY(0)}
+.lang-opt{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer;font-size:.83rem;color:var(--white);transition:background .2s}
+.lang-opt:hover{background:rgba(30,144,255,.08)}
+.lang-opt.active{color:var(--cyan)}
+.nav-cta{background:var(--blue);color:var(--navy);padding:10px 22px;border-radius:8px;font-weight:600;font-size:.82rem;text-decoration:none;transition:all .3s}
+.nav-cta:hover{background:var(--cyan);transform:translateY(-1px);box-shadow:0 8px 24px rgba(30,144,255,.3)}
 
-<a href="services.html">Services</a>
+/* ── HERO ── */
+.about-hero{min-height:80vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 64px 80px}
 
-<a href="team.html">Team</a>
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 60% 50%,rgba(30,144,255,.07) 0%,transparent 60%),linear-gradient(150deg,#0B1220 0%,#0d1b32 60%,#0B1220 100%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(30,144,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(30,144,255,.025) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,black 20%,transparent 75%)}
 
-<a href="cases.html">Cases</a>
+.particles{position:absolute;inset:0;pointer-events:none}
+.p{position:absolute;border-radius:50%;animation:pfloat linear infinite;opacity:0}
+@keyframes pfloat{0%{opacity:0;transform:translateY(0)}20%{opacity:.6}80%{opacity:.2}100%{opacity:0;transform:translateY(-120px)}}
 
-<a href="blog.html">Blog</a>
+.hero-content{position:relative;z-index:10;max-width:680px}
+.breadcrumb{font-size:.78rem;color:var(--gray);margin-bottom:24px;display:flex;align-items:center;gap:8px}
+.breadcrumb a{color:var(--cyan);text-decoration:none;transition:opacity .3s}
+.breadcrumb a:hover{opacity:.7}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(30,144,255,.07);border:1px solid rgba(30,144,255,.18);padding:8px 18px;border-radius:100px;font-size:.72rem;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:28px;font-weight:600}
+.bdot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:dotpulse 2s ease-in-out infinite}
+@keyframes dotpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.8)}}
 
-<a href="faq.html">FAQ</a>
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,5.5vw,5rem);line-height:1.08;font-weight:700;margin-bottom:24px}
+.hero-title .ht-cyan{color:var(--cyan)}
+.hero-title .ht-italic{font-style:italic;opacity:.85}
 
-<a href="reviews.html">Reviews</a>
+.hero-sub{font-size:1rem;color:var(--gray);line-height:1.85;margin-bottom:40px;max-width:520px;font-weight:300}
 
-<a href="appointment.html">Appointment</a>
+.hero-meta{display:flex;gap:36px;flex-wrap:wrap}
+.meta-item{display:flex;align-items:center;gap:10px}
+.meta-icon{width:36px;height:36px;background:rgba(30,144,255,.08);border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.meta-text strong{display:block;font-size:.9rem;font-weight:600}
+.meta-text span{font-size:.75rem;color:var(--gray);font-weight:300}
 
-<a href="contact.html">Contact</a>
+/* ECG */
+.ecg-wrap{position:absolute;bottom:32px;left:0;right:0;height:48px;overflow:hidden;opacity:.08;pointer-events:none}
+.ecg-svg{position:absolute;top:0;left:0;width:200%;height:100%;animation:ecgScroll 5s linear infinite}
+@keyframes ecgScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+/* ── STORY ── */
+.story-section{padding:100px 64px;position:relative}
+.story-section::before{content:'';position:absolute;right:-100px;top:0;width:400px;height:400px;background:radial-gradient(circle,rgba(30,144,255,.05) 0%,transparent 70%);border-radius:50%}
+
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+
+.story-tag{font-size:.72rem;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.story-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:20px}
+.story-body{color:var(--gray);font-size:.92rem;line-height:1.9;font-weight:300}
+.story-body p{margin-bottom:16px}
+.story-body strong{color:var(--white);font-weight:500}
+
+.story-visual{position:relative}
+.story-card{background:var(--card);border:1px solid rgba(248,250,252,.06);border-radius:24px;padding:40px;position:relative;overflow:hidden}
+.story-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--cyan),transparent)}
+.year-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:20px;font-weight:600}
+.big-stat{font-family:'Playfair Display',serif;font-size:4.5rem;font-weight:700;color:var(--cyan);line-height:1}
+.big-label{color:var(--gray);font-size:.85rem;margin-top:6px;font-weight:300}
+.story-divider{width:40px;height:1px;background:rgba(248,250,252,.08);margin:24px 0}
+
+.floating-badge{position:absolute;bottom:-20px;right:-20px;background:rgba(11,18,32,.9);border:1px solid var(--border);border-radius:14px;padding:16px 20px;backdrop-filter:blur(12px)}
+.fb-num{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--cyan)}
+.fb-label{font-size:.68rem;color:var(--gray);margin-top:2px;font-weight:300}
+
+/* ── TIMELINE ── */
+.timeline-section{padding:100px 64px;background:var(--navy2);position:relative;overflow:hidden}
+.tl-header{text-align:center;margin-bottom:64px}
+.tl-tag{font-size:.72rem;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.tl-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700}
+
+.timeline{position:relative;max-width:800px;margin:0 auto}
+.timeline::before{content:'';position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--border) 10%,var(--border) 90%,transparent)}
+
+.tl-item{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px;position:relative}
+.tl-item:nth-child(even) .tl-content{grid-column:2;grid-row:1}
+.tl-item:nth-child(even) .tl-spacer{grid-column:1;grid-row:1}
+
+.tl-dot{position:absolute;left:50%;transform:translateX(-50%);top:24px;width:14px;height:14px;background:var(--blue);border:2px solid var(--navy2);border-radius:50%;box-shadow:0 0 0 4px rgba(30,144,255,.15);z-index:1}
+.tl-item.active .tl-dot{background:var(--cyan);box-shadow:0 0 0 6px rgba(125,211,252,.15);animation:tdotpulse 2s ease-in-out infinite}
+@keyframes tdotpulse{0%,100%{box-shadow:0 0 0 6px rgba(125,211,252,.15)}50%{box-shadow:0 0 0 12px rgba(125,211,252,.05)}}
+
+.tl-content{background:var(--card);border:1px solid rgba(248,250,252,.06);border-radius:16px;padding:28px;transition:all .4s}
+.tl-content:hover{border-color:rgba(30,144,255,.2);transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.3)}
+.tl-year{font-size:.72rem;color:var(--cyan);letter-spacing:.12em;font-weight:600;margin-bottom:8px}
+.tl-event{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:600;margin-bottom:8px}
+.tl-desc{color:var(--gray);font-size:.82rem;line-height:1.7;font-weight:300}
+
+/* ── VALUES ── */
+.values-section{padding:100px 64px}
+.sec-center{text-align:center;margin-bottom:64px}
+.sec-tag{font-size:.72rem;color:var(--cyan);letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:12px}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;margin-bottom:12px}
+.sec-sub{color:var(--gray);font-size:.92rem;max-width:480px;margin:0 auto;line-height:1.8;font-weight:300}
+
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.val-card{background:var(--card);border:1px solid rgba(248,250,252,.06);border-radius:20px;padding:36px 32px;transition:all .4s;position:relative;overflow:hidden;cursor:none}
+.val-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(30,144,255,.06),transparent 60%);opacity:0;transition:opacity .4s}
+.val-card:hover{border-color:rgba(30,144,255,.22);transform:translateY(-8px);box-shadow:0 32px 64px rgba(0,0,0,.4)}
+.val-card:hover::after{opacity:1}
+.val-icon{width:56px;height:56px;background:rgba(30,144,255,.08);border:1px solid rgba(30,144,255,.12);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:24px;transition:all .3s}
+.val-card:hover .val-icon{background:rgba(30,144,255,.15);transform:scale(1.05)}
+.val-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:600;margin-bottom:12px}
+.val-desc{color:var(--gray);font-size:.85rem;line-height:1.75;font-weight:300}
+
+/* ── TEAM ── */
+.team-section{padding:100px 64px;background:var(--navy2);position:relative}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:0}
+
+.team-card{background:var(--card);border:1px solid rgba(248,250,252,.06);border-radius:20px;overflow:hidden;transition:all .4s;cursor:none}
+.team-card:hover{border-color:rgba(30,144,255,.2);transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.4)}
+
+.team-avatar{height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.team-avatar-bg{position:absolute;inset:0;transition:transform .6s}
+.team-card:hover .team-avatar-bg{transform:scale(1.05)}
+.team-emoji{font-size:4rem;position:relative;z-index:1;filter:drop-shadow(0 4px 20px rgba(0,0,0,.4))}
+.team-role-tag{position:absolute;bottom:12px;left:12px;background:rgba(30,144,255,.15);border:1px solid rgba(30,144,255,.25);color:var(--cyan);font-size:.65rem;padding:4px 10px;border-radius:100px;letter-spacing:.05em;font-weight:600;z-index:2}
+
+.team-body{padding:24px}
+.team-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:600;margin-bottom:4px}
+.team-role{font-size:.78rem;color:var(--cyan);font-weight:500;margin-bottom:10px}
+.team-bio{font-size:.82rem;color:var(--gray);line-height:1.7;font-weight:300}
+
+/* ── MISSION BANNER ── */
+.mission-banner{padding:100px 64px;position:relative;overflow:hidden;text-align:center}
+.mission-banner::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(30,144,255,.07) 0%,transparent 70%);border-radius:50%}
+.mission-quote{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.6rem);font-weight:700;line-height:1.4;max-width:800px;margin:0 auto 20px;position:relative;z-index:1}
+.mission-quote .q-cyan{color:var(--cyan)}
+.mission-quote .q-italic{font-style:italic;opacity:.85}
+.mission-source{color:var(--gray);font-size:.85rem;font-weight:300;position:relative;z-index:1}
+
+/* ── CERTIFICATIONS ── */
+.certs-section{padding:80px 64px;border-top:1px solid rgba(248,250,252,.05);border-bottom:1px solid rgba(248,250,252,.05)}
+.certs-grid{display:flex;gap:20px;flex-wrap:wrap;justify-content:center;margin-top:48px}
+.cert-item{background:var(--card);border:1px solid rgba(248,250,252,.06);border-radius:14px;padding:20px 28px;display:flex;align-items:center;gap:12px;transition:all .3s}
+.cert-item:hover{border-color:rgba(30,144,255,.2);transform:translateY(-3px)}
+.cert-icon{font-size:1.6rem}
+.cert-name{font-size:.85rem;font-weight:500}
+.cert-body{font-size:.72rem;color:var(--gray);margin-top:2px;font-weight:300}
+
+/* ── CTA ── */
+.cta-section{padding:100px 64px;text-align:center;position:relative;overflow:hidden}
+.cta-section::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(30,144,255,.07) 0%,transparent 70%);border-radius:50%}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);margin-bottom:16px;position:relative;z-index:1}
+.cta-section p{color:var(--gray);max-width:440px;margin:0 auto 40px;line-height:1.8;font-weight:300;position:relative;z-index:1}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+.btn-p{background:var(--blue);color:var(--navy);padding:14px 32px;border-radius:10px;font-weight:700;font-size:.9rem;text-decoration:none;transition:all .35s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 0 32px rgba(30,144,255,.2)}
+.btn-p:hover{background:var(--cyan);transform:translateY(-3px);box-shadow:0 16px 40px rgba(30,144,255,.35)}
+.btn-s{border:1px solid rgba(248,250,252,.12);color:var(--white);padding:14px 32px;border-radius:10px;font-weight:400;font-size:.9rem;text-decoration:none;transition:all .35s;background:rgba(248,250,252,.02)}
+.btn-s:hover{border-color:var(--cyan);color:var(--cyan);transform:translateY(-3px)}
+
+/* FOOTER */
+footer{padding:48px 64px;border-top:1px solid rgba(248,250,252,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-links{display:flex;gap:28px;list-style:none}
+.footer-links a{color:var(--gray);text-decoration:none;font-size:.82rem;transition:color .3s;font-weight:300}
+.footer-links a:hover{color:var(--cyan)}
+.footer-copy{color:var(--gray);font-size:.8rem;font-weight:300}
+.footer-copy span{color:var(--cyan)}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(32px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-32px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(32px);transition:all .8s cubic-bezier(.25,.46,.45,.94)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+
+[dir="rtl"] .lang-dd{right:auto;left:0}
+[dir="rtl"] .breadcrumb{flex-direction:row-reverse}
+[dir="rtl"] .floating-badge{right:auto;left:-20px}
+[dir="rtl"] .timeline::before{left:auto;right:50%}
+[dir="rtl"] .tl-dot{left:auto;right:50%}
+
+@media(max-width:900px){
+  .story-grid,.values-grid{grid-template-columns:1fr}
+  .timeline::before{left:24px;transform:none}
+  .tl-item{grid-template-columns:1fr;padding-left:52px}
+  .tl-item:nth-child(even) .tl-content,.tl-item:nth-child(even) .tl-spacer{grid-column:1;grid-row:auto}
+  .tl-dot{left:17px;transform:none}
+  .tl-spacer{display:none}
+}
+@media(max-width:768px){
+  nav{padding:16px 24px}
+  .nav-links{display:none}
+  .about-hero,.story-section,.timeline-section,.values-section,.team-section,.mission-banner,.certs-section,.cta-section{padding-left:24px;padding-right:24px}
+  .values-grid{grid-template-columns:1fr}
+  footer{padding:32px 24px;flex-direction:column;text-align:center}
+  body{cursor:auto}
+  #cursor,#cursor-trail{display:none}
+}
+</style>
+</head>
+<body lang="en">
+
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="index.html" class="logo">Gaber <span>Centers</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+      <li><a href="about.html" class="active" data-i18n="nav_about">About</a></li>
+      <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+      <li><a href="cases.html" data-i18n="nav_cases">Cases</a></li>
+      <li><a href="blog.html" data-i18n="nav_blog">Blog</a></li>
+      <li><a href="team.html" data-i18n="nav_team">Team</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+    </ul>
+    <div class="lang-wrap">
+      <button class="lang-btn" onclick="toggleDD()">🌐 <span id="curLang">EN</span> ▾</button>
+      <div class="lang-dd" id="langDD">
+        <div class="lang-opt active" onclick="setLang('en',this)">🇬🇧 English</div>
+        <div class="lang-opt" onclick="setLang('ar',this)">🇪🇬 العربية</div>
+        <div class="lang-opt" onclick="setLang('fr',this)">🇫🇷 Français</div>
+        <div class="lang-opt" onclick="setLang('de',this)">🇩🇪 Deutsch</div>
+        <div class="lang-opt" onclick="setLang('zh',this)">🇨🇳 中文</div>
+        <div class="lang-opt" onclick="setLang('ja',this)">🇯🇵 日本語</div>
+      </div>
+    </div>
+    <a href="appointment.html" class="nav-cta" data-i18n="nav_book">Book Now</a>
+  </div>
 </nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="particles" id="particles"></div>
+  <div class="ecg-wrap">
+    <svg class="ecg-svg" viewBox="0 0 800 48" preserveAspectRatio="none">
+      <polyline points="0,24 80,24 110,24 128,4 145,44 162,4 179,44 196,24 220,24 320,24 350,24 368,4 385,44 402,4 419,44 436,24 460,24 560,24 590,24 608,4 625,44 642,4 659,44 676,24 700,24 800,24" fill="none" stroke="#1E90FF" stroke-width="1.5" opacity=".7"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="breadcrumb">
+      <a href="index.html" data-i18n="nav_home">Home</a>
+      <span>›</span>
+      <span data-i18n="nav_about">About</span>
+    </div>
+    <div class="hero-badge"><span class="bdot"></span><span data-i18n="hero_badge">Since 2015 · Boulaq Al Dakrour, Giza</span></div>
+    <h1 class="hero-title">
+      <span class="ht-cyan" data-i18n="ht1">Healing is</span><br>
+      <span data-i18n="ht2">not just a treatment.</span><br>
+      <span class="ht-italic" data-i18n="ht3">It's a promise.</span>
+    </h1>
+    <p class="hero-sub" data-i18n="hero_sub">We are Gaber Centers for Physical Therapy and Medical Rehabilitation — a team dedicated to restoring movement, rebuilding strength, and transforming lives through evidence-based care.</p>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-icon">📅</div>
+        <div class="meta-text"><strong data-i18n="meta1v">2015</strong><span data-i18n="meta1l">Founded</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">👥</div>
+        <div class="meta-text"><strong>11,000+</strong><span data-i18n="meta2l">Patients Treated</span></div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-icon">⭐</div>
+        <div class="meta-text"><strong>116K+</strong><span data-i18n="meta3l">Social Followers</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="story-grid">
+    <div class="reveal-left">
+      <div class="story-tag" data-i18n="story_tag">Our Story</div>
+      <h2 class="story-title" data-i18n="story_title">A decade of dedication to your recovery</h2>
+      <div class="story-body">
+        <p data-i18n="story_p1">Gaber Centers was founded in <strong>2015</strong> with a single vision: to provide world-class physiotherapy care to every patient who walks through our doors, regardless of their background or the complexity of their condition.</p>
+        <p data-i18n="story_p2">What began as a small clinic in Boulaq Al Dakrour has grown into one of <strong>Egypt's most trusted rehabilitation centers</strong>, with over 11,000 patients treated across a wide spectrum of orthopedic, neurological, and sports conditions.</p>
+        <p data-i18n="story_p3">Our approach has always been the same: <strong>listen deeply, assess thoroughly, treat precisely, and follow through completely</strong>. Every patient is a unique story, and every treatment plan is written with that story in mind.</p>
+      </div>
+    </div>
+    <div class="story-visual reveal-right">
+      <div class="story-card">
+        <div class="year-badge">⭐ <span data-i18n="established">Established</span> 2015</div>
+        <div class="big-stat" data-counter="11000" id="storyStat">0</div>
+        <div class="big-label" data-i18n="patients_treated">Patients Treated</div>
+        <div class="story-divider"></div>
+        <div class="big-stat" style="font-size:3rem" data-counter="98" id="storyStat2">0</div>
+        <div class="big-label" data-i18n="satisfaction">Patient Satisfaction %</div>
+        <div class="story-divider"></div>
+        <div class="big-stat" style="font-size:3rem" data-counter="10" id="storyStat3">0</div>
+        <div class="big-label" data-i18n="years_exp">Years of Excellence</div>
+      </div>
+      <div class="floating-badge">
+        <div class="fb-num">116K+</div>
+        <div class="fb-label" data-i18n="followers">Social Followers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="tl-header">
+    <div class="tl-tag" data-i18n="tl_tag">Our Journey</div>
+    <h2 class="tl-title reveal" data-i18n="tl_title">A decade of milestones</h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2015</div>
+        <div class="tl-event" data-i18n="tl1e">Foundation & First Patients</div>
+        <div class="tl-desc" data-i18n="tl1d">Opened our first clinic in Boulaq Al Dakrour, Giza, with a mission to provide evidence-based physiotherapy to the community.</div>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-spacer"></div>
+      <div class="tl-content">
+        <div class="tl-year">2017</div>
+        <div class="tl-event" data-i18n="tl2e">Expanded Services</div>
+        <div class="tl-desc" data-i18n="tl2d">Added neurological rehabilitation and sports physiotherapy programs, expanding our capacity to treat complex conditions.</div>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2019</div>
+        <div class="tl-event" data-i18n="tl3e">1,000 Patients Milestone</div>
+        <div class="tl-desc" data-i18n="tl3d">Celebrated treating our 1,000th patient — a moment that confirmed our commitment and the trust our community placed in us.</div>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-spacer"></div>
+      <div class="tl-content">
+        <div class="tl-year">2021</div>
+        <div class="tl-event" data-i18n="tl4e">Home Visit Program Launch</div>
+        <div class="tl-desc" data-i18n="tl4d">Launched our professional home visit service, bringing expert physiotherapy to patients unable to travel to our clinic.</div>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item reveal">
+      <div class="tl-content">
+        <div class="tl-year">2023</div>
+        <div class="tl-event" data-i18n="tl5e">100K Social Milestone</div>
+        <div class="tl-desc" data-i18n="tl5d">Reached 100,000 followers across social platforms, establishing Gaber Centers as a leading voice in Egyptian healthcare education.</div>
+      </div>
+      <div class="tl-spacer"></div>
+      <div class="tl-dot"></div>
+    </div>
+    <div class="tl-item active reveal">
+      <div class="tl-spacer"></div>
+      <div class="tl-content" style="border-color:rgba(30,144,255,.2)">
+        <div class="tl-year" style="color:var(--gold)">2025</div>
+        <div class="tl-event" data-i18n="tl6e">11,000+ Patients & Growing</div>
+        <div class="tl-desc" data-i18n="tl6d">Today we continue to grow — serving thousands of patients, expanding our team, and pursuing our mission of accessible, premium rehabilitation care.</div>
+      </div>
+      <div class="tl-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="sec-center">
+    <div class="sec-tag" data-i18n="val_tag">Our Core Values</div>
+    <h2 class="sec-title reveal" data-i18n="val_title">What drives everything we do</h2>
+    <p class="sec-sub reveal" data-i18n="val_sub">These principles guide every decision, every treatment, and every interaction at Gaber Centers.</p>
+  </div>
+  <div class="values-grid">
+    <div class="val-card reveal">
+      <div class="val-icon">🎯</div>
+      <div class="val-title" data-i18n="v1t">Evidence-Based Practice</div>
+      <p class="val-desc" data-i18n="v1d">Every technique we use is grounded in the latest clinical research. We never stop learning, because our patients deserve nothing less than the best.</p>
+    </div>
+    <div class="val-card reveal">
+      <div class="val-icon">❤️</div>
+      <div class="val-title" data-i18n="v2t">Patient-Centered Care</div>
+      <p class="val-desc" data-i18n="v2d">You are not a diagnosis. You are a person with goals, fears, and a life to return to. We build every treatment plan around who you are, not just what's wrong.</p>
+    </div>
+    <div class="val-card reveal">
+      <div class="val-icon">🔬</div>
+      <div class="val-title" data-i18n="v3t">Precision & Expertise</div>
+      <p class="val-desc" data-i18n="v3d">Physiotherapy is both science and art. Our team combines technical mastery with clinical intuition to deliver precise, effective treatments.</p>
+    </div>
+    <div class="val-card reveal">
+      <div class="val-icon">🤝</div>
+      <div class="val-title" data-i18n="v4t">Integrity & Honesty</div>
+      <p class="val-desc" data-i18n="v4d">We tell you what you need to hear, not what you want to hear. If surgery is necessary, we'll say so. If it isn't, we'll prove it through results.</p>
+    </div>
+    <div class="val-card reveal">
+      <div class="val-icon">🚀</div>
+      <div class="val-title" data-i18n="v5t">Continuous Improvement</div>
+      <p class="val-desc" data-i18n="v5d">We invest in ongoing training, advanced equipment, and new techniques so that every patient benefits from the most current rehabilitation science.</p>
+    </div>
+    <div class="val-card reveal">
+      <div class="val-icon">🌍</div>
+      <div class="val-title" data-i18n="v6t">Community Impact</div>
+      <p class="val-desc" data-i18n="v6d">We believe in giving back. Through our social platforms, we educate 116,000+ followers about injury prevention, recovery, and healthy living.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team-section">
+  <div class="sec-center" style="margin-bottom:48px">
+    <div class="sec-tag" data-i18n="team_tag">Our Team</div>
+    <h2 class="sec-title reveal" data-i18n="team_title">The people behind your recovery</h2>
+    <p class="sec-sub reveal" data-i18n="team_sub">Certified specialists with years of experience and a passion for helping patients reclaim their lives.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="team-avatar">
+        <div class="team-avatar-bg" style="background:linear-gradient(135deg,#0d2137 0%,#0a3d5c 100%)"></div>
+        <div class="team-emoji">👨‍⚕️</div>
+        <div class="team-role-tag" data-i18n="founder_tag">Founder</div>
+      </div>
+      <div class="team-body">
+        <div class="team-name" data-i18n="t1_name">Dr. Ahmed Gaber</div>
+        <div class="team-role" data-i18n="t1_role">Founder & Lead Physiotherapist</div>
+        <div class="team-bio" data-i18n="t1_bio">Specialist in orthopedic and neurological rehabilitation with 10+ years of clinical experience. Founded Gaber Centers with a vision to transform physiotherapy in Egypt.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">
+        <div class="team-avatar-bg" style="background:linear-gradient(135deg,#0d1f3c 0%,#1a0a3d 100%)"></div>
+        <div class="team-emoji">👩‍⚕️</div>
+        <div class="team-role-tag" data-i18n="senior_tag">Senior</div>
+      </div>
+      <div class="team-body">
+        <div class="team-name" data-i18n="t2_name">Dr. Sara Mohamed</div>
+        <div class="team-role" data-i18n="t2_role">Sports & Pediatric Specialist</div>
+        <div class="team-bio" data-i18n="t2_bio">Expert in sports rehabilitation and pediatric physiotherapy. Works with athletes and children to achieve peak recovery outcomes.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">
+        <div class="team-avatar-bg" style="background:linear-gradient(135deg,#0d2a1f 0%,#0a3d2c 100%)"></div>
+        <div class="team-emoji">👨‍⚕️</div>
+        <div class="team-role-tag" data-i18n="specialist_tag">Specialist</div>
+      </div>
+      <div class="team-body">
+        <div class="team-name" data-i18n="t3_name">Dr. Karim Hassan</div>
+        <div class="team-role" data-i18n="t3_role">Neurological Rehabilitation</div>
+        <div class="team-bio" data-i18n="t3_bio">Dedicated to helping stroke survivors, Parkinson's patients, and those with spinal conditions regain independence and quality of life.</div>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="team-avatar">
+        <div class="team-avatar-bg" style="background:linear-gradient(135deg,#2a1a0d 0%,#3d2a0a 100%)"></div>
+        <div class="team-emoji">👩‍⚕️</div>
+        <div class="team-role-tag" data-i18n="specialist_tag">Specialist</div>
+      </div>
+      <div class="team-body">
+        <div class="team-name" data-i18n="t4_name">Dr. Nada Ali</div>
+        <div class="team-role" data-i18n="t4_role">Manual Therapy & Pain Management</div>
+        <div class="team-bio" data-i18n="t4_bio">Certified in advanced manual therapy techniques with a focus on chronic pain management and post-surgical rehabilitation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION BANNER -->
+<section class="mission-banner">
+  <div class="mission-quote reveal">
+    <span class="q-italic" data-i18n="mission_q1">"We don't just treat conditions.</span><br>
+    <span data-i18n="mission_q2">We restore</span>
+    <span class="q-cyan" data-i18n="mission_q3"> lives.</span><span class="q-italic">"</span>
+  </div>
+  <div class="mission-source reveal" data-i18n="mission_src">— The Gaber Centers Philosophy</div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certs-section">
+  <div class="sec-center">
+    <div class="sec-tag" data-i18n="cert_tag">Certifications & Recognition</div>
+    <h2 class="sec-title reveal" data-i18n="cert_title">Internationally Recognized Standards</h2>
+  </div>
+  <div class="certs-grid">
+    <div class="cert-item reveal">
+      <span class="cert-icon">🏥</span>
+      <div><div class="cert-name" data-i18n="c1n">Egyptian Ministry of Health</div><div class="cert-body" data-i18n="c1b">Licensed & Registered Facility</div></div>
+    </div>
+    <div class="cert-item reveal">
+      <span class="cert-icon">🌍</span>
+      <div><div class="cert-name" data-i18n="c2n">International Physiotherapy Standards</div><div class="cert-body" data-i18n="c2b">Evidence-Based Practice Certified</div></div>
+    </div>
+    <div class="cert-item reveal">
+      <span class="cert-icon">🏆</span>
+      <div><div class="cert-name" data-i18n="c3n">Manual Therapy Certification</div><div class="cert-body" data-i18n="c3b">Advanced Hands-On Techniques</div></div>
+    </div>
+    <div class="cert-item reveal">
+      <span class="cert-icon">⚡</span>
+      <div><div class="cert-name" data-i18n="c4n">Electrotherapy Certification</div><div class="cert-body" data-i18n="c4b">Advanced Modalities Training</div></div>
+    </div>
+    <div class="cert-item reveal">
+      <span class="cert-icon">🧠</span>
+      <div><div class="cert-name" data-i18n="c5n">Neurological Rehab Certification</div><div class="cert-body" data-i18n="c5b">Bobath & PNF Techniques</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="reveal" data-i18n="cta_title">Ready to <span style="color:var(--cyan)">experience</span> the difference?</h2>
+  <p class="reveal" data-i18n="cta_sub">Join 11,000+ patients who chose Gaber Centers for their recovery journey.</p>
+  <div class="cta-btns">
+    <a href="appointment.html" class="btn-p reveal">
+      <span data-i18n="nav_book">Book Now</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <a href="contact.html" class="btn-s reveal" data-i18n="nav_contact">Contact Us</a>
+    <a href="cases.html" class="btn-s reveal" data-i18n="nav_cases">View Cases</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="index.html" class="logo">Gaber <span>Centers</span></a>
+  <ul class="footer-links">
+    <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+    <li><a href="about.html" data-i18n="nav_about">About</a></li>
+    <li><a href="services.html" data-i18n="nav_services">Services</a></li>
+    <li><a href="cases.html" data-i18n="nav_cases">Cases</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="appointment.html" data-i18n="nav_book">Book</a></li>
+    <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+  </ul>
+  <p class="footer-copy">© 2025 Gaber Centers. Built by <span>Omar Ahmed</span></p>
+</footer>
+
+<script>
+const T = {
+  en:{dir:'ltr',lang:'en',label:'EN',
+    nav_home:'Home',nav_about:'About',nav_services:'Services',nav_cases:'Cases',nav_blog:'Blog',nav_team:'Team',nav_contact:'Contact',nav_book:'Book Now',
+    hero_badge:'Since 2015 · Boulaq Al Dakrour, Giza',
+    ht1:'Healing is',ht2:'not just a treatment.',ht3:"It's a promise.",
+    hero_sub:"We are Gaber Centers for Physical Therapy and Medical Rehabilitation — a team dedicated to restoring movement, rebuilding strength, and transforming lives through evidence-based care.",
+    meta1v:'2015',meta1l:'Founded',meta2l:'Patients Treated',meta3l:'Social Followers',
+    story_tag:'Our Story',story_title:'A decade of dedication to your recovery',
+    story_p1:'Gaber Centers was founded in <strong>2015</strong> with a single vision: to provide world-class physiotherapy care to every patient who walks through our doors.',
+    story_p2:'What began as a small clinic has grown into one of <strong>Egypt\'s most trusted rehabilitation centers</strong>, with over 11,000 patients treated.',
+    story_p3:'Our approach: <strong>listen deeply, assess thoroughly, treat precisely, and follow through completely</strong>.',
+    established:'Established',patients_treated:'Patients Treated',satisfaction:'Patient Satisfaction %',years_exp:'Years of Excellence',followers:'Social Followers',
+    tl_tag:'Our Journey',tl_title:'A decade of milestones',
+    tl1e:'Foundation & First Patients',tl1d:'Opened our first clinic in Boulaq Al Dakrour with a mission to provide evidence-based physiotherapy.',
+    tl2e:'Expanded Services',tl2d:'Added neurological rehabilitation and sports physiotherapy programs.',
+    tl3e:'1,000 Patients Milestone',tl3d:'Celebrated treating our 1,000th patient — confirming our commitment to the community.',
+    tl4e:'Home Visit Program Launch',tl4d:'Launched professional home visit service for patients unable to travel.',
+    tl5e:'100K Social Milestone',tl5d:'Reached 100,000 followers, establishing Gaber Centers as a leading healthcare education voice.',
+    tl6e:'11,000+ Patients & Growing',tl6d:'Today we continue to grow — serving thousands and pursuing accessible, premium rehabilitation care.',
+    val_tag:'Our Core Values',val_title:'What drives everything we do',val_sub:'These principles guide every decision, every treatment, and every interaction.',
+    v1t:'Evidence-Based Practice',v1d:'Every technique is grounded in the latest clinical research. We never stop learning.',
+    v2t:'Patient-Centered Care',v2d:'You are not a diagnosis. Every plan is built around who you are, not just what\'s wrong.',
+    v3t:'Precision & Expertise',v3d:'Our team combines technical mastery with clinical intuition for precise, effective treatments.',
+    v4t:'Integrity & Honesty',v4d:"We tell you what you need to hear. If surgery is necessary, we'll say so. If it isn't, we'll prove it.",
+    v5t:'Continuous Improvement',v5d:'We invest in ongoing training and advanced techniques for every patient.',
+    v6t:'Community Impact',v6d:'Through our platforms, we educate 116,000+ followers about injury prevention and healthy living.',
+    team_tag:'Our Team',team_title:'The people behind your recovery',team_sub:'Certified specialists with years of experience and a passion for helping patients.',
+    founder_tag:'Founder',senior_tag:'Senior',specialist_tag:'Specialist',
+    t1_name:'Dr. Ahmed Gaber',t1_role:'Founder & Lead Physiotherapist',t1_bio:'Specialist in orthopedic and neurological rehabilitation with 10+ years of experience. Founded Gaber Centers to transform physiotherapy in Egypt.',
+    t2_name:'Dr. Sara Mohamed',t2_role:'Sports & Pediatric Specialist',t2_bio:'Expert in sports rehabilitation and pediatric physiotherapy, working with athletes and children.',
+    t3_name:'Dr. Karim Hassan',t3_role:'Neurological Rehabilitation',t3_bio:'Dedicated to helping stroke survivors, Parkinson\'s patients, and spinal condition cases regain independence.',
+    t4_name:'Dr. Nada Ali',t4_role:'Manual Therapy & Pain Management',t4_bio:'Certified in advanced manual therapy with focus on chronic pain and post-surgical rehabilitation.',
+    mission_q1:'"We don\'t just treat conditions.',mission_q2:'We restore',mission_q3:' lives.',mission_src:'— The Gaber Centers Philosophy',
+    cert_tag:'Certifications & Recognition',cert_title:'Internationally Recognized Standards',
+    c1n:'Egyptian Ministry of Health',c1b:'Licensed & Registered Facility',
+    c2n:'International Physiotherapy Standards',c2b:'Evidence-Based Practice Certified',
+    c3n:'Manual Therapy Certification',c3b:'Advanced Hands-On Techniques',
+    c4n:'Electrotherapy Certification',c4b:'Advanced Modalities Training',
+    c5n:'Neurological Rehab Certification',c5b:'Bobath & PNF Techniques',
+    cta_title:'Ready to <span style="color:var(--cyan)">experience</span> the difference?',
+    cta_sub:'Join 11,000+ patients who chose Gaber Centers for their recovery journey.'
+  },
+  ar:{dir:'rtl',lang:'ar',label:'AR',
+    nav_home:'الرئيسية',nav_about:'عنّا',nav_services:'الخدمات',nav_cases:'الحالات',nav_blog:'المدونة',nav_team:'الفريق',nav_contact:'تواصل معنا',nav_book:'احجز الآن',
+    hero_badge:'منذ 2015 · بولاق الدكرور، الجيزة',
+    ht1:'الشفاء ليس',ht2:'مجرد علاج.',ht3:'إنه وعد.',
+    hero_sub:'نحن مراكز جابر للعلاج الطبيعي والتأهيل الطبي — فريق متخصص يسعى لاستعادة الحركة وإعادة بناء القوة وتغيير الحياة.',
+    meta1v:'2015',meta1l:'تأسيس',meta2l:'مريض تم علاجه',meta3l:'متابع على السوشيال',
+    story_tag:'قصتنا',story_title:'عقد من التفاني في خدمة تعافيك',
+    story_p1:'تأسست مراكز جابر عام <strong>2015</strong> برؤية واحدة: تقديم رعاية علاج طبيعي عالمية لكل مريض.',
+    story_p2:'ما بدأ كعيادة صغيرة نما ليصبح أحد <strong>أكثر مراكز التأهيل ثقة في مصر</strong>، بأكثر من 11,000 مريض.',
+    story_p3:'نهجنا دائم: <strong>الاستماع العميق، التقييم الشامل، العلاج الدقيق، والمتابعة الكاملة</strong>.',
+    established:'تأسست',patients_treated:'مريض تم علاجه',satisfaction:'نسبة رضا المرضى %',years_exp:'سنوات من التميز',followers:'متابع على السوشيال',
+    tl_tag:'رحلتنا',tl_title:'عقد من الإنجازات',
+    tl1e:'التأسيس وأول المرضى',tl1d:'افتتحنا أول عيادة في بولاق الدكرور برسالة تقديم علاج طبيعي قائم على الأدلة.',
+    tl2e:'توسع الخدمات',tl2d:'أضفنا برامج التأهيل العصبي والعلاج الطبيعي الرياضي.',
+    tl3e:'إنجاز 1000 مريض',tl3d:'احتفلنا بعلاج المريض رقم 1000 — تأكيد على ثقة مجتمعنا بنا.',
+    tl4e:'إطلاق برنامج الزيارات المنزلية',tl4d:'أطلقنا خدمة الزيارة المنزلية الاحترافية للمرضى غير القادرين على التنقل.',
+    tl5e:'إنجاز 100,000 متابع',tl5d:'وصلنا لـ100,000 متابع، وأصبحنا صوتاً رائداً في تثقيف الرعاية الصحية.',
+    tl6e:'11,000+ مريض ومستمرون',tl6d:'اليوم نواصل النمو في خدمة الآلاف ومتابعة رسالتنا في رعاية التأهيل.',
+    val_tag:'قيمنا الأساسية',val_title:'ما يحرك كل ما نفعله',val_sub:'هذه المبادئ توجه كل قرار وكل علاج وكل تفاعل في مراكز جابر.',
+    v1t:'الممارسة القائمة على الأدلة',v1d:'كل تقنية نستخدمها مبنية على أحدث الأبحاث السريرية.',
+    v2t:'رعاية متمحورة حول المريض',v2d:'أنت لست مجرد تشخيص. كل خطة علاج تُبنى حول هويتك وأهدافك.',
+    v3t:'الدقة والخبرة',v3d:'فريقنا يجمع الإتقان التقني مع البديهة السريرية لنتائج فعّالة.',
+    v4t:'النزاهة والصدق',v4d:'نقول لك ما تحتاج سماعه، لا ما تريد. إذا لزمت الجراحة قلنا ذلك، وإلا أثبتنا بالنتائج.',
+    v5t:'التحسين المستمر',v5d:'نستثمر في التدريب المستمر والتقنيات المتقدمة لكل مريض.',
+    v6t:'التأثير المجتمعي',v6d:'عبر منصاتنا نثقف 116,000+ متابع حول الوقاية من الإصابات والحياة الصحية.',
+    team_tag:'فريقنا',team_title:'الأشخاص وراء تعافيك',team_sub:'متخصصون معتمدون بخبرات واسعة وشغف حقيقي لمساعدة المرضى.',
+    founder_tag:'المؤسس',senior_tag:'أول',specialist_tag:'متخصص',
+    t1_name:'د. أحمد جابر',t1_role:'المؤسس ورئيس فريق العلاج الطبيعي',t1_bio:'متخصص في التأهيل العظمي والعصبي بأكثر من 10 سنوات خبرة سريرية.',
+    t2_name:'د. سارة محمد',t2_role:'متخصصة رياضة وأطفال',t2_bio:'خبيرة في التأهيل الرياضي والعلاج الطبيعي للأطفال.',
+    t3_name:'د. كريم حسن',t3_role:'تأهيل عصبي',t3_bio:'يساعد مرضى السكتة الدماغية وباركنسون وإصابات الحبل الشوكي على استعادة استقلاليتهم.',
+    t4_name:'د. ندى علي',t4_role:'العلاج اليدوي وإدارة الألم',t4_bio:'معتمدة في تقنيات العلاج اليدوي المتقدمة مع التركيز على الألم المزمن.',
+    mission_q1:'"نحن لا نعالج الحالات فحسب.',mission_q2:'نحن نُعيد',mission_q3:' الحياة.',mission_src:'— فلسفة مراكز جابر',
+    cert_tag:'الشهادات والاعترافات',cert_title:'معايير معترف بها دولياً',
+    c1n:'وزارة الصحة المصرية',c1b:'منشأة مرخصة ومسجلة',
+    c2n:'معايير العلاج الطبيعي الدولية',c2b:'معتمد في الممارسة القائمة على الأدلة',
+    c3n:'شهادة العلاج اليدوي',c3b:'تقنيات يدوية متقدمة',
+    c4n:'شهادة العلاج بالكهرباء',c4b:'تدريب على الأجهزة المتقدمة',
+    c5n:'شهادة التأهيل العصبي',c5b:'تقنيات بوباث وPNF',
+    cta_title:'مستعد لتجربة <span style="color:var(--cyan)">الفرق</span>؟',
+    cta_sub:'انضم لأكثر من 11,000 مريض اختاروا مراكز جابر لرحلة تعافيهم.'
+  },
+  fr:{dir:'ltr',lang:'fr',label:'FR',
+    nav_home:'Accueil',nav_about:'À propos',nav_services:'Services',nav_cases:'Cas',nav_blog:'Blog',nav_team:'Équipe',nav_contact:'Contact',nav_book:'Réserver',
+    hero_badge:'Depuis 2015 · Boulaq Al Dakrour, Gizeh',
+    ht1:'Guérir,',ht2:"ce n'est pas qu'un traitement.",ht3:"C'est une promesse.",
+    hero_sub:"Nous sommes Gaber Centers — une équipe dédiée à restaurer le mouvement, reconstruire la force et transformer des vies.",
+    meta1v:'2015',meta1l:'Fondé',meta2l:'Patients traités',meta3l:'Abonnés sociaux',
+    story_tag:'Notre histoire',story_title:'Une décennie de dévouement à votre rétablissement',
+    story_p1:'Gaber Centers a été fondé en <strong>2015</strong> avec une seule vision: fournir des soins de kinésithérapie de classe mondiale.',
+    story_p2:"Ce qui a commencé comme une petite clinique est devenu l'un des <strong>centres de réhabilitation les plus fiables d'Égypte</strong>.",
+    story_p3:'Notre approche: <strong>écouter profondément, évaluer soigneusement, traiter précisément, assurer un suivi complet</strong>.',
+    established:'Fondé',patients_treated:'Patients traités',satisfaction:'Satisfaction patients %',years_exp:"Années d'excellence",followers:'Abonnés sociaux',
+    tl_tag:'Notre parcours',tl_title:'Une décennie de jalons',
+    tl1e:'Fondation & premiers patients',tl1d:'Ouverture de notre première clinique avec une mission de kinésithérapie fondée sur des preuves.',
+    tl2e:'Expansion des services',tl2d:'Ajout de la rééducation neurologique et de la kinésithérapie sportive.',
+    tl3e:'1 000 patients',tl3d:'Célébration du 1 000ème patient — confirmation de notre engagement.',
+    tl4e:'Lancement des visites à domicile',tl4d:'Service professionnel de kinésithérapie à domicile lancé.',
+    tl5e:'100K abonnés',tl5d:'Atteinte de 100 000 abonnés — voix de référence en santé.',
+    tl6e:'11 000+ patients',tl6d:'Nous continuons de croître et de poursuivre notre mission.',
+    val_tag:'Nos valeurs',val_title:'Ce qui guide tout ce que nous faisons',val_sub:'Ces principes guident chaque décision et chaque traitement.',
+    v1t:'Pratique fondée sur les preuves',v1d:'Chaque technique est ancrée dans les dernières recherches cliniques.',
+    v2t:'Soins centrés sur le patient',v2d:"Vous n'êtes pas un diagnostic. Chaque plan est conçu pour vous.",
+    v3t:'Précision & expertise',v3d:'Notre équipe combine maîtrise technique et intuition clinique.',
+    v4t:'Intégrité & honnêteté',v4d:"Nous vous disons ce que vous devez entendre, pas ce que vous voulez.",
+    v5t:'Amélioration continue',v5d:'Nous investissons dans la formation et les techniques avancées.',
+    v6t:'Impact communautaire',v6d:'Via nos plateformes, nous éduquons 116 000+ abonnés.',
+    team_tag:'Notre équipe',team_title:'Les personnes derrière votre rétablissement',team_sub:'Spécialistes certifiés avec des années d\'expérience.',
+    founder_tag:'Fondateur',senior_tag:'Senior',specialist_tag:'Spécialiste',
+    t1_name:'Dr Ahmed Gaber',t1_role:'Fondateur & Kinésithérapeute Principal',t1_bio:'Spécialiste en rééducation orthopédique et neurologique avec 10+ ans d\'expérience.',
+    t2_name:'Dr Sara Mohamed',t2_role:'Spécialiste Sport & Pédiatrie',t2_bio:'Experte en rééducation sportive et kinésithérapie pédiatrique.',
+    t3_name:'Dr Karim Hassan',t3_role:'Rééducation Neurologique',t3_bio:'Aide les survivants d\'AVC et patients Parkinson à retrouver leur autonomie.',
+    t4_name:'Dr Nada Ali',t4_role:'Thérapie Manuelle & Gestion Douleur',t4_bio:'Certifiée en techniques manuelles avancées pour douleur chronique et post-chirurgical.',
+    mission_q1:'"Nous ne traitons pas seulement des conditions.',mission_q2:'Nous restaurons',mission_q3:' des vies.',mission_src:'— La philosophie Gaber Centers',
+    cert_tag:'Certifications & Reconnaissances',cert_title:'Standards reconnus internationalement',
+    c1n:'Ministère de la Santé égyptien',c1b:'Établissement agréé',c2n:'Standards internationaux',c2b:'Pratique fondée sur preuves',c3n:'Certification thérapie manuelle',c3b:'Techniques avancées',c4n:'Certification électrothérapie',c4b:'Formation avancée',c5n:'Certification rééducation neurologique',c5b:'Techniques Bobath & PNF',
+    cta_title:'Prêt à vivre la <span style="color:var(--cyan)">différence</span>?',
+    cta_sub:'Rejoignez 11 000+ patients qui ont choisi Gaber Centers.'
+  },
+  de:{dir:'ltr',lang:'de',label:'DE',
+    nav_home:'Startseite',nav_about:'Über uns',nav_services:'Leistungen',nav_cases:'Fälle',nav_blog:'Blog',nav_team:'Team',nav_contact:'Kontakt',nav_book:'Jetzt buchen',
+    hero_badge:'Seit 2015 · Boulaq Al Dakrour, Gizeh',
+    ht1:'Heilung ist',ht2:'mehr als eine Behandlung.',ht3:'Es ist ein Versprechen.',
+    hero_sub:'Wir sind Gaber Centers — ein Team, das sich der Wiederherstellung von Bewegung, Kraft und Leben verschrieben hat.',
+    meta1v:'2015',meta1l:'Gegründet',meta2l:'Behandelte Patienten',meta3l:'Soziale Follower',
+    story_tag:'Unsere Geschichte',story_title:'Ein Jahrzehnt Engagement für Ihre Genesung',
+    story_p1:'Gaber Centers wurde <strong>2015</strong> gegründet mit dem Ziel, erstklassige Physiotherapie zu bieten.',
+    story_p2:'Was als kleine Klinik begann, ist eines der <strong>vertrauenswürdigsten Rehabilitationszentren Ägyptens</strong> geworden.',
+    story_p3:'Unser Ansatz: <strong>tief zuhören, gründlich bewerten, präzise behandeln, vollständig nachverfolgen</strong>.',
+    established:'Gegründet',patients_treated:'Behandelte Patienten',satisfaction:'Patientenzufriedenheit %',years_exp:'Jahre Exzellenz',followers:'Soziale Follower',
+    tl_tag:'Unser Weg',tl_title:'Ein Jahrzehnt voller Meilensteine',
+    tl1e:'Gründung & erste Patienten',tl1d:'Eröffnung unserer ersten Klinik mit evidenzbasierter Physiotherapie.',
+    tl2e:'Erweiterung der Leistungen',tl2d:'Hinzufügen neurologischer Rehabilitation und Sportphysiotherapie.',
+    tl3e:'1.000-Patienten-Meilenstein',tl3d:'Feier des 1.000sten Patienten.',
+    tl4e:'Start der Hausbesuchsprogramm',tl4d:'Professioneller Hausbesuchsservice gestartet.',
+    tl5e:'100K-Follower-Meilenstein',tl5d:'100.000 Follower erreicht.',
+    tl6e:'11.000+ Patienten & wachsend',tl6d:'Wir wachsen weiter und verfolgen unsere Mission.',
+    val_tag:'Unsere Kernwerte',val_title:'Was alles antreibt, was wir tun',val_sub:'Diese Prinzipien leiten jede Entscheidung.',
+    v1t:'Evidenzbasierte Praxis',v1d:'Jede Technik basiert auf neuester klinischer Forschung.',
+    v2t:'Patientenzentrierte Versorgung',v2d:'Sie sind keine Diagnose. Jeder Plan ist für Sie erstellt.',
+    v3t:'Präzision & Expertise',v3d:'Unser Team verbindet technische Meisterschaft mit klinischer Intuition.',
+    v4t:'Integrität & Ehrlichkeit',v4d:'Wir sagen Ihnen, was Sie hören müssen.',
+    v5t:'Kontinuierliche Verbesserung',v5d:'Wir investieren in Schulungen und fortschrittliche Techniken.',
+    v6t:'Gemeinschaftlicher Impact',v6d:'Über unsere Plattformen bilden wir 116.000+ Follower.',
+    team_tag:'Unser Team',team_title:'Die Menschen hinter Ihrer Genesung',team_sub:'Zertifizierte Spezialisten mit langjähriger Erfahrung.',
+    founder_tag:'Gründer',senior_tag:'Senior',specialist_tag:'Spezialist',
+    t1_name:'Dr. Ahmed Gaber',t1_role:'Gründer & leitender Physiotherapeut',t1_bio:'Spezialist für orthopädische und neurologische Rehabilitation mit 10+ Jahren Erfahrung.',
+    t2_name:'Dr. Sara Mohamed',t2_role:'Sport- & Kinderspezialistin',t2_bio:'Expertin für sportliche Rehabilitation und pädiatrische Physiotherapie.',
+    t3_name:'Dr. Karim Hassan',t3_role:'Neurologische Rehabilitation',t3_bio:'Hilft Schlaganfallpatienten und Parkinson-Patienten, ihre Unabhängigkeit zurückzugewinnen.',
+    t4_name:'Dr. Nada Ali',t4_role:'Manuelle Therapie & Schmerzmanagement',t4_bio:'Zertifiziert in fortgeschrittenen manuellen Techniken für chronische Schmerzen.',
+    mission_q1:'"Wir behandeln nicht nur Erkrankungen.',mission_q2:'Wir stellen',mission_q3:' Leben wieder her.',mission_src:'— Die Gaber Centers Philosophie',
+    cert_tag:'Zertifizierungen',cert_title:'International anerkannte Standards',
+    c1n:'Ägyptisches Gesundheitsministerium',c1b:'Lizenzierte Einrichtung',c2n:'Internationale Physiotherapie-Standards',c2b:'Evidenzbasierte Praxis',c3n:'Manuelle Therapie Zertifizierung',c3b:'Fortgeschrittene Techniken',c4n:'Elektrotherapie Zertifizierung',c4b:'Fortgeschrittene Ausbildung',c5n:'Neurologische Reha Zertifizierung',c5b:'Bobath & PNF Techniken',
+    cta_title:'Bereit, den <span style="color:var(--cyan)">Unterschied</span> zu erleben?',
+    cta_sub:'Schließen Sie sich 11.000+ Patienten an, die Gaber Centers gewählt haben.'
+  },
+  zh:{dir:'ltr',lang:'zh',label:'中文',
+    nav_home:'首页',nav_about:'关于我们',nav_services:'服务',nav_cases:'案例',nav_blog:'博客',nav_team:'团队',nav_contact:'联系',nav_book:'立即预约',
+    hero_badge:'自2015年 · 布拉克·达克鲁尔，吉萨',
+    ht1:'治愈不仅仅是',ht2:'一种治疗。',ht3:'这是一个承诺。',
+    hero_sub:'我们是贾伯物理治疗和医疗康复中心——致力于通过循证医学恢复运动、重建力量和改变生活。',
+    meta1v:'2015',meta1l:'成立年份',meta2l:'已治疗患者',meta3l:'社交媒体粉丝',
+    story_tag:'我们的故事',story_title:'十年来对您康复的奉献',
+    story_p1:'贾伯中心成立于<strong>2015年</strong>，愿景是为每位患者提供世界级物理治疗。',
+    story_p2:'从一家小诊所发展成为<strong>埃及最受信赖的康复中心之一</strong>，治疗超过11,000名患者。',
+    story_p3:'我们的方法：<strong>深入倾听、全面评估、精确治疗、完整跟进</strong>。',
+    established:'成立',patients_treated:'已治疗患者',satisfaction:'患者满意率 %',years_exp:'卓越年数',followers:'社交媒体粉丝',
+    tl_tag:'我们的历程',tl_title:'十年里程碑',
+    tl1e:'成立与首批患者',tl1d:'在布拉克·达克鲁尔开设第一家诊所，致力于循证物理治疗。',
+    tl2e:'服务扩展',tl2d:'增加神经康复和运动物理治疗项目。',
+    tl3e:'1000名患者里程碑',tl3d:'庆祝治疗第1000名患者。',
+    tl4e:'上门服务计划启动',tl4d:'为无法出行的患者提供专业上门物理治疗。',
+    tl5e:'10万粉丝里程碑',tl5d:'达到10万粉丝，成为医疗教育领域的领先声音。',
+    tl6e:'11,000+患者持续增长',tl6d:'今天我们继续成长，追求无障碍优质康复医疗。',
+    val_tag:'核心价值观',val_title:'驱动我们一切行动的力量',val_sub:'这些原则指导我们的每一个决定。',
+    v1t:'循证实践',v1d:'每种技术都基于最新的临床研究。',v2t:'以患者为中心的护理',v2d:'您不是诊断。每个计划都是围绕您制定的。',
+    v3t:'精确与专业',v3d:'我们的团队将技术精通与临床直觉相结合。',v4t:'诚信与诚实',v4d:'我们告诉您需要听的，而不是想听的。',
+    v5t:'持续改进',v5d:'我们投资于持续培训和先进技术。',v6t:'社区影响',v6d:'通过我们的平台，我们教育116,000+粉丝。',
+    team_tag:'我们的团队',team_title:'您康复背后的人',team_sub:'拥有多年经验的认证专家。',
+    founder_tag:'创始人',senior_tag:'高级',specialist_tag:'专家',
+    t1_name:'Ahmed Gaber医生',t1_role:'创始人兼首席物理治疗师',t1_bio:'骨科和神经康复专家，拥有10年以上临床经验。',
+    t2_name:'Sara Mohamed医生',t2_role:'运动与儿科专家',t2_bio:'运动康复和儿童物理治疗专家。',
+    t3_name:'Karim Hassan医生',t3_role:'神经康复',t3_bio:'帮助中风幸存者和帕金森患者恢复独立性。',
+    t4_name:'Nada Ali医生',t4_role:'手法治疗与疼痛管理',t4_bio:'高级手法技术认证，专注慢性疼痛管理。',
+    mission_q1:'"我们不只是治疗疾病。',mission_q2:'我们恢复',mission_q3:'生活。',mission_src:'— 贾伯中心理念',
+    cert_tag:'认证与认可',cert_title:'国际认可标准',
+    c1n:'埃及卫生部',c1b:'持牌注册机构',c2n:'国际物理治疗标准',c2b:'循证实践认证',c3n:'手法治疗认证',c3b:'高级手法技术',c4n:'电疗认证',c4b:'高级仪器培训',c5n:'神经康复认证',c5b:'Bobath和PNF技术',
+    cta_title:'准备体验<span style="color:var(--cyan)">不同</span>吗？',
+    cta_sub:'加入选择贾伯中心的11,000+患者。'
+  },
+  ja:{dir:'ltr',lang:'ja',label:'日本語',
+    nav_home:'ホーム',nav_about:'について',nav_services:'サービス',nav_cases:'症例',nav_blog:'ブログ',nav_team:'チーム',nav_contact:'お問い合わせ',nav_book:'今すぐ予約',
+    hero_badge:'2015年創設 · ブラク・ダクルール、ギザ',
+    ht1:'治癒は単なる',ht2:'治療ではありません。',ht3:'それは約束です。',
+    hero_sub:'私たちはガーバーセンター — 循証医学を通じて運動を回復し、強さを再構築し、生活を変える専門チームです。',
+    meta1v:'2015',meta1l:'創設年',meta2l:'治療患者数',meta3l:'SNSフォロワー',
+    story_tag:'私たちの物語',story_title:'10年間のあなたの回復への献身',
+    story_p1:'ガーバーセンターは<strong>2015年</strong>に設立され、すべての患者に世界クラスの理学療法を提供するという単一のビジョンを持っています。',
+    story_p2:'小さな診療所として始まったものが<strong>エジプトで最も信頼される康復センターの一つ</strong>に成長しました。',
+    story_p3:'私たちのアプローチ：<strong>深く聴き、徹底的に評価し、正確に治療し、完全にフォローする</strong>。',
+    established:'創設',patients_treated:'治療患者数',satisfaction:'患者満足度 %',years_exp:'卓越した年数',followers:'SNSフォロワー',
+    tl_tag:'私たちの歩み',tl_title:'10年間のマイルストーン',
+    tl1e:'創設と最初の患者',tl1d:'ブラク・ダクルールに最初の診療所を開設。',
+    tl2e:'サービス拡大',tl2d:'神経リハビリとスポーツ理学療法プログラムを追加。',
+    tl3e:'1,000人患者マイルストーン',tl3d:'1,000人目の患者の治療を祝いました。',
+    tl4e:'訪問サービス開始',tl4d:'通院できない患者向けに訪問サービスを開始。',
+    tl5e:'10万フォロワー達成',tl5d:'10万フォロワーを達成し、医療教育の主要な声になりました。',
+    tl6e:'11,000人以上の患者と成長中',tl6d:'今日も成長を続け、使命を追求しています。',
+    val_tag:'核心的価値観',val_title:'私たちのすべてを動かすもの',val_sub:'これらの原則がすべての決定と治療を導きます。',
+    v1t:'エビデンスに基づく実践',v1d:'すべての技術は最新の臨床研究に基づいています。',v2t:'患者中心のケア',v2d:'あなたは診断ではありません。すべての計画はあなたのために作られています。',
+    v3t:'精度と専門知識',v3d:'私たちのチームは技術的習得と臨床的直感を組み合わせています。',v4t:'誠実さと正直さ',v4d:'私たちはあなたが聞く必要があることを伝えます。',
+    v5t:'継続的な改善',v5d:'継続的なトレーニングと先進技術に投資します。',v6t:'コミュニティへの影響',v6d:'プラットフォームを通じて116,000+フォロワーを教育します。',
+    team_tag:'私たちのチーム',team_title:'あなたの回復を支える人々',team_sub:'長年の経験を持つ認定スペシャリスト。',
+    founder_tag:'創設者',senior_tag:'シニア',specialist_tag:'スペシャリスト',
+    t1_name:'Ahmed Gaber医師',t1_role:'創設者兼主任理学療法士',t1_bio:'整形外科と神経リハビリの専門家、10年以上の臨床経験。',
+    t2_name:'Sara Mohamed医師',t2_role:'スポーツ・小児専門家',t2_bio:'スポーツリハビリと小児理学療法の専門家。',
+    t3_name:'Karim Hassan医師',t3_role:'神経リハビリ',t3_bio:'脳卒中患者やパーキンソン患者が独立性を取り戻すのを支援。',
+    t4_name:'Nada Ali医師',t4_role:'徒手療法・疼痛管理',t4_bio:'慢性疼痛管理の高度な手技療法認定。',
+    mission_q1:'"私たちは単に症状を治療するのではありません。',mission_q2:'私たちは',mission_q3:'生活を回復させます。',mission_src:'— ガーバーセンターの哲学',
+    cert_tag:'認定と表彰',cert_title:'国際的に認められた基準',
+    c1n:'エジプト保健省',c1b:'認可登録施設',c2n:'国際理学療法基準',c2b:'エビデンス実践認定',c3n:'徒手療法認定',c3b:'高度な手技技術',c4n:'電気療法認定',c4b:'高度な機器訓練',c5n:'神経リハビリ認定',c5b:'ボバース・PNF技術',
+    cta_title:'<span style="color:var(--cyan)">違い</span>を体験する準備はできていますか？',
+    cta_sub:'ガーバーセンターを選んだ11,000人以上の患者に加わりましょう。'
+  }
+};
+
+let currentLang = localStorage.getItem('gc_lang') || 'en';
+
+function toggleDD(){ document.getElementById('langDD').classList.toggle('open') }
+function setLang(l, el) {
+  currentLang = l;
+  localStorage.setItem('gc_lang', l);
+  const t = T[l];
+  document.documentElement.dir = t.dir;
+  document.body.setAttribute('lang', t.lang);
+  document.documentElement.lang = t.lang;
+  document.querySelectorAll('[data-i18n]').forEach(e => {
+    const k = e.getAttribute('data-i18n');
+    if (t[k] !== undefined) e.innerHTML = t[k];
+  });
+  document.getElementById('curLang').textContent = t.label;
+  document.querySelectorAll('.lang-opt').forEach(o => o.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.getElementById('langDD').classList.remove('open');
+}
+document.addEventListener('click', e => { if (!e.target.closest('.lang-wrap')) document.getElementById('langDD').classList.remove('open') });
+
+// CURSOR
+const cur = document.getElementById('cursor');
+const trail = document.getElementById('cursor-trail');
+if (cur && trail) {
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    trail.style.left = mx + 'px'; trail.style.top = my + 'px';
+  });
+  document.querySelectorAll('a,button,.val-card,.team-card,.tl-content,.cert-item').forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.style.width = '22px'; cur.style.height = '22px'; cur.style.opacity = '.5'; });
+    el.addEventListener('mouseleave', () => { cur.style.width = '10px'; cur.style.height = '10px'; cur.style.opacity = '1'; });
+  });
+}
+
+// NAV
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// PARTICLES
+(function() {
+  const c = document.getElementById('particles');
+  if (!c) return;
+  for (let i = 0; i < 35; i++) {
+    const p = document.createElement('div');
+    p.className = 'p';
+    const size = 1 + Math.random() * 2.5;
+    p.style.cssText = `left:${Math.random()*100}%;top:${90+Math.random()*20}%;width:${size}px;height:${size}px;background:${Math.random()>.5?'#7DD3FC':'#1E90FF'};animation-duration:${6+Math.random()*10}s;animation-delay:${Math.random()*8}s`;
+    c.appendChild(p);
+  }
+})();
+
+// COUNTER
+function animateCount(el, target) {
+  if (el.dataset.counted) return;
+  el.dataset.counted = '1';
+  const isK = target >= 1000;
+  const obj = { val: 0 };
+  const step = 16, dur = 2200;
+  const inc = target / (dur / step);
+  const timer = setInterval(() => {
+    obj.val += inc;
+    if (obj.val >= target) { obj.val = target; clearInterval(timer); }
+    if (isK) el.textContent = Math.floor(obj.val / 1000) + 'K+';
+    else if (target === 98) el.textContent = Math.round(obj.val) + '%';
+    else el.textContent = Math.round(obj.val) + '+';
+  }, step);
+}
+
+// SCROLL REVEAL
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      ['storyStat','storyStat2','storyStat3'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && e.target.contains(el)) {
+          const targets = [11000, 98, 10];
+          const idx = ['storyStat','storyStat2','storyStat3'].indexOf(id);
+          animateCount(el, targets[idx]);
+        }
+      });
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => obs.observe(el));
+
+// Story card counters
+const storyObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(document.getElementById('storyStat'), 11000);
+      animateCount(document.getElementById('storyStat2'), 98);
+      animateCount(document.getElementById('storyStat3'), 10);
+    }
+  });
+}, { threshold: 0.3 });
+const sc = document.querySelector('.story-card');
+if (sc) storyObs.observe(sc);
+
+// Apply saved lang
+const savedLang = localStorage.getItem('gc_lang') || 'en';
+if (savedLang !== 'en') {
+  const opts = document.querySelectorAll('.lang-opt');
+  const langs = ['en','ar','fr','de','zh','ja'];
+  const idx = langs.indexOf(savedLang);
+  if (idx >= 0) setLang(savedLang, opts[idx]);
+}
+</script>
+</body>
+</html>
